@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finpath AI Co-pilot — Kickoff Slides</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0C;--bg2:#141517;--bg3:#1E2024;--accent:#196DFE;--green:#10D782;--red:#FF5D66;--yellow:#FFD200;--blue:#23CDED;--purple:#9945FF;--t1:#F2F3F5;--t2:#8B8F96;--t3:#555860;--ta:#4B92FF;--line:#1A1C1F}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);overflow:hidden;-webkit-font-smoothing:antialiased}
+.deck{width:100vw;height:100vh;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:60px 80px;opacity:0;transition:opacity .3s}
+.slide.active{display:flex;opacity:1}
+.slide.cover{align-items:center;text-align:center;justify-content:center}
+
+/* Typography */
+h1{font-family:'Public Sans',sans-serif;font-size:48px;font-weight:800;line-height:1.15;letter-spacing:-1px;margin-bottom:16px}
+h2{font-family:'Public Sans',sans-serif;font-size:36px;font-weight:700;line-height:1.2;letter-spacing:-.5px;margin-bottom:12px}
+h3{font-family:'Public Sans',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px}
+.sub{font-size:20px;color:var(--t2);line-height:1.5;max-width:700px}
+.sub-sm{font-size:16px;color:var(--t2);line-height:1.6;max-width:650px}
+p{font-size:18px;line-height:1.7;color:var(--t1)}
+.accent{color:var(--ta)}
+.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}.purple{color:var(--purple)}
+.muted{color:var(--t2)}
+.bold{font-weight:700}
+.highlight{background:rgba(25,109,254,0.1);padding:2px 8px;border-radius:6px;color:var(--ta)}
+
+/* Section label */
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t2);margin-bottom:24px;padding:6px 14px;background:var(--bg2);border-radius:99px}
+.sec-tag.a{color:var(--green);background:rgba(16,215,130,0.08)}
+.sec-tag.b{color:var(--yellow);background:rgba(255,210,0,0.08)}
+.sec-tag.c{color:var(--purple);background:rgba(153,69,255,0.08)}
+.sec-tag.intro{color:var(--ta);background:rgba(25,109,254,0.08)}
+
+/* Cards grid */
+.cards{display:grid;gap:16px;margin-top:24px}
+.cards-2{grid-template-columns:1fr 1fr}
+.cards-3{grid-template-columns:1fr 1fr 1fr}
+.cards-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.card{background:var(--bg2);border-radius:16px;padding:24px}
+.card h3{font-size:18px;margin-bottom:8px}
+.card p,.card li{font-size:15px;line-height:1.6;color:var(--t2)}
+.card li{margin-bottom:4px}
+.card ul{padding-left:18px;margin-top:8px}
+.card.bordered{border:1px solid var(--line)}
+.card .num{font-family:'Public Sans',sans-serif;font-size:36px;font-weight:800;margin-bottom:8px}
+.card .label{font-size:13px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
+.card .emoji{font-size:28px;margin-bottom:12px}
+
+/* Flow diagram */
+.flow{display:flex;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+.flow-box{background:var(--bg2);border-radius:12px;padding:16px 20px;text-align:center;min-width:120px}
+.flow-box h3{font-size:14px;margin-bottom:4px}.flow-box p{font-size:12px;color:var(--t2)}
+.flow-box.hl{border:1.5px solid var(--accent);background:rgba(25,109,254,0.06)}
+.flow-arr{color:var(--t3);font-size:20px}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:15px}
+.tbl th{text-align:left;padding:10px 14px;background:var(--bg2);color:var(--t2);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.tbl td{padding:10px 14px;border-bottom:1px solid var(--line)}
+.tbl tr:last-child td{border-bottom:none}
+
+/* Timeline */
+.timeline{margin-top:24px}
+.tl-item{display:flex;gap:16px;margin-bottom:20px}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+.tl-dot.g{background:var(--green)}.tl-dot.y{background:var(--yellow)}.tl-dot.p{background:var(--purple)}
+.tl-content h3{font-size:16px;margin-bottom:4px}.tl-content p{font-size:14px;color:var(--t2);line-height:1.5}
+
+/* Quote */
+.quote{border-left:3px solid var(--accent);padding:16px 24px;background:var(--bg2);border-radius:0 12px 12px 0;margin-top:20px;font-size:17px;line-height:1.6;font-style:italic;color:var(--t1)}
+
+/* Comparison */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:start;margin-top:24px}
+.vs-mid{font-size:24px;font-weight:800;color:var(--t3);align-self:center}
+
+/* Nav */
+.nav{position:fixed;bottom:24px;right:32px;display:flex;gap:8px;z-index:100}
+.nav button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--t1);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.nav button:hover{background:var(--bg3)}
+.nav button:active{background:var(--accent)}
+.progress{position:fixed;bottom:0;left:0;height:3px;background:var(--accent);transition:width .3s;z-index:100}
+.counter{position:fixed;bottom:28px;left:32px;font-size:13px;color:var(--t3);font-weight:500;z-index:100}
+
+/* Section divider */
+.divider{background:var(--bg2);border-radius:24px;padding:20px 32px;display:inline-block;margin-bottom:20px}
+.divider h2{margin-bottom:0}
+
+/* Responsive */
+@media(max-width:768px){
+.slide{padding:32px 24px}
+h1{font-size:32px}h2{font-size:26px}h3{font-size:18px}
+.sub{font-size:16px}.cards-2,.cards-3,.cards-4{grid-template-columns:1fr}
+.flow{flex-direction:column;align-items:stretch}.flow-arr{transform:rotate(90deg);text-align:center}
+.tbl{font-size:13px}.tbl th,.tbl td{padding:8px 10px}
+.vs{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════════
+     COVER
+     ═══════════════════════════════════════════ -->
+<div class="slide cover">
+  <div class="sec-tag intro">Sprint 1 Kickoff</div>
+  <h1>Fin<span class="accent">path</span> AI Co-pilot</h1>
+  <div class="sub">Tình báo viên AI cá nhân hóa cho nhà đầu tư Việt Nam</div>
+  <div style="margin-top:40px;display:flex;gap:12px;justify-content:center">
+    <div style="padding:10px 20px;background:rgba(16,215,130,0.08);border-radius:10px;font-size:14px;font-weight:600;color:var(--green)">Buổi 1 — Data & User</div>
+    <div style="padding:10px 20px;background:rgba(255,210,0,0.08);border-radius:10px;font-size:14px;font-weight:600;color:var(--yellow)">Buổi 2 — Bộ máy tín hiệu</div>
+    <div style="padding:10px 20px;background:rgba(153,69,255,0.08);border-radius:10px;font-size:14px;font-weight:600;color:var(--purple)">Buổi 3 — Hiển thị & Delivery</div>
+  </div>
+</div>
+
+<!-- VISION -->
+<div class="slide">
+  <div class="sec-tag intro">Tầm nhìn</div>
+  <h2>Không phải app tin tức.<br>Không phải app trading.</h2>
+  <div class="sub" style="margin-top:16px">Finpath là <strong class="accent">tình báo viên riêng</strong> — biết bạn cầm gì, hiểu bạn hay sai ở đâu, chỉ báo khi thật sự cần.</div>
+  <div class="cards cards-3" style="margin-top:32px">
+    <div class="card"><div class="num green">1</div><h3>Thu thập</h3><p>7 nguồn data quét 24/7: giá, tin, MXH, KOL, BCTC, vĩ mô, kỹ thuật</p></div>
+    <div class="card"><div class="num yellow">2</div><h3>Xử lý</h3><p>AI chấm điểm, gom nhóm, tra lịch sử, cá nhân hóa theo danh mục</p></div>
+    <div class="card"><div class="num purple">3</div><h3>Phân phối</h3><p>Đúng người, đúng lúc, đúng mức độ — push khi cần, im khi không</p></div>
+  </div>
+</div>
+
+<!-- TEAM MAP -->
+<div class="slide">
+  <div class="sec-tag intro">Team & Ownership</div>
+  <h2>Ai làm gì?</h2>
+  <table class="tbl">
+    <tr><th>Người</th><th>Phụ trách</th><th>Brief chính</th><th>Buổi</th></tr>
+    <tr><td><strong>Hà</strong></td><td>Hạ tầng Data — nguồn, pipeline, tối ưu LLM cost</td><td>Nhóm B (Phần 1)</td><td>1, 2</td></tr>
+    <tr><td><strong>Chi</strong></td><td>User Context — onboarding, identity, behavior</td><td>Nhóm A</td><td>1, 2</td></tr>
+    <tr><td><strong>Hưởng</strong></td><td>User Context + Signal processing + Delivery</td><td>A + B + C</td><td>1, 2, 3</td></tr>
+    <tr><td><strong>Thiên</strong></td><td>FE + Onboarding + Tracking</td><td>Nhóm C</td><td>3</td></tr>
+    <tr><td><strong>Việt Anh</strong></td><td>Product Owner + UI</td><td>Tất cả</td><td>1, 2, 3</td></tr>
+  </table>
+</div>
+
+<!-- PRODUCT DEMO -->
+<div class="slide">
+  <div class="sec-tag intro">Demo sản phẩm</div>
+  <h2>User thấy gì?</h2>
+  <div class="sub-sm">Mở prototype và walk team qua luồng:</div>
+  <div class="flow" style="margin-top:28px">
+    <div class="flow-box"><h3>Onboarding</h3><p>5 bước<br>Thu thập profile</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box"><h3>Home</h3><p>Index, ngành<br>Điểm tin nóng</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box hl"><h3>Tình báo</h3><p>Signal stream<br>Morning briefing</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box"><h3>Chi tiết</h3><p>Nguồn, lịch sử<br>Hỏi AI</p></div>
+  </div>
+  <div class="quote">🔗 dangtrungdev113999.github.io/finpath-preview<br><span style="font-size:14px;font-style:normal;color:var(--t2)">Mở prototype trên màn hình lớn để team xem cùng</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     BUỔI 1 — DATA & USER CONTEXT
+     ═══════════════════════════════════════════ -->
+<div class="slide cover">
+  <div class="sec-tag a">Buổi 1</div>
+  <h1>Data &<br>User Context</h1>
+  <div class="sub">Hà · Chi · Hưởng</div>
+  <div class="sub-sm muted" style="margin-top:12px">~45 phút · Brief Nhóm A + Nhóm B Phần 1</div>
+</div>
+
+<!-- 6 PROFILES -->
+<div class="slide">
+  <div class="sec-tag a">Nhóm A — User Identity</div>
+  <h2>6 profiles người dùng</h2>
+  <div class="sub-sm">Mỗi user = 1 trong 6 profiles. Mọi output đều tùy biến theo profile.</div>
+  <div class="cards cards-3" style="margin-top:24px">
+    <div class="card" style="border-left:3px solid var(--green)"><div class="label">Chứng khoán</div><h3>Retail</h3><p>Hướng dẫn, bảo vệ tâm lý, ngôn ngữ đơn giản</p></div>
+    <div class="card" style="border-left:3px solid var(--yellow)"><div class="label">Vàng</div><h3>Retail</h3><p>Ít biến động, focus dài hạn, an toàn</p></div>
+    <div class="card" style="border-left:3px solid var(--red)"><div class="label">Crypto</div><h3>Retail</h3><p>Biến động cao, cần bảo vệ FOMO, DCA</p></div>
+    <div class="card" style="border-left:3px solid var(--green)"><div class="label">Chứng khoán</div><h3>Pro</h3><p>Gọn, bén, số liệu cụ thể, không giải thích nhiều</p></div>
+    <div class="card" style="border-left:3px solid var(--yellow)"><div class="label">Vàng</div><h3>Pro</h3><p>Macro focus, spread, premium, kỹ thuật</p></div>
+    <div class="card" style="border-left:3px solid var(--red)"><div class="label">Crypto</div><h3>Pro</h3><p>On-chain, funding rate, OI, whale tracking</p></div>
+  </div>
+</div>
+
+<!-- RETAIL VS PRO VOICE -->
+<div class="slide">
+  <div class="sec-tag a">Nhóm A — AI Voice</div>
+  <h2>Cùng data, khác cách nói</h2>
+  <div class="vs">
+    <div class="card" style="border:1.5px solid rgba(16,215,130,0.3)">
+      <div class="label green">Retail</div>
+      <p style="font-size:16px;line-height:1.6">"HPG đang bị yêu cầu giải trình số liệu. <strong>Đừng vội bán</strong> — 2 lần trước tin tương tự, giá đều hồi lại sau 2-3 tuần."</p>
+    </div>
+    <div class="vs-mid">VS</div>
+    <div class="card" style="border:1.5px solid rgba(255,210,0,0.3)">
+      <div class="label yellow">Pro</div>
+      <p style="font-size:16px;line-height:1.6">"HPG: UBCKNN giải trình BCTC Q4. AR –2.45% (1D). 2/2 lần → hồi avg +12.5% (20D). Pattern: sell overreaction."</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:24px">Chi + Hưởng: Thiết kế onboarding để xác định đúng profile với ít nỗ lực nhất từ user. Không hỏi nhiều — dùng hành vi để suy luận.</div>
+</div>
+
+<!-- MEMORY LAYER -->
+<div class="slide">
+  <div class="sec-tag a">Nhóm A — Trí nhớ AI</div>
+  <h2>AI nhớ user hay sai ở đâu</h2>
+  <div class="sub-sm">Không chỉ watchlist — AI ghi nhớ hành vi, lỗi lặp, pattern ra quyết định.</div>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card">
+      <h3>AI ghi nhớ gì?</h3>
+      <ul>
+        <li>Watchlist + danh mục thực</li>
+        <li>Hành vi: bán vội, FOMO, gồng lỗ</li>
+        <li>Phản ứng với tin xấu (panic sell?)</li>
+        <li>Thời gian active (sáng/chiều/tối)</li>
+        <li>Lỗi lặp lại → nhắc nhở khi tương tự</li>
+      </ul>
+    </div>
+    <div class="card" style="border:1.5px solid rgba(25,109,254,0.3)">
+      <h3>Ví dụ thực tế trên thẻ</h3>
+      <p style="font-size:15px;line-height:1.7;margin-top:8px">"Bạn cầm <strong>2,000 HPG</strong> (35% danh mục).<br><br>Bạn đã <strong>3 lần bán vội</strong> khi có tin xấu. Cả 3 lần giá quay lại trong 2-3 tuần."</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:12px">→ Câu này từ Memory Layer, không phải data thị trường</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHI + HƯỞNG ACTION -->
+<div class="slide">
+  <div class="sec-tag a">Nhóm A — Việc cần làm</div>
+  <h2>Chi + Hưởng: User Context</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot g"></div><div class="tl-content"><h3>Onboarding thu thập profile</h3><p>3-5 bước → xác định: thị trường, level (Retail/Pro), mã quan tâm, giờ active. Tối đa 60 giây.</p></div></div>
+    <div class="tl-item"><div class="tl-dot g"></div><div class="tl-content"><h3>Memory schema</h3><p>Thiết kế cách lưu: watchlist, danh mục, hành vi, lỗi lặp. DB schema + API ghi/đọc.</p></div></div>
+    <div class="tl-item"><div class="tl-dot g"></div><div class="tl-content"><h3>Behavior detection</h3><p>Rule đơn giản phát hiện pattern: bán trong 1h sau tin xấu = "panic sell", mua sau khi giá tăng 3 phiên liên tiếp = "FOMO".</p></div></div>
+    <div class="tl-item"><div class="tl-dot g"></div><div class="tl-content"><h3>Prompt cá nhân hóa</h3><p>1 prompt duy nhất: nhận profile + memory → viết câu context ≤130 ký tự cho thẻ tín hiệu.</p></div></div>
+  </div>
+</div>
+
+<!-- 7 NGUỒN DATA -->
+<div class="slide">
+  <div class="sec-tag b">Nhóm B — 7 nguồn dữ liệu</div>
+  <h2>Hà: Data pipeline</h2>
+  <div class="cards cards-4" style="margin-top:20px">
+    <div class="card bordered"><div class="emoji">📈</div><h3>Giá</h3><p>Real-time<br>Ngưỡng: ≥3% CK, ≥15% Crypto, ≥1.5% Vàng</p></div>
+    <div class="card bordered"><div class="emoji">📰</div><h3>Tin tức</h3><p>Mỗi 5 phút<br>3 mức từ khóa: khẩn / quan trọng / theo dõi</p></div>
+    <div class="card bordered"><div class="emoji">💬</div><h3>Cảm xúc MXH</h3><p>Mỗi 15 phút<br>Telegram, Facebook, Forum</p></div>
+    <div class="card bordered"><div class="emoji">🎯</div><h3>KOL</h3><p>Mỗi 30 phút<br>Khuyến nghị từ 10 KOL tracked</p></div>
+    <div class="card bordered"><div class="emoji">📊</div><h3>BCTC</h3><p>Khi công bố<br>So consensus, YoY</p></div>
+    <div class="card bordered"><div class="emoji">🌍</div><h3>Vĩ mô</h3><p>Fed, SBV, DXY, CPI<br>Tác động VN mapping</p></div>
+    <div class="card bordered"><div class="emoji">📐</div><h3>Kỹ thuật</h3><p>End-of-day<br>MA cross, RSI, breakout</p></div>
+    <div class="card bordered" style="border-color:var(--accent)"><div class="emoji">⚡</div><h3>Mục tiêu Hà</h3><p>Data sẵn sàng, format chuẩn, LLM gọi ít tốn nhất</p></div>
+  </div>
+</div>
+
+<!-- HÀ ACTION -->
+<div class="slide">
+  <div class="sec-tag b">Nhóm B — Việc cần làm</div>
+  <h2>Hà: Hạ tầng Data</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot y"></div><div class="tl-content"><h3>Tìm & kết nối 7 nguồn</h3><p>API nào dùng được? Cần crawl gì? Tần suất quét? Cost?</p></div></div>
+    <div class="tl-item"><div class="tl-dot y"></div><div class="tl-content"><h3>Format data chuẩn</h3><p>Mỗi nguồn → 1 format JSON chuẩn. LLM nhận JSON, không nhận raw HTML/text.</p></div></div>
+    <div class="tl-item"><div class="tl-dot y"></div><div class="tl-content"><h3>Tối ưu LLM cost</h3><p>Pre-filter trước khi gọi LLM. Chỉ gửi data liên quan đến watchlist user. Batch processing.</p></div></div>
+    <div class="tl-item"><div class="tl-dot y"></div><div class="tl-content"><h3>Event Store data</h3><p>Seed 50-100 events lịch sử 24 tháng. Cron cập nhật giá sau 5/10/20 phiên mỗi đêm.</p></div></div>
+  </div>
+  <div class="quote">Câu hỏi cho Hà: Nguồn nào lấy được nhanh nhất? Nguồn nào cần nghiên cứu thêm? Ưu tiên chạy trước nguồn nào?</div>
+</div>
+
+<!-- BUỔI 1 WRAP -->
+<div class="slide">
+  <div class="sec-tag a">Buổi 1 — Tổng kết</div>
+  <h2>Sau buổi này, mỗi người biết:</h2>
+  <div class="cards cards-3" style="margin-top:24px">
+    <div class="card" style="border-top:3px solid var(--yellow)"><h3>Hà</h3><ul><li>7 nguồn data cần connect</li><li>Format JSON chuẩn</li><li>Event Store schema</li><li>LLM cost optimization</li></ul></div>
+    <div class="card" style="border-top:3px solid var(--green)"><h3>Chi</h3><ul><li>6 profiles + AI Voice</li><li>Onboarding thu thập gì</li><li>Memory schema</li><li>Behavior detection rules</li></ul></div>
+    <div class="card" style="border-top:3px solid var(--accent)"><h3>Hưởng</h3><ul><li>Tất cả của Chi + Hà</li><li>Hiểu data → signal pipeline</li><li>User Context feed vào thẻ như thế nào</li></ul></div>
+  </div>
+  <div style="margin-top:24px;font-size:16px;color:var(--t2)"><strong>Output cần nộp trong 2 ngày:</strong> Hà — danh sách nguồn + khả thi · Chi — Onboarding flow draft · Hưởng — Memory schema v1</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     BUỔI 2 — BỘ MÁY TÍN HIỆU
+     ═══════════════════════════════════════════ -->
+<div class="slide cover">
+  <div class="sec-tag b">Buổi 2</div>
+  <h1>Bộ máy<br>Tín hiệu</h1>
+  <div class="sub">Hà · Chi · Hưởng</div>
+  <div class="sub-sm muted" style="margin-top:12px">~50 phút · Brief Nhóm B Phần 2-5</div>
+</div>
+
+<!-- SIGNAL PIPELINE -->
+<div class="slide">
+  <div class="sec-tag b">Pipeline tổng thể</div>
+  <h2>Từ data thô → thẻ tín hiệu</h2>
+  <div class="flow" style="margin-top:28px">
+    <div class="flow-box"><h3>Phát hiện</h3><p>7 nguồn<br>Ngưỡng trigger</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box"><h3>Chấm điểm</h3><p>1-10<br>Relevance × Impact</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box"><h3>Gom nhóm</h3><p>Compound<br>Adjacent</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box hl"><h3>Lịch sử</h3><p>Event Store<br>Abnormal Return</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box"><h3>Cá nhân hóa</h3><p>User Context<br>Memory</p></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box" style="border:1.5px solid var(--purple)"><h3>Thẻ</h3><p>LLM viết<br>Retail / Pro</p></div>
+  </div>
+</div>
+
+<!-- SCORING -->
+<div class="slide">
+  <div class="sec-tag b">Chấm điểm tín hiệu</div>
+  <h2>Không phải signal nào cũng quan trọng</h2>
+  <div class="sub-sm">Mỗi signal = 1-10 điểm. Chỉ ≥4 mới tạo thẻ.</div>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card">
+      <h3>Relevance — Liên quan đến user?</h3>
+      <ul>
+        <li><strong class="green">Trong danh mục</strong> → +4</li>
+        <li><strong class="accent">Trong watchlist</strong> → +2</li>
+        <li><strong class="muted">Cùng ngành</strong> → +1</li>
+        <li><strong class="muted">Không liên quan</strong> → +0</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Impact — Tác động mạnh cỡ nào?</h3>
+      <ul>
+        <li><strong class="red">Giá sập ≥7%</strong> → +4</li>
+        <li><strong class="yellow">Nhiều nguồn cùng chỉ</strong> → +3</li>
+        <li><strong class="accent">1 nguồn đáng tin</strong> → +2</li>
+        <li><strong class="muted">KL tăng nhẹ</strong> → +1</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:20px;font-size:16px;color:var(--t2)">Score = Relevance + Impact → <strong>≥7 = nghiêm trọng (đỏ)</strong>, 4-6 = quan trọng (vàng), <4 = bỏ qua</div>
+</div>
+
+<!-- GOM NHÓM -->
+<div class="slide">
+  <div class="sec-tag b">Gom nhóm tín hiệu</div>
+  <h2>Compound & Adjacent</h2>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card" style="border:1.5px solid rgba(255,210,0,0.3)">
+      <div class="label yellow">Compound — Nhiều nguồn → 1 mã</div>
+      <p style="font-size:15px;line-height:1.7;margin-top:8px">3 nguồn cùng chỉ về HPG:<br>• Tin tức: bị yêu cầu giải trình<br>• MXH: tiêu cực +340%<br>• Giá: –4.2%, vol 2.8x</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:12px">→ Gộp thành 1 thẻ Compound, mạnh hơn từng signal riêng lẻ</p>
+    </div>
+    <div class="card" style="border:1.5px solid rgba(35,205,237,0.3)">
+      <div class="label" style="color:var(--blue)">Adjacent — Mã A → ảnh hưởng Mã B</div>
+      <p style="font-size:15px;line-height:1.7;margin-top:8px">DXG giảm sàn →<br>Nợ xấu BĐS tăng →<br>VCB (user đang cầm) bị ảnh hưởng</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:12px">→ User không cầm DXG nhưng cần biết vì cầm VCB</p>
+    </div>
+  </div>
+  <div class="quote">Hưởng + Chi: Thiết kế logic gom nhóm. Compound = cùng mã + ≤4h. Adjacent = bản đồ liên quan giữa các mã/ngành.</div>
+</div>
+
+<!-- ABNORMAL RETURN -->
+<div class="slide">
+  <div class="sec-tag b">Abnormal Return</div>
+  <h2>Đo tác động thực — không gây hoảng loạn</h2>
+  <div class="vs">
+    <div class="card" style="border:1.5px solid rgba(255,93,102,0.3)">
+      <div class="label red">Không có AR</div>
+      <p style="font-size:16px">"HPG bị điều tra → giảm 4.2%"</p>
+      <p style="font-size:14px;color:var(--t2);margin-top:8px">Gộp lẫn biến động thị trường. User hoảng.</p>
+    </div>
+    <div class="vs-mid">→</div>
+    <div class="card" style="border:1.5px solid rgba(16,215,130,0.3)">
+      <div class="label green">Có AR</div>
+      <p style="font-size:16px">"HPG giảm thêm <strong class="accent">2.45%</strong> so với thị trường"</p>
+      <p style="font-size:14px;color:var(--t2);margin-top:8px">Tách rõ: bao nhiêu do tin, bao nhiêu do TT chung.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:20px;background:var(--bg3)">
+    <p style="font-size:15px;line-height:1.8"><strong>Công thức:</strong><br>AR = Actual Return – Expected Return<br>Expected = 0.5 × VNI Return + 0.5 × TB Ngành (loại trừ mã đó)<br><br><strong>Confidence:</strong> |AR| ≥ 2% = Cao · 0.5–2% = TB · <0.5% = Thấp (loại)</p>
+  </div>
+</div>
+
+<!-- EVENT STORE -->
+<div class="slide">
+  <div class="sec-tag b">Event Store</div>
+  <h2>Lịch sử — "Lần trước như thế nào?"</h2>
+  <div class="sub-sm">Mỗi signal = 1 event lưu vào store. Lần sau tìm lại events tương tự → tra kết quả.</div>
+  <div class="cards cards-3" style="margin-top:24px">
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <h3>Tầng 1</h3>
+      <p>Cùng mã + cùng loại<br><strong>HPG bị điều tra → tìm HPG bị điều tra trước đó</strong></p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Tầng 2</h3>
+      <p>Cùng ngành + cùng loại<br><strong>→ tìm HSG, NKG (Thép) bị điều tra</strong></p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--t3)">
+      <h3>Tầng 3</h3>
+      <p>Cùng tags + bất kỳ ngành<br><strong>→ tìm FLC, DXG bị tạm giữ</strong></p>
+    </div>
+  </div>
+  <div style="margin-top:20px;font-size:16px;color:var(--t2)"><strong>Cold start:</strong> Seed 50-100 events lớn 24 tháng qua (1-2 ngày). Sau đó hệ thống tự tích lũy.</div>
+</div>
+
+<!-- BUỔI 2 WRAP -->
+<div class="slide">
+  <div class="sec-tag b">Buổi 2 — Tổng kết</div>
+  <h2>Sau buổi này, team biết:</h2>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card">
+      <h3>Pipeline 6 bước</h3>
+      <p>Phát hiện → Chấm điểm → Gom nhóm → Bản đồ liên quan → Event Store (+ AR) → LLM viết thẻ</p>
+    </div>
+    <div class="card">
+      <h3>Ai làm gì tiếp?</h3>
+      <ul>
+        <li><strong>Hà:</strong> Event Store schema + cron job AR</li>
+        <li><strong>Hưởng:</strong> Scoring logic + grouping rules</li>
+        <li><strong>Chi:</strong> Similar Event Lookup query</li>
+        <li><strong>Cả team:</strong> Seed 50-100 events</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:24px;font-size:16px;color:var(--t2)"><strong>Output cần nộp trong 3 ngày:</strong> Event Store table + 20 events seed đầu tiên · Scoring function v1 · Grouping logic draft</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     BUỔI 3 — HIỂN THỊ & DELIVERY
+     ═══════════════════════════════════════════ -->
+<div class="slide cover">
+  <div class="sec-tag c">Buổi 3</div>
+  <h1>Hiển thị &<br>Delivery</h1>
+  <div class="sub">Thiên · Hưởng · Việt Anh</div>
+  <div class="sub-sm muted" style="margin-top:12px">~45 phút · Brief Nhóm C</div>
+</div>
+
+<!-- THẺ TÍN HIỆU ANATOMY -->
+<div class="slide">
+  <div class="sec-tag c">Cấu trúc thẻ tín hiệu</div>
+  <h2>Mỗi thẻ = 5 tầng thông tin</h2>
+  <div class="timeline" style="margin-top:20px">
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Severity dot + Ticker + Time</h3><p>Scan anchor — user biết ngay mã gì, nghiêm trọng cỡ nào. Không có tags phân loại.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Tiêu đề ≤150 ký tự</h3><p>Focal point duy nhất. User đọc mỗi cái này cũng đủ hiểu chuyện gì xảy ra.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Số liệu key ≤160 ký tự</h3><p>Data cứng: giá, volume, % thay đổi. Đọc trong 3 giây.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Lịch sử ≤140 ký tự</h3><p>Từ Event Store: "2 lần trước tương tự, hồi +12%". Subtle, không phải focal point.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Bối cảnh cá nhân ≤130 ký tự</h3><p>Từ User Context: "Bạn cầm 2,000 HPG (35%)". AI biết user cầm gì.</p></div></div>
+  </div>
+</div>
+
+<!-- MORNING BRIEFING -->
+<div class="slide">
+  <div class="sec-tag c">Morning Briefing</div>
+  <h2>Bản tin sáng 7:00 — độc bản cho mỗi user</h2>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card">
+      <h3>Bao gồm gì?</h3>
+      <ul>
+        <li>Tóm tắt danh mục hôm qua (+/–%)</li>
+        <li>Mã cần chú ý hôm nay (tin, kỹ thuật)</li>
+        <li>Vĩ mô ảnh hưởng danh mục</li>
+        <li>Nhắc lỗi cũ nếu tình huống tương tự</li>
+        <li>Gợi ý: giữ / theo dõi / cân nhắc</li>
+      </ul>
+    </div>
+    <div class="card" style="border:1.5px solid rgba(153,69,255,0.3)">
+      <h3>Cá nhân hóa như thế nào?</h3>
+      <ul>
+        <li>Danh mục HPG 35% + VCB 42% → brief focus HPG, VCB</li>
+        <li>FPT trong watchlist → mention nếu có signal</li>
+        <li>Retail → "Đừng vội bán" · Pro → "AR –2.45%"</li>
+        <li>Hay bán vội → nhắc: "3 lần trước bạn bán, giá quay lại"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NOTI STRATEGY -->
+<div class="slide">
+  <div class="sec-tag c">Thông báo thông minh</div>
+  <h2>Push noti = prompt-based, không phải template</h2>
+  <div class="vs">
+    <div class="card" style="border:1.5px solid rgba(255,93,102,0.3)">
+      <div class="label red">Cách cũ — Template cứng</div>
+      <p style="font-size:15px">"HPG có tin mới. Xem ngay!"</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:8px">Mọi user nhận giống nhau. Spam. Bị tắt noti.</p>
+    </div>
+    <div class="vs-mid">→</div>
+    <div class="card" style="border:1.5px solid rgba(16,215,130,0.3)">
+      <div class="label green">Cách mới — Context-aware</div>
+      <p style="font-size:15px">"HPG bạn cầm 35% vừa giảm 4.2%. 2 lần trước tương tự, giá hồi."</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:8px">Riêng từng user. Chỉ gửi khi đáng gửi. Active cao.</p>
+    </div>
+  </div>
+  <div class="quote">Hưởng: Viết prompt cho push noti — nhận signal + user context → output noti text ≤100 ký tự. Anti-spam: tối đa 5 noti/ngày, ≥7 điểm mới push.</div>
+</div>
+
+<!-- MONETIZATION -->
+<div class="slide">
+  <div class="sec-tag c">Monetization</div>
+  <h2>Freemium → Pro 549k/tháng</h2>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card">
+      <h3>Free — đủ dùng</h3>
+      <ul>
+        <li>Tất cả signal Retail</li>
+        <li>Morning Briefing cơ bản</li>
+        <li>Lịch sử thị trường</li>
+        <li>Push noti cho signal ≥7 điểm</li>
+      </ul>
+    </div>
+    <div class="card" style="border:1.5px solid rgba(153,69,255,0.3)">
+      <h3>Pro — 549,000đ/tháng</h3>
+      <ul>
+        <li>Signal Pro (phân tích chuyên sâu)</li>
+        <li>Nhận signal sớm hơn Free 24h</li>
+        <li>Blur text → unlock</li>
+        <li>Free user thấy kết quả Pro sau 24h → FOMO → mua Pro</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:16px;font-size:16px;color:var(--t2)"><strong>Thiên (FE):</strong> Implement blur component + unlock gate + delay timer</div>
+</div>
+
+<!-- THIÊN ACTION -->
+<div class="slide">
+  <div class="sec-tag c">Buổi 3 — Việc cần làm</div>
+  <h2>Thiên + Hưởng: Delivery</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Thiên: Rebuild Onboarding</h3><p>5 bước interactive. Thu thập: thị trường, level, mã, noti permission. Tracking events cho Grow.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Thiên: Signal card component</h3><p>5 tầng thông tin. Severity dot (3 màu). Card bg. History callout. CTA "Hỏi AI".</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Thiên: Pro gate + blur</h3><p>Lock/unlock component. Delay timer. Kết quả hiển thị sau 24h cho Free.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Hưởng: Noti pipeline</h3><p>Prompt-based noti. Anti-spam rules. Batch gửi cho scale lớn.</p></div></div>
+    <div class="tl-item"><div class="tl-dot p"></div><div class="tl-content"><h3>Hưởng: Morning Briefing</h3><p>Cron 6:30 → Gen brief cho từng user → Push 7:00. Prompt + template.</p></div></div>
+  </div>
+</div>
+
+<!-- BUỔI 3 WRAP -->
+<div class="slide">
+  <div class="sec-tag c">Buổi 3 — Tổng kết</div>
+  <h2>Sau buổi này:</h2>
+  <div class="cards cards-2" style="margin-top:24px">
+    <div class="card" style="border-top:3px solid var(--purple)">
+      <h3>Thiên</h3>
+      <ul>
+        <li>Onboarding flow + tracking</li>
+        <li>Signal card component spec</li>
+        <li>Pro gate + blur logic</li>
+        <li>Intelligence Stream layout</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent)">
+      <h3>Hưởng</h3>
+      <ul>
+        <li>Noti prompt + anti-spam</li>
+        <li>Morning Briefing pipeline</li>
+        <li>Delivery router: khi nào push, khi nào im</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:24px;font-size:16px;color:var(--t2)"><strong>Output cần nộp trong 3 ngày:</strong> Thiên — Onboarding FE + card component · Hưởng — Noti prompt v1 + briefing cron spec</div>
+</div>
+
+<!-- FINAL SLIDE -->
+<div class="slide cover">
+  <div class="sec-tag intro">Tổng kết</div>
+  <h1>Sprint 1 — 10 ngày</h1>
+  <div class="sub" style="margin-top:16px">Mục tiêu: 1 user flow hoàn chỉnh từ Onboarding → nhận signal đầu tiên</div>
+  <div class="cards cards-3" style="margin-top:32px;max-width:800px">
+    <div class="card" style="text-align:center;border-top:3px solid var(--green)"><div class="num">A</div><p>User Context<br>sẵn sàng</p></div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--yellow)"><div class="num">B</div><p>Signal pipeline<br>chạy được</p></div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--purple)"><div class="num">C</div><p>User nhìn thấy<br>signal trên app</p></div>
+  </div>
+  <div class="quote" style="margin-top:32px;max-width:600px;text-align:left">Brief đầy đủ:<br>• Nhóm A: dpaste.com/4SYZM2NNZ<br>• Nhóm B: dpaste.com/BGHKDG272<br>• Nhóm C: dpaste.com/B2LH6X5CQ<br>• Prototype: dangtrungdev113999.github.io/finpath-preview</div>
+</div>
+
+</div>
+
+<!-- NAV -->
+<div class="progress" id="prog"></div>
+<div class="counter" id="counter"></div>
+<div class="nav">
+  <button onclick="prev()">←</button>
+  <button onclick="next()">→</button>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let cur=0;
+function show(n){
+  cur=Math.max(0,Math.min(n,slides.length-1));
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[cur].classList.add('active');
+  document.getElementById('prog').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+}
+function next(){show(cur+1)}
+function prev(){show(cur-1)}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')next();
+  if(e.key==='ArrowLeft')prev();
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{
+  const d=e.changedTouches[0].clientX-tx;
+  if(Math.abs(d)>50){d<0?next():prev()}
+});
+show(0);
+</script>
+</body>
+</html>
