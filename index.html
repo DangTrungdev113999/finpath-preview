@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finpath — Intelligence Stream</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Finpath Design System (inline) ── */
+:root {
+  --bg-1: #0A0A0C; --bg-2: #1B1D21; --bg-3: #32353C;
+  --bg-accent: #196DFE; --bg-disabled: #444D5A; --bg-inverted: #F4F6F7;
+  --bg-popup: #17171A; --bg-green: #10D782; --bg-red: #FF5D66;
+  --bg-yellow: #FFD200; --bg-blue: #23CDED; --bg-purple: #9945FF; --bg-orange: #ED702F;
+  --text-primary: #F2F3F5; --text-secondary: #A1A1A1; --text-placeholder: #666666;
+  --text-accent: #196DFE; --text-link: #1E88FF; --text-inverted: #FFFFFF;
+  --text-green: #10D782; --text-red: #FF5D66; --text-yellow: #FFD200;
+  --text-orange: #ED702F; --text-blue: #07B0D3; --text-purple: #9945FF;
+  --line-divider: #242529; --line-accent: #196DFE; --line-blue: #23CDED;
+  --line-red: #FF5D66; --line-green: #10D782;
+  --opacity-green: rgba(7,178,105,0.10); --opacity-red: rgba(230,8,21,0.10);
+  --opacity-yellow: rgba(255,210,0,0.10); --opacity-blue: rgba(35,205,237,0.10);
+  --opacity-purple: rgba(153,69,255,0.10); --opacity-accent: rgba(0,82,255,0.10);
+  --opacity-orange: rgba(237,112,47,0.10);
+  --radius-primary: 16px; --radius-secondary: 12px; --radius-full: 9999px;
+  --sp-1: 4px; --sp-1-5: 6px; --sp-2: 8px; --sp-2-5: 10px;
+  --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-8: 32px;
+  --font-title: 'Public Sans', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); background: #111; color: var(--text-primary); -webkit-font-smoothing: antialiased; }
+
+/* ── Mobile Frame ── */
+.phone { width: 390px; min-height: 844px; margin: 20px auto; background: var(--bg-1); border-radius: 40px; overflow: hidden; border: 3px solid #2a2a2e; display: flex; flex-direction: column; position: relative; }
+
+/* ── Status Bar ── */
+.statusbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px 8px; font-size: 14px; font-weight: var(--fw-semibold); }
+.statusbar .time { font-size: 15px; font-weight: var(--fw-bold); }
+.statusbar .icons { display: flex; gap: 6px; font-size: 12px; }
+
+/* ── Header ── */
+.header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px 12px; }
+.header-left { display: flex; align-items: center; gap: 8px; }
+.header-logo { font-family: var(--font-title); font-size: 20px; font-weight: var(--fw-bold); color: var(--text-primary); }
+.header-logo span { color: var(--text-accent); }
+.header-right { display: flex; gap: 16px; align-items: center; }
+.header-icon { font-size: 18px; color: var(--text-secondary); cursor: pointer; }
+.notif-badge { position: relative; }
+.notif-badge::after { content: '3'; position: absolute; top: -6px; right: -8px; background: var(--bg-red); color: #fff; font-size: 9px; font-weight: var(--fw-bold); width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* ── Scroll Area ── */
+.feed { flex: 1; overflow-y: auto; padding-bottom: 70px; }
+.feed::-webkit-scrollbar { display: none; }
+
+/* ── Section Header ── */
+.section-label { font-size: 12px; font-weight: var(--fw-bold); color: var(--text-placeholder); text-transform: uppercase; letter-spacing: 0.05em; padding: 16px 16px 8px; }
+
+/* ── Morning Briefing ── */
+.briefing { margin: 0 16px 12px; background: linear-gradient(135deg, var(--bg-2) 0%, rgba(25,109,254,0.08) 100%); border: 1px solid var(--line-divider); border-radius: var(--radius-primary); padding: 16px; cursor: pointer; transition: transform 0.15s; }
+.briefing:active { transform: scale(0.98); }
+.briefing-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.briefing-title { font-family: var(--font-title); font-size: 16px; font-weight: var(--fw-bold); display: flex; align-items: center; gap: 8px; }
+.briefing-badge { font-size: 10px; font-weight: var(--fw-bold); background: var(--opacity-accent); color: var(--text-accent); padding: 2px 8px; border-radius: var(--radius-full); text-transform: uppercase; }
+.briefing-preview { font-size: 14px; line-height: 20px; color: var(--text-secondary); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.briefing-preview strong { color: var(--text-primary); font-weight: var(--fw-semibold); }
+.briefing-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-divider); }
+.briefing-time { font-size: 12px; color: var(--text-placeholder); }
+.briefing-cta { font-size: 13px; font-weight: var(--fw-semibold); color: var(--text-accent); }
+
+/* ── Signal Card ── */
+.signal-card { margin: 0 16px 12px; background: var(--bg-2); border: 1px solid var(--line-divider); border-radius: var(--radius-primary); padding: 16px; transition: transform 0.15s; cursor: pointer; }
+.signal-card:active { transform: scale(0.98); }
+.signal-card.border-red { border-left: 3px solid var(--bg-red); }
+.signal-card.border-yellow { border-left: 3px solid var(--bg-yellow); }
+.signal-card.border-blue { border-left: 3px solid var(--bg-blue); }
+.signal-card.border-green { border-left: 3px solid var(--bg-green); }
+.signal-card.border-purple { border-left: 3px solid var(--bg-purple); }
+
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.card-tags { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.tag { font-size: 10px; line-height: 12px; font-weight: var(--fw-bold); letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; }
+.tag-news { background: var(--opacity-blue); color: var(--text-blue); }
+.tag-sentiment { background: var(--opacity-purple); color: var(--text-purple); }
+.tag-price { background: var(--opacity-green); color: var(--text-green); }
+.tag-tech { background: var(--opacity-orange); color: var(--text-orange); }
+.tag-macro { background: var(--opacity-yellow); color: var(--text-yellow); }
+.tag-bctc { background: var(--opacity-accent); color: var(--text-accent); }
+.tag-adjacent { background: var(--bg-3); color: var(--text-secondary); }
+.tag-compound { background: rgba(255,255,255,0.08); color: var(--text-primary); }
+.tag-pro { background: linear-gradient(135deg, rgba(25,109,254,0.2), rgba(153,69,255,0.2)); color: var(--text-purple); }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-red { background: var(--bg-red); box-shadow: 0 0 6px rgba(255,93,102,0.5); }
+.dot-yellow { background: var(--bg-yellow); }
+.dot-blue { background: var(--bg-blue); }
+.dot-gray { background: var(--bg-3); }
+
+.card-time { font-size: 12px; color: var(--text-placeholder); white-space: nowrap; }
+
+.card-title { font-size: 16px; line-height: 24px; font-weight: var(--fw-semibold); color: var(--text-primary); margin-bottom: 12px; }
+
+.card-data { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-bottom: 12px; }
+.card-data strong { color: var(--text-primary); font-weight: var(--fw-bold); }
+.card-data .up { color: var(--text-green); font-weight: var(--fw-bold); }
+.card-data .down { color: var(--text-red); font-weight: var(--fw-bold); }
+
+/* ── History Callout ── */
+.history { background: var(--opacity-blue); border-left: 3px solid var(--line-blue); border-radius: 0 12px 12px 0; padding: 12px; margin-bottom: 12px; }
+.history p { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
+.history strong { color: var(--text-primary); font-weight: var(--fw-semibold); }
+.history .icon { margin-right: 4px; }
+
+/* ── Context ── */
+.context { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-bottom: 12px; }
+.context strong { color: var(--text-primary); font-weight: var(--fw-bold); }
+
+/* ── Chain Diagram ── */
+.chain { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.chain-box { background: var(--bg-3); border: 1px solid var(--line-divider); border-radius: var(--radius-secondary); padding: 8px 12px; text-align: center; min-width: 85px; }
+.chain-box .tk { font-size: 14px; font-weight: var(--fw-bold); }
+.chain-box .ch { font-size: 12px; font-weight: var(--fw-semibold); }
+.chain-box .label { font-size: 11px; color: var(--text-secondary); }
+.chain-arrow { color: var(--text-placeholder); font-size: 16px; }
+
+/* ── Compound Sources ── */
+.sources-toggle { font-size: 14px; font-weight: var(--fw-medium); color: var(--text-accent); cursor: pointer; padding: 8px 0; }
+.sources { display: none; }
+.sources.open { display: block; }
+.source-item { background: var(--bg-3); border-radius: var(--radius-secondary); padding: 12px; margin-bottom: 8px; }
+.source-label { font-size: 11px; font-weight: var(--fw-bold); color: var(--text-placeholder); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.source-text { font-size: 13px; line-height: 18px; color: var(--text-secondary); }
+
+/* ── Ask AI ── */
+.ask-ai { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; color: var(--text-accent); font-size: 14px; font-weight: var(--fw-semibold); border-top: 1px solid var(--line-divider); margin-top: 4px; cursor: pointer; }
+.ask-ai:hover { opacity: 0.85; }
+
+/* ── Pro Blur ── */
+.blur-wrap { position: relative; }
+.blur-content { filter: blur(6px); user-select: none; pointer-events: none; }
+.pro-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
+.pro-overlay .lock { font-size: 28px; }
+.pro-overlay .pro-label { font-size: 14px; font-weight: var(--fw-semibold); color: var(--text-secondary); }
+.pro-overlay .countdown { font-size: 12px; color: var(--text-accent); }
+.pro-overlay .pro-btn { margin-top: 8px; background: var(--bg-accent); color: #fff; font-size: 13px; font-weight: var(--fw-semibold); padding: 8px 24px; border-radius: var(--radius-secondary); border: none; cursor: pointer; }
+
+/* ── Gift Banner ── */
+.gift-banner { background: linear-gradient(135deg, rgba(25,109,254,0.12), rgba(153,69,255,0.08)); border: 1px solid rgba(25,109,254,0.25); border-radius: var(--radius-secondary); padding: 10px; margin-bottom: 12px; text-align: center; font-size: 14px; font-weight: var(--fw-semibold); color: var(--text-accent); }
+
+/* ── New Signal Banner ── */
+.new-signal-banner { position: sticky; top: 0; z-index: 10; margin: 0 16px 8px; background: rgba(25,109,254,0.15); backdrop-filter: blur(12px); border: 1px solid rgba(25,109,254,0.3); border-radius: var(--radius-full); padding: 8px 16px; text-align: center; font-size: 13px; font-weight: var(--fw-semibold); color: var(--text-accent); cursor: pointer; }
+.new-signal-banner .pulse { display: inline-block; width: 8px; height: 8px; background: var(--bg-red); border-radius: 50%; margin-right: 6px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ── Bottom Bar ── */
+.bottom-bar { display: flex; justify-content: space-around; align-items: center; height: 56px; background: var(--bg-2); border-top: 1px solid var(--line-divider); position: sticky; bottom: 0; flex-shrink: 0; }
+.bottom-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; font-weight: var(--fw-medium); color: var(--text-placeholder); cursor: pointer; }
+.bottom-item.active { color: var(--text-accent); }
+.bottom-item .bi { font-size: 18px; margin-bottom: 1px; }
+
+/* ── VIP Unlocked ── */
+.vip-result { background: var(--opacity-green); border-radius: var(--radius-secondary); padding: 10px 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.vip-result .icon { font-size: 16px; }
+.vip-result .text { font-size: 13px; color: var(--text-green); font-weight: var(--fw-semibold); }
+
+/* ── Delay Label ── */
+.delay-label { font-size: 11px; color: var(--text-placeholder); background: var(--bg-3); display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: var(--radius-full); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <!-- Status Bar -->
+  <div class="statusbar">
+    <span class="time">9:41</span>
+    <span class="icons">📶 📡 🔋</span>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-logo">Fin<span>path</span></div>
+    </div>
+    <div class="header-right">
+      <span class="header-icon">⚙️</span>
+      <span class="header-icon notif-badge">🔔</span>
+    </div>
+  </div>
+
+  <!-- Feed -->
+  <div class="feed">
+
+    <!-- New Signal Banner -->
+    <div class="new-signal-banner">
+      <span class="pulse"></span>1 tín hiệu mới — Bấm để xem
+    </div>
+
+    <!-- Morning Briefing (pinned) -->
+    <div class="briefing">
+      <div class="briefing-head">
+        <div class="briefing-title">☀️ Bản tin sáng 18/03</div>
+        <span class="briefing-badge">Mới</span>
+      </div>
+      <div class="briefing-preview">
+        <strong>HPG:</strong> Đang bị cơ quan quản lý yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại. Không bán trước khi đọc số liệu...
+      </div>
+      <div class="briefing-footer">
+        <span class="briefing-time">7:00 AM</span>
+        <span class="briefing-cta">Đọc đầy đủ →</span>
+      </div>
+    </div>
+
+    <div class="section-label">Hôm nay</div>
+
+    <!-- Card 1: Compound Signal (Critical) -->
+    <div class="signal-card border-red">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-red"></span>
+          <span class="tag tag-compound">COMPOUND</span>
+          <span class="tag tag-news">TIN TỨC</span>
+          <span class="tag tag-sentiment">CẢM XÚC</span>
+          <span class="tag tag-price">GIÁ</span>
+        </div>
+        <span class="card-time">9:32</span>
+      </div>
+      <div class="card-title">3 nguồn cùng chỉ về HPG: nghi vấn dumping từ EU, sentiment tiêu cực bùng trên Telegram, giá giảm 4.2%</div>
+      <div class="card-data">
+        Tiêu cực tăng <strong class="down">340%</strong> trên 5 nhóm Telegram. Giá 26,400 → <strong class="down">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> TB 20 phiên.
+      </div>
+      <div class="history">
+        <p><span class="icon">🕐</span> <strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 1.5% so với thị trường, hồi lại +12% trong 3 tuần.</p>
+      </div>
+      <div class="context">
+        Bạn cầm <strong>2,000 HPG</strong> — chiếm <strong>35%</strong> danh mục. Nếu giảm thêm 8%, danh mục giảm ước tính <strong class="down">–2.8%</strong>.
+      </div>
+      <div class="sources-toggle" onclick="this.nextElementSibling.classList.toggle('open')">▼ Xem chi tiết từng nguồn</div>
+      <div class="sources">
+        <div class="source-item">
+          <div class="source-label">📰 Tin tức</div>
+          <div class="source-text">UBCKNN yêu cầu HPG giải trình BCTC Q4/2025 — nghi vấn hạch toán khấu hao Dung Quất</div>
+        </div>
+        <div class="source-item">
+          <div class="source-label">💬 Cảm xúc MXH</div>
+          <div class="source-text">Tiêu cực tăng 340% trên 5 nhóm Telegram trong 1 giờ. Phân loại: lo ngại thật.</div>
+        </div>
+        <div class="source-item">
+          <div class="source-label">📈 Giá</div>
+          <div class="source-text">–4.2% phiên sáng, vol 2.8x avg. KN bán ròng 45 tỷ.</div>
+        </div>
+      </div>
+      <div class="ask-ai">💬 Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- Card 2: Adjacent Signal -->
+    <div class="signal-card border-yellow">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-yellow"></span>
+          <span class="tag tag-news">TIN TỨC</span>
+          <span class="tag tag-adjacent">ADJACENT</span>
+        </div>
+        <span class="card-time">8:45</span>
+      </div>
+      <!-- Chain Diagram -->
+      <div class="chain">
+        <div class="chain-box">
+          <div class="tk">DXG</div>
+          <div class="ch down" style="color:var(--text-red)">↓12%</div>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-box">
+          <div class="label">Nợ xấu BĐS</div>
+          <div class="label">tăng</div>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-box" style="border-color: var(--line-accent);">
+          <div class="tk">VCB</div>
+          <div class="label" style="color:var(--text-accent)">bạn đang cầm</div>
+        </div>
+      </div>
+      <div class="card-title">DXG giảm sàn sau tin chủ tịch bị tạm giữ — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
+      <div class="card-data">
+        DXG dư bán sàn <strong>14.7 triệu CP</strong>. Dư nợ BĐS tại VCB chiếm <strong>26%</strong> tổng cho vay. DXG vay <strong>1,200 tỷ</strong> tại VCB.
+      </div>
+      <div class="history">
+        <p><span class="icon">🕐</span> <strong>11/2022</strong> FLC sụp — VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</p>
+      </div>
+      <div class="context">
+        Bạn không cầm DXG, nhưng cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục. Theo dõi phản ứng VCB chiều nay.
+      </div>
+      <div class="ask-ai">💬 Hỏi thêm về VCB & BĐS</div>
+    </div>
+
+    <!-- Card 3: Technical Signal -->
+    <div class="signal-card border-blue">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-blue"></span>
+          <span class="tag tag-tech">KỸ THUẬT</span>
+        </div>
+        <span class="card-time">8:12</span>
+      </div>
+      <div class="card-title">FPT vừa breakout khỏi vùng tích lũy 4 tuần, volume xác nhận</div>
+      <div class="card-data">
+        FPT vượt kháng cự <strong>128,000</strong> lần đầu từ tháng 1. Volume phiên sáng <strong class="up">180%</strong> TB. RSI 62 — chưa overbought.
+      </div>
+      <div class="history">
+        <p><span class="icon">🕐</span> 2 lần breakout tương tự 12 tháng qua: FPT tăng TB <strong>+14%</strong> trong 20 phiên sau.</p>
+      </div>
+      <div class="context">
+        FPT trong <em>watchlist</em> từ 02/03. Chưa có trong danh mục.
+      </div>
+      <div class="ask-ai">💬 Phân tích FPT chi tiết</div>
+    </div>
+
+    <!-- Card 4: Pro Blur -->
+    <div class="signal-card" style="border-color: rgba(153,69,255,0.3);">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-yellow"></span>
+          <span class="tag tag-pro">⭐ PRO</span>
+          <span class="tag tag-bctc">PHÂN TÍCH</span>
+        </div>
+        <span class="card-time">14:30</span>
+      </div>
+      <div class="card-title">Phân tích chuyên sâu HPG sau tin điều tra: cơ hội hay rủi ro?</div>
+      <div class="blur-wrap">
+        <div class="blur-content">
+          <div class="card-data">Giá HPG đã giảm 4.2% nhưng RSI 28 — vùng quá bán mạnh. Hỗ trợ tại 25,000 (MA200). 3 lần tương tự trong 12 tháng → hồi TB +12%. P/E trailing 8.5x vs ngành 10.2x — định giá hấp dẫn nếu BCTC không tệ hơn kỳ vọng.</div>
+        </div>
+        <div class="pro-overlay">
+          <span class="lock">🔒</span>
+          <span class="pro-label">Nội dung Pro — 549,000đ/tháng</span>
+          <span class="countdown">⏱️ Unlock miễn phí sau 18 giờ nữa</span>
+          <button class="pro-btn">🔓 Mở khóa Pro</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Gift Card (Pro taste) -->
+    <div class="signal-card border-purple">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-yellow"></span>
+          <span class="tag tag-pro">⭐ QUÀ TẶNG</span>
+          <span class="tag tag-bctc">BCTC</span>
+        </div>
+        <span class="card-time">Hôm qua</span>
+      </div>
+      <div class="gift-banner">🎁 Đây là tính năng Pro. Hôm nay tôi tặng bạn.</div>
+      <div class="card-title">VCB công bố BCTC Q4: lãi ròng vượt kỳ vọng 18%, NIM cải thiện</div>
+      <div class="card-data">
+        EPS <strong class="up">4,850đ</strong> (+18% YoY). Biên lãi ròng <strong class="up">3.8%</strong> (+0.4pp). Nợ xấu <strong>0.68%</strong> — thấp nhất ngành. P/E trailing 14.2x.
+      </div>
+      <div class="history">
+        <p><span class="icon">🕐</span> 3 lần VCB BCTC vượt kỳ vọng → tăng TB <strong>+6.5%</strong> trong 10 phiên.</p>
+      </div>
+      <div class="context">
+        Bạn cầm <strong>1,500 VCB</strong> (42% danh mục). BCTC tích cực → giữ. Kháng cự tiếp <strong>98,000</strong>.
+      </div>
+      <div style="font-size: 13px; color: var(--text-secondary); background: var(--opacity-accent); border-radius: 8px; padding: 10px; margin-top: 8px; text-align: center;">
+        💡 Bạn đang có nội dung này miễn phí. Pro subscribers nhận phân tích này <strong style="color:var(--text-primary)">MỖI NGÀY</strong>.
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 12px;">
+        <button style="flex:1; height: 40px; background: transparent; border: 1px solid var(--line-accent); color: var(--text-accent); border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body);">💬 Hỏi thêm</button>
+        <button style="flex:1; height: 40px; background: var(--bg-accent); border: none; color: #fff; border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body);">🔓 Nâng cấp Pro</button>
+      </div>
+    </div>
+
+    <div class="section-label">Hôm qua — đã unlock</div>
+
+    <!-- Card 6: VIP Unlocked -->
+    <div class="signal-card" style="border-color: rgba(16,215,130,0.3);">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-yellow"></span>
+          <span class="tag" style="background:var(--opacity-green); color:var(--text-green);">✨ VIP UNLOCKED</span>
+          <span class="tag tag-tech">KỸ THUẬT</span>
+        </div>
+        <span class="card-time">Hôm qua</span>
+      </div>
+      <div class="delay-label">⏱️ Signal này đã delay 24h</div>
+      <div class="card-title">MWG breakout kháng cự 52,000 sau chuỗi 3 phiên tăng liên tiếp</div>
+      <div class="card-data">
+        MWG vượt <strong>52,000</strong> lần đầu từ tháng 9. Volume <strong class="up">220%</strong> TB. RSI 65.
+      </div>
+      <div class="vip-result">
+        <span class="icon">📈</span>
+        <span class="text">Từ khi Pro nhận signal này: MWG đã tăng +3.2% (52,000 → 53,660)</span>
+      </div>
+      <div style="font-size: 13px; color: var(--text-secondary); text-align: center; padding: 8px; background: var(--opacity-green); border-radius: 8px; margin-bottom: 8px;">
+        💡 Pro users đã biết sớm hơn bạn 1 ngày. Chênh lệch: <strong style="color:var(--text-green)">+3.2%</strong>
+      </div>
+      <div style="text-align: center;">
+        <button style="background: var(--bg-accent); border: none; color: #fff; border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; padding: 10px 32px; font-family: var(--font-body);">🔓 Nâng cấp Pro</button>
+      </div>
+    </div>
+
+    <!-- Card 7: Macro -->
+    <div class="signal-card border-yellow">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="dot dot-yellow"></span>
+          <span class="tag tag-macro">VĨ MÔ</span>
+        </div>
+        <span class="card-time">Hôm qua 22:30</span>
+      </div>
+      <div class="card-title">DXY bứt phá 105.2 — khối ngoại dự kiến xả ròng, áp lực lên VN-Index</div>
+      <div class="card-data">
+        DXY <strong class="up">+0.8%</strong> overnight. USD/VND tăng lên <strong>25,180</strong>. KN bán ròng dự kiến tiếp diễn 3-5 phiên.
+      </div>
+      <div class="context">
+        Ảnh hưởng danh mục: <strong>HPG</strong> (35%) và <strong>VCB</strong> (42%) chịu áp lực. Không mua mới hôm nay.
+      </div>
+      <div class="ask-ai">💬 Hỏi thêm về DXY & danh mục</div>
+    </div>
+
+  </div><!-- /feed -->
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-item">
+      <span class="bi">📊</span>
+      <span>Finpath</span>
+    </div>
+    <div class="bottom-item">
+      <span class="bi">📋</span>
+      <span>Bảng giá</span>
+    </div>
+    <div class="bottom-item">
+      <span class="bi">👥</span>
+      <span>Cộng đồng</span>
+    </div>
+    <div class="bottom-item active">
+      <span class="bi">🧠</span>
+      <span>Tình báo</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
