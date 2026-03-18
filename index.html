@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Finpath — Intelligence Stream</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
-/* ── Finpath Design System (inline) ── */
 :root {
   --bg-1: #0A0A0C; --bg-2: #1B1D21; --bg-3: #32353C;
   --bg-accent: #196DFE; --bg-disabled: #444D5A; --bg-inverted: #F4F6F7;
@@ -32,13 +32,19 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font-body); background: #111; color: var(--text-primary); -webkit-font-smoothing: antialiased; }
 
+/* Lucide icon sizing */
+.lucide { width: 18px; height: 18px; stroke-width: 2; }
+.lucide-sm { width: 14px; height: 14px; stroke-width: 2; }
+.lucide-lg { width: 22px; height: 22px; stroke-width: 1.75; }
+.lucide-xl { width: 28px; height: 28px; stroke-width: 1.5; }
+
 /* ── Mobile Frame ── */
 .phone { width: 390px; min-height: 844px; margin: 20px auto; background: var(--bg-1); border-radius: 40px; overflow: hidden; border: 3px solid #2a2a2e; display: flex; flex-direction: column; position: relative; }
 
 /* ── Status Bar ── */
-.statusbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px 8px; font-size: 14px; font-weight: var(--fw-semibold); }
-.statusbar .time { font-size: 15px; font-weight: var(--fw-bold); }
-.statusbar .icons { display: flex; gap: 6px; font-size: 12px; }
+.statusbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 28px 8px; font-size: 15px; font-weight: var(--fw-bold); }
+.statusbar-right { display: flex; align-items: center; gap: 6px; }
+.statusbar-right .lucide { width: 16px; height: 16px; }
 
 /* ── Header ── */
 .header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px 12px; }
@@ -46,15 +52,14 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
 .header-logo { font-family: var(--font-title); font-size: 20px; font-weight: var(--fw-bold); color: var(--text-primary); }
 .header-logo span { color: var(--text-accent); }
 .header-right { display: flex; gap: 16px; align-items: center; }
-.header-icon { font-size: 18px; color: var(--text-secondary); cursor: pointer; }
-.notif-badge { position: relative; }
-.notif-badge::after { content: '3'; position: absolute; top: -6px; right: -8px; background: var(--bg-red); color: #fff; font-size: 9px; font-weight: var(--fw-bold); width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.header-icon { color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; position: relative; }
+.header-icon:hover { color: var(--text-primary); }
+.notif-dot { position: absolute; top: -2px; right: -4px; width: 8px; height: 8px; background: var(--bg-red); border-radius: 50%; border: 2px solid var(--bg-1); }
 
-/* ── Scroll Area ── */
+/* ── Feed ── */
 .feed { flex: 1; overflow-y: auto; padding-bottom: 70px; }
 .feed::-webkit-scrollbar { display: none; }
 
-/* ── Section Header ── */
 .section-label { font-size: 12px; font-weight: var(--fw-bold); color: var(--text-placeholder); text-transform: uppercase; letter-spacing: 0.05em; padding: 16px 16px 8px; }
 
 /* ── Morning Briefing ── */
@@ -62,12 +67,13 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
 .briefing:active { transform: scale(0.98); }
 .briefing-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .briefing-title { font-family: var(--font-title); font-size: 16px; font-weight: var(--fw-bold); display: flex; align-items: center; gap: 8px; }
+.briefing-title .lucide { color: var(--text-yellow); }
 .briefing-badge { font-size: 10px; font-weight: var(--fw-bold); background: var(--opacity-accent); color: var(--text-accent); padding: 2px 8px; border-radius: var(--radius-full); text-transform: uppercase; }
 .briefing-preview { font-size: 14px; line-height: 20px; color: var(--text-secondary); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .briefing-preview strong { color: var(--text-primary); font-weight: var(--fw-semibold); }
 .briefing-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-divider); }
-.briefing-time { font-size: 12px; color: var(--text-placeholder); }
-.briefing-cta { font-size: 13px; font-weight: var(--fw-semibold); color: var(--text-accent); }
+.briefing-time { font-size: 12px; color: var(--text-placeholder); display: flex; align-items: center; gap: 4px; }
+.briefing-cta { font-size: 13px; font-weight: var(--fw-semibold); color: var(--text-accent); display: flex; align-items: center; gap: 4px; }
 
 /* ── Signal Card ── */
 .signal-card { margin: 0 16px 12px; background: var(--bg-2); border: 1px solid var(--line-divider); border-radius: var(--radius-primary); padding: 16px; transition: transform 0.15s; cursor: pointer; }
@@ -80,7 +86,8 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
 
 .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .card-tags { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.tag { font-size: 10px; line-height: 12px; font-weight: var(--fw-bold); letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; }
+.tag { font-size: 10px; line-height: 12px; font-weight: var(--fw-bold); letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; }
+.tag .lucide-sm { width: 12px; height: 12px; }
 .tag-news { background: var(--opacity-blue); color: var(--text-blue); }
 .tag-sentiment { background: var(--opacity-purple); color: var(--text-purple); }
 .tag-price { background: var(--opacity-green); color: var(--text-green); }
@@ -95,41 +102,43 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
 .dot-red { background: var(--bg-red); box-shadow: 0 0 6px rgba(255,93,102,0.5); }
 .dot-yellow { background: var(--bg-yellow); }
 .dot-blue { background: var(--bg-blue); }
-.dot-gray { background: var(--bg-3); }
 
 .card-time { font-size: 12px; color: var(--text-placeholder); white-space: nowrap; }
-
 .card-title { font-size: 16px; line-height: 24px; font-weight: var(--fw-semibold); color: var(--text-primary); margin-bottom: 12px; }
-
 .card-data { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-bottom: 12px; }
 .card-data strong { color: var(--text-primary); font-weight: var(--fw-bold); }
 .card-data .up { color: var(--text-green); font-weight: var(--fw-bold); }
 .card-data .down { color: var(--text-red); font-weight: var(--fw-bold); }
 
 /* ── History Callout ── */
-.history { background: var(--opacity-blue); border-left: 3px solid var(--line-blue); border-radius: 0 12px 12px 0; padding: 12px; margin-bottom: 12px; }
+.history { background: var(--opacity-blue); border-left: 3px solid var(--line-blue); border-radius: 0 12px 12px 0; padding: 12px; margin-bottom: 12px; display: flex; gap: 8px; align-items: flex-start; }
+.history .lucide { color: var(--text-blue); flex-shrink: 0; margin-top: 1px; }
 .history p { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
 .history strong { color: var(--text-primary); font-weight: var(--fw-semibold); }
-.history .icon { margin-right: 4px; }
 
 /* ── Context ── */
-.context { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-bottom: 12px; }
+.context { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-bottom: 12px; display: flex; gap: 8px; align-items: flex-start; }
+.context .lucide { color: var(--text-accent); flex-shrink: 0; margin-top: 2px; }
 .context strong { color: var(--text-primary); font-weight: var(--fw-bold); }
 
 /* ── Chain Diagram ── */
-.chain { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.chain-box { background: var(--bg-3); border: 1px solid var(--line-divider); border-radius: var(--radius-secondary); padding: 8px 12px; text-align: center; min-width: 85px; }
+.chain { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+.chain-box { background: var(--bg-3); border: 1px solid var(--line-divider); border-radius: var(--radius-secondary); padding: 8px 12px; text-align: center; min-width: 85px; flex-shrink: 0; }
 .chain-box .tk { font-size: 14px; font-weight: var(--fw-bold); }
 .chain-box .ch { font-size: 12px; font-weight: var(--fw-semibold); }
 .chain-box .label { font-size: 11px; color: var(--text-secondary); }
-.chain-arrow { color: var(--text-placeholder); font-size: 16px; }
+.chain-arrow { color: var(--text-placeholder); display: flex; }
+.chain-arrow .lucide { width: 16px; height: 16px; }
 
 /* ── Compound Sources ── */
-.sources-toggle { font-size: 14px; font-weight: var(--fw-medium); color: var(--text-accent); cursor: pointer; padding: 8px 0; }
+.sources-toggle { font-size: 14px; font-weight: var(--fw-medium); color: var(--text-accent); cursor: pointer; padding: 8px 0; display: flex; align-items: center; gap: 6px; }
+.sources-toggle .lucide { width: 16px; height: 16px; transition: transform 0.2s; }
+.sources-toggle.open .lucide { transform: rotate(180deg); }
 .sources { display: none; }
 .sources.open { display: block; }
 .source-item { background: var(--bg-3); border-radius: var(--radius-secondary); padding: 12px; margin-bottom: 8px; }
-.source-label { font-size: 11px; font-weight: var(--fw-bold); color: var(--text-placeholder); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.source-label { font-size: 11px; font-weight: var(--fw-bold); color: var(--text-placeholder); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.source-label .lucide { width: 14px; height: 14px; }
 .source-text { font-size: 13px; line-height: 18px; color: var(--text-secondary); }
 
 /* ── Ask AI ── */
@@ -140,32 +149,47 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
 .blur-wrap { position: relative; }
 .blur-content { filter: blur(6px); user-select: none; pointer-events: none; }
 .pro-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
-.pro-overlay .lock { font-size: 28px; }
+.pro-overlay .lucide-xl { color: var(--text-secondary); }
 .pro-overlay .pro-label { font-size: 14px; font-weight: var(--fw-semibold); color: var(--text-secondary); }
-.pro-overlay .countdown { font-size: 12px; color: var(--text-accent); }
-.pro-overlay .pro-btn { margin-top: 8px; background: var(--bg-accent); color: #fff; font-size: 13px; font-weight: var(--fw-semibold); padding: 8px 24px; border-radius: var(--radius-secondary); border: none; cursor: pointer; }
+.pro-overlay .countdown { font-size: 12px; color: var(--text-accent); display: flex; align-items: center; gap: 4px; }
+.pro-overlay .countdown .lucide-sm { width: 14px; height: 14px; }
+.pro-overlay .pro-btn { margin-top: 8px; background: var(--bg-accent); color: #fff; font-size: 13px; font-weight: var(--fw-semibold); padding: 8px 24px; border-radius: var(--radius-secondary); border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: var(--font-body); }
 
 /* ── Gift Banner ── */
-.gift-banner { background: linear-gradient(135deg, rgba(25,109,254,0.12), rgba(153,69,255,0.08)); border: 1px solid rgba(25,109,254,0.25); border-radius: var(--radius-secondary); padding: 10px; margin-bottom: 12px; text-align: center; font-size: 14px; font-weight: var(--fw-semibold); color: var(--text-accent); }
+.gift-banner { background: linear-gradient(135deg, rgba(25,109,254,0.12), rgba(153,69,255,0.08)); border: 1px solid rgba(25,109,254,0.25); border-radius: var(--radius-secondary); padding: 10px; margin-bottom: 12px; text-align: center; font-size: 14px; font-weight: var(--fw-semibold); color: var(--text-accent); display: flex; align-items: center; justify-content: center; gap: 8px; }
 
 /* ── New Signal Banner ── */
-.new-signal-banner { position: sticky; top: 0; z-index: 10; margin: 0 16px 8px; background: rgba(25,109,254,0.15); backdrop-filter: blur(12px); border: 1px solid rgba(25,109,254,0.3); border-radius: var(--radius-full); padding: 8px 16px; text-align: center; font-size: 13px; font-weight: var(--fw-semibold); color: var(--text-accent); cursor: pointer; }
-.new-signal-banner .pulse { display: inline-block; width: 8px; height: 8px; background: var(--bg-red); border-radius: 50%; margin-right: 6px; animation: pulse 1.5s infinite; }
+.new-signal-banner { position: sticky; top: 0; z-index: 10; margin: 0 16px 8px; background: rgba(25,109,254,0.15); backdrop-filter: blur(12px); border: 1px solid rgba(25,109,254,0.3); border-radius: var(--radius-full); padding: 8px 16px; text-align: center; font-size: 13px; font-weight: var(--fw-semibold); color: var(--text-accent); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.pulse { display: inline-block; width: 8px; height: 8px; background: var(--bg-red); border-radius: 50%; animation: pulse 1.5s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ── VIP Result ── */
+.vip-result { background: var(--opacity-green); border-radius: var(--radius-secondary); padding: 10px 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.vip-result .lucide { color: var(--text-green); flex-shrink: 0; }
+.vip-result .text { font-size: 13px; color: var(--text-green); font-weight: var(--fw-semibold); }
+
+/* ── Delay Label ── */
+.delay-label { font-size: 11px; color: var(--text-placeholder); background: var(--bg-3); display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: var(--radius-full); margin-bottom: 8px; }
+.delay-label .lucide-sm { width: 12px; height: 12px; }
+
+/* ── Buttons ── */
+.btn-primary { height: 40px; background: var(--bg-accent); border: none; color: #fff; border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body); display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 20px; }
+.btn-outline { height: 40px; background: transparent; border: 1px solid var(--line-accent); color: var(--text-accent); border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body); display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 20px; }
 
 /* ── Bottom Bar ── */
 .bottom-bar { display: flex; justify-content: space-around; align-items: center; height: 56px; background: var(--bg-2); border-top: 1px solid var(--line-divider); position: sticky; bottom: 0; flex-shrink: 0; }
 .bottom-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; font-weight: var(--fw-medium); color: var(--text-placeholder); cursor: pointer; }
 .bottom-item.active { color: var(--text-accent); }
-.bottom-item .bi { font-size: 18px; margin-bottom: 1px; }
 
-/* ── VIP Unlocked ── */
-.vip-result { background: var(--opacity-green); border-radius: var(--radius-secondary); padding: 10px 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.vip-result .icon { font-size: 16px; }
-.vip-result .text { font-size: 13px; color: var(--text-green); font-weight: var(--fw-semibold); }
+/* ── Pro Upsell Row ── */
+.pro-upsell { font-size: 13px; color: var(--text-secondary); background: var(--opacity-accent); border-radius: 8px; padding: 10px; margin-top: 8px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.pro-upsell strong { color: var(--text-primary); }
 
-/* ── Delay Label ── */
-.delay-label { font-size: 11px; color: var(--text-placeholder); background: var(--bg-3); display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: var(--radius-full); margin-bottom: 8px; }
+.pro-upsell-green { font-size: 13px; color: var(--text-secondary); background: var(--opacity-green); border-radius: 8px; padding: 10px; margin-bottom: 8px; text-align: center; }
+.pro-upsell-green strong { color: var(--text-green); }
+
+.btn-row { display: flex; gap: 8px; margin-top: 12px; }
+.btn-row > * { flex: 1; }
 </style>
 </head>
 <body>
@@ -173,8 +197,12 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
 <div class="phone">
   <!-- Status Bar -->
   <div class="statusbar">
-    <span class="time">9:41</span>
-    <span class="icons">📶 📡 🔋</span>
+    <span>9:41</span>
+    <div class="statusbar-right">
+      <i data-lucide="signal" class="lucide"></i>
+      <i data-lucide="wifi" class="lucide"></i>
+      <i data-lucide="battery-full" class="lucide"></i>
+    </div>
   </div>
 
   <!-- Header -->
@@ -183,8 +211,11 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <div class="header-logo">Fin<span>path</span></div>
     </div>
     <div class="header-right">
-      <span class="header-icon">⚙️</span>
-      <span class="header-icon notif-badge">🔔</span>
+      <div class="header-icon"><i data-lucide="settings" class="lucide"></i></div>
+      <div class="header-icon">
+        <i data-lucide="bell" class="lucide"></i>
+        <div class="notif-dot"></div>
+      </div>
     </div>
   </div>
 
@@ -196,18 +227,27 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <span class="pulse"></span>1 tín hiệu mới — Bấm để xem
     </div>
 
-    <!-- Morning Briefing (pinned) -->
+    <!-- Morning Briefing -->
     <div class="briefing">
       <div class="briefing-head">
-        <div class="briefing-title">☀️ Bản tin sáng 18/03</div>
+        <div class="briefing-title">
+          <i data-lucide="sun" class="lucide"></i>
+          Bản tin sáng 18/03
+        </div>
         <span class="briefing-badge">Mới</span>
       </div>
       <div class="briefing-preview">
         <strong>HPG:</strong> Đang bị cơ quan quản lý yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại. Không bán trước khi đọc số liệu...
       </div>
       <div class="briefing-footer">
-        <span class="briefing-time">7:00 AM</span>
-        <span class="briefing-cta">Đọc đầy đủ →</span>
+        <span class="briefing-time">
+          <i data-lucide="clock" class="lucide-sm"></i>
+          7:00 AM
+        </span>
+        <span class="briefing-cta">
+          Đọc đầy đủ
+          <i data-lucide="arrow-right" class="lucide-sm"></i>
+        </span>
       </div>
     </div>
 
@@ -218,10 +258,10 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-red"></span>
-          <span class="tag tag-compound">COMPOUND</span>
-          <span class="tag tag-news">TIN TỨC</span>
-          <span class="tag tag-sentiment">CẢM XÚC</span>
-          <span class="tag tag-price">GIÁ</span>
+          <span class="tag tag-compound"><i data-lucide="layers" class="lucide-sm"></i> Compound</span>
+          <span class="tag tag-news">Tin tức</span>
+          <span class="tag tag-sentiment">Cảm xúc</span>
+          <span class="tag tag-price">Giá</span>
         </div>
         <span class="card-time">9:32</span>
       </div>
@@ -230,27 +270,32 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
         Tiêu cực tăng <strong class="down">340%</strong> trên 5 nhóm Telegram. Giá 26,400 → <strong class="down">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> TB 20 phiên.
       </div>
       <div class="history">
-        <p><span class="icon">🕐</span> <strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 1.5% so với thị trường, hồi lại +12% trong 3 tuần.</p>
+        <i data-lucide="history" class="lucide"></i>
+        <p><strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 1.5% so với thị trường, hồi lại +12% trong 3 tuần.</p>
       </div>
       <div class="context">
-        Bạn cầm <strong>2,000 HPG</strong> — chiếm <strong>35%</strong> danh mục. Nếu giảm thêm 8%, danh mục giảm ước tính <strong class="down">–2.8%</strong>.
+        <i data-lucide="user" class="lucide"></i>
+        <span>Bạn cầm <strong>2,000 HPG</strong> — chiếm <strong>35%</strong> danh mục. Nếu giảm thêm 8%, danh mục giảm ước tính <strong class="down">–2.8%</strong>.</span>
       </div>
-      <div class="sources-toggle" onclick="this.nextElementSibling.classList.toggle('open')">▼ Xem chi tiết từng nguồn</div>
+      <div class="sources-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('open')">
+        <i data-lucide="chevron-down" class="lucide"></i>
+        Xem chi tiết từng nguồn
+      </div>
       <div class="sources">
         <div class="source-item">
-          <div class="source-label">📰 Tin tức</div>
+          <div class="source-label"><i data-lucide="newspaper" class="lucide"></i> Tin tức</div>
           <div class="source-text">UBCKNN yêu cầu HPG giải trình BCTC Q4/2025 — nghi vấn hạch toán khấu hao Dung Quất</div>
         </div>
         <div class="source-item">
-          <div class="source-label">💬 Cảm xúc MXH</div>
+          <div class="source-label"><i data-lucide="message-circle" class="lucide"></i> Cảm xúc MXH</div>
           <div class="source-text">Tiêu cực tăng 340% trên 5 nhóm Telegram trong 1 giờ. Phân loại: lo ngại thật.</div>
         </div>
         <div class="source-item">
-          <div class="source-label">📈 Giá</div>
+          <div class="source-label"><i data-lucide="trending-down" class="lucide"></i> Giá</div>
           <div class="source-text">–4.2% phiên sáng, vol 2.8x avg. KN bán ròng 45 tỷ.</div>
         </div>
       </div>
-      <div class="ask-ai">💬 Hỏi thêm về HPG</div>
+      <div class="ask-ai"><i data-lucide="message-square" class="lucide"></i> Hỏi thêm về HPG</div>
     </div>
 
     <!-- Card 2: Adjacent Signal -->
@@ -258,23 +303,22 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-yellow"></span>
-          <span class="tag tag-news">TIN TỨC</span>
-          <span class="tag tag-adjacent">ADJACENT</span>
+          <span class="tag tag-news">Tin tức</span>
+          <span class="tag tag-adjacent"><i data-lucide="git-branch" class="lucide-sm"></i> Adjacent</span>
         </div>
         <span class="card-time">8:45</span>
       </div>
-      <!-- Chain Diagram -->
       <div class="chain">
         <div class="chain-box">
           <div class="tk">DXG</div>
-          <div class="ch down" style="color:var(--text-red)">↓12%</div>
+          <div class="ch" style="color:var(--text-red)">↓12%</div>
         </div>
-        <div class="chain-arrow">→</div>
+        <div class="chain-arrow"><i data-lucide="arrow-right" class="lucide"></i></div>
         <div class="chain-box">
           <div class="label">Nợ xấu BĐS</div>
           <div class="label">tăng</div>
         </div>
-        <div class="chain-arrow">→</div>
+        <div class="chain-arrow"><i data-lucide="arrow-right" class="lucide"></i></div>
         <div class="chain-box" style="border-color: var(--line-accent);">
           <div class="tk">VCB</div>
           <div class="label" style="color:var(--text-accent)">bạn đang cầm</div>
@@ -285,20 +329,22 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
         DXG dư bán sàn <strong>14.7 triệu CP</strong>. Dư nợ BĐS tại VCB chiếm <strong>26%</strong> tổng cho vay. DXG vay <strong>1,200 tỷ</strong> tại VCB.
       </div>
       <div class="history">
-        <p><span class="icon">🕐</span> <strong>11/2022</strong> FLC sụp — VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</p>
+        <i data-lucide="history" class="lucide"></i>
+        <p><strong>11/2022</strong> FLC sụp — VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</p>
       </div>
       <div class="context">
-        Bạn không cầm DXG, nhưng cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục. Theo dõi phản ứng VCB chiều nay.
+        <i data-lucide="user" class="lucide"></i>
+        <span>Bạn không cầm DXG, nhưng cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục. Theo dõi phản ứng VCB chiều nay.</span>
       </div>
-      <div class="ask-ai">💬 Hỏi thêm về VCB & BĐS</div>
+      <div class="ask-ai"><i data-lucide="message-square" class="lucide"></i> Hỏi thêm về VCB & BĐS</div>
     </div>
 
-    <!-- Card 3: Technical Signal -->
+    <!-- Card 3: Technical -->
     <div class="signal-card border-blue">
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-blue"></span>
-          <span class="tag tag-tech">KỸ THUẬT</span>
+          <span class="tag tag-tech"><i data-lucide="activity" class="lucide-sm"></i> Kỹ thuật</span>
         </div>
         <span class="card-time">8:12</span>
       </div>
@@ -307,12 +353,14 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
         FPT vượt kháng cự <strong>128,000</strong> lần đầu từ tháng 1. Volume phiên sáng <strong class="up">180%</strong> TB. RSI 62 — chưa overbought.
       </div>
       <div class="history">
-        <p><span class="icon">🕐</span> 2 lần breakout tương tự 12 tháng qua: FPT tăng TB <strong>+14%</strong> trong 20 phiên sau.</p>
+        <i data-lucide="history" class="lucide"></i>
+        <p>2 lần breakout tương tự 12 tháng qua: FPT tăng TB <strong>+14%</strong> trong 20 phiên sau.</p>
       </div>
       <div class="context">
-        FPT trong <em>watchlist</em> từ 02/03. Chưa có trong danh mục.
+        <i data-lucide="eye" class="lucide"></i>
+        <span>FPT trong <em>watchlist</em> từ 02/03. Chưa có trong danh mục.</span>
       </div>
-      <div class="ask-ai">💬 Phân tích FPT chi tiết</div>
+      <div class="ask-ai"><i data-lucide="message-square" class="lucide"></i> Phân tích FPT chi tiết</div>
     </div>
 
     <!-- Card 4: Pro Blur -->
@@ -320,8 +368,8 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-yellow"></span>
-          <span class="tag tag-pro">⭐ PRO</span>
-          <span class="tag tag-bctc">PHÂN TÍCH</span>
+          <span class="tag tag-pro"><i data-lucide="crown" class="lucide-sm"></i> Pro</span>
+          <span class="tag tag-bctc">Phân tích</span>
         </div>
         <span class="card-time">14:30</span>
       </div>
@@ -331,41 +379,44 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
           <div class="card-data">Giá HPG đã giảm 4.2% nhưng RSI 28 — vùng quá bán mạnh. Hỗ trợ tại 25,000 (MA200). 3 lần tương tự trong 12 tháng → hồi TB +12%. P/E trailing 8.5x vs ngành 10.2x — định giá hấp dẫn nếu BCTC không tệ hơn kỳ vọng.</div>
         </div>
         <div class="pro-overlay">
-          <span class="lock">🔒</span>
+          <i data-lucide="lock" class="lucide-xl"></i>
           <span class="pro-label">Nội dung Pro — 549,000đ/tháng</span>
-          <span class="countdown">⏱️ Unlock miễn phí sau 18 giờ nữa</span>
-          <button class="pro-btn">🔓 Mở khóa Pro</button>
+          <span class="countdown"><i data-lucide="timer" class="lucide-sm"></i> Unlock miễn phí sau 18 giờ nữa</span>
+          <button class="pro-btn"><i data-lucide="unlock" class="lucide-sm"></i> Mở khóa Pro</button>
         </div>
       </div>
     </div>
 
-    <!-- Card 5: Gift Card (Pro taste) -->
+    <!-- Card 5: Gift -->
     <div class="signal-card border-purple">
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-yellow"></span>
-          <span class="tag tag-pro">⭐ QUÀ TẶNG</span>
+          <span class="tag tag-pro"><i data-lucide="gift" class="lucide-sm"></i> Quà tặng</span>
           <span class="tag tag-bctc">BCTC</span>
         </div>
         <span class="card-time">Hôm qua</span>
       </div>
-      <div class="gift-banner">🎁 Đây là tính năng Pro. Hôm nay tôi tặng bạn.</div>
+      <div class="gift-banner"><i data-lucide="gift" class="lucide"></i> Đây là tính năng Pro. Hôm nay tôi tặng bạn.</div>
       <div class="card-title">VCB công bố BCTC Q4: lãi ròng vượt kỳ vọng 18%, NIM cải thiện</div>
       <div class="card-data">
         EPS <strong class="up">4,850đ</strong> (+18% YoY). Biên lãi ròng <strong class="up">3.8%</strong> (+0.4pp). Nợ xấu <strong>0.68%</strong> — thấp nhất ngành. P/E trailing 14.2x.
       </div>
       <div class="history">
-        <p><span class="icon">🕐</span> 3 lần VCB BCTC vượt kỳ vọng → tăng TB <strong>+6.5%</strong> trong 10 phiên.</p>
+        <i data-lucide="history" class="lucide"></i>
+        <p>3 lần VCB BCTC vượt kỳ vọng → tăng TB <strong>+6.5%</strong> trong 10 phiên.</p>
       </div>
       <div class="context">
-        Bạn cầm <strong>1,500 VCB</strong> (42% danh mục). BCTC tích cực → giữ. Kháng cự tiếp <strong>98,000</strong>.
+        <i data-lucide="user" class="lucide"></i>
+        <span>Bạn cầm <strong>1,500 VCB</strong> (42% danh mục). BCTC tích cực → giữ. Kháng cự tiếp <strong>98,000</strong>.</span>
       </div>
-      <div style="font-size: 13px; color: var(--text-secondary); background: var(--opacity-accent); border-radius: 8px; padding: 10px; margin-top: 8px; text-align: center;">
-        💡 Bạn đang có nội dung này miễn phí. Pro subscribers nhận phân tích này <strong style="color:var(--text-primary)">MỖI NGÀY</strong>.
+      <div class="pro-upsell">
+        <i data-lucide="sparkles" class="lucide-sm" style="color:var(--text-accent)"></i>
+        Bạn đang có nội dung này miễn phí. Pro subscribers nhận phân tích này <strong>MỖI NGÀY</strong>.
       </div>
-      <div style="display: flex; gap: 8px; margin-top: 12px;">
-        <button style="flex:1; height: 40px; background: transparent; border: 1px solid var(--line-accent); color: var(--text-accent); border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body);">💬 Hỏi thêm</button>
-        <button style="flex:1; height: 40px; background: var(--bg-accent); border: none; color: #fff; border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body);">🔓 Nâng cấp Pro</button>
+      <div class="btn-row">
+        <button class="btn-outline"><i data-lucide="message-square" class="lucide-sm"></i> Hỏi thêm</button>
+        <button class="btn-primary"><i data-lucide="unlock" class="lucide-sm"></i> Nâng cấp Pro</button>
       </div>
     </div>
 
@@ -376,25 +427,26 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-yellow"></span>
-          <span class="tag" style="background:var(--opacity-green); color:var(--text-green);">✨ VIP UNLOCKED</span>
-          <span class="tag tag-tech">KỸ THUẬT</span>
+          <span class="tag" style="background:var(--opacity-green); color:var(--text-green); display:inline-flex; align-items:center; gap:4px;"><i data-lucide="sparkles" class="lucide-sm"></i> VIP Unlocked</span>
+          <span class="tag tag-tech"><i data-lucide="activity" class="lucide-sm"></i> Kỹ thuật</span>
         </div>
         <span class="card-time">Hôm qua</span>
       </div>
-      <div class="delay-label">⏱️ Signal này đã delay 24h</div>
+      <div class="delay-label"><i data-lucide="timer" class="lucide-sm"></i> Signal này đã delay 24h</div>
       <div class="card-title">MWG breakout kháng cự 52,000 sau chuỗi 3 phiên tăng liên tiếp</div>
       <div class="card-data">
         MWG vượt <strong>52,000</strong> lần đầu từ tháng 9. Volume <strong class="up">220%</strong> TB. RSI 65.
       </div>
       <div class="vip-result">
-        <span class="icon">📈</span>
+        <i data-lucide="trending-up" class="lucide"></i>
         <span class="text">Từ khi Pro nhận signal này: MWG đã tăng +3.2% (52,000 → 53,660)</span>
       </div>
-      <div style="font-size: 13px; color: var(--text-secondary); text-align: center; padding: 8px; background: var(--opacity-green); border-radius: 8px; margin-bottom: 8px;">
-        💡 Pro users đã biết sớm hơn bạn 1 ngày. Chênh lệch: <strong style="color:var(--text-green)">+3.2%</strong>
+      <div class="pro-upsell-green">
+        <i data-lucide="sparkles" class="lucide-sm" style="color:var(--text-green)"></i>
+        Pro users đã biết sớm hơn bạn 1 ngày. Chênh lệch: <strong>+3.2%</strong>
       </div>
       <div style="text-align: center;">
-        <button style="background: var(--bg-accent); border: none; color: #fff; border-radius: var(--radius-secondary); font-size: 13px; font-weight: 600; cursor: pointer; padding: 10px 32px; font-family: var(--font-body);">🔓 Nâng cấp Pro</button>
+        <button class="btn-primary" style="margin: 0 auto;"><i data-lucide="unlock" class="lucide-sm"></i> Nâng cấp Pro</button>
       </div>
     </div>
 
@@ -403,7 +455,7 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
       <div class="card-top">
         <div class="card-tags">
           <span class="dot dot-yellow"></span>
-          <span class="tag tag-macro">VĨ MÔ</span>
+          <span class="tag tag-macro"><i data-lucide="globe" class="lucide-sm"></i> Vĩ mô</span>
         </div>
         <span class="card-time">Hôm qua 22:30</span>
       </div>
@@ -412,33 +464,35 @@ body { font-family: var(--font-body); background: #111; color: var(--text-primar
         DXY <strong class="up">+0.8%</strong> overnight. USD/VND tăng lên <strong>25,180</strong>. KN bán ròng dự kiến tiếp diễn 3-5 phiên.
       </div>
       <div class="context">
-        Ảnh hưởng danh mục: <strong>HPG</strong> (35%) và <strong>VCB</strong> (42%) chịu áp lực. Không mua mới hôm nay.
+        <i data-lucide="briefcase" class="lucide"></i>
+        <span>Ảnh hưởng danh mục: <strong>HPG</strong> (35%) và <strong>VCB</strong> (42%) chịu áp lực. Không mua mới hôm nay.</span>
       </div>
-      <div class="ask-ai">💬 Hỏi thêm về DXY & danh mục</div>
+      <div class="ask-ai"><i data-lucide="message-square" class="lucide"></i> Hỏi thêm về DXY & danh mục</div>
     </div>
 
-  </div><!-- /feed -->
+  </div>
 
   <!-- Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-item">
-      <span class="bi">📊</span>
+      <i data-lucide="bar-chart-3" class="lucide"></i>
       <span>Finpath</span>
     </div>
     <div class="bottom-item">
-      <span class="bi">📋</span>
+      <i data-lucide="list" class="lucide"></i>
       <span>Bảng giá</span>
     </div>
     <div class="bottom-item">
-      <span class="bi">👥</span>
+      <i data-lucide="users" class="lucide"></i>
       <span>Cộng đồng</span>
     </div>
     <div class="bottom-item active">
-      <span class="bi">🧠</span>
+      <i data-lucide="brain" class="lucide"></i>
       <span>Tình báo</span>
     </div>
   </div>
 </div>
 
+<script>lucide.createIcons();</script>
 </body>
 </html>
