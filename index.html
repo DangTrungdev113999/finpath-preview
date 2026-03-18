@@ -23,17 +23,13 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
 .lucide{width:18px;height:18px;stroke-width:1.75}
 .ico-sm{width:14px;height:14px;stroke-width:1.75}
 .ico-xs{width:12px;height:12px;stroke-width:2}
-.ico-lg{width:20px;height:20px;stroke-width:1.5}
 
-/* ── Phone ── */
 .phone{width:390px;min-height:844px;margin:20px auto;background:var(--bg-1);border-radius:44px;overflow:hidden;border:2px solid #161618;display:flex;flex-direction:column}
 
-/* ── Status ── */
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:14px 28px 6px;font-size:15px;font-weight:600}
 .sbar-r{display:flex;gap:5px;align-items:center}
 .sbar-r .lucide{width:15px;height:15px}
 
-/* ── Header ── */
 .hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 16px}
 .logo{font-family:var(--font-title);font-size:22px;font-weight:700;letter-spacing:-0.3px}
 .logo b{color:var(--text-accent)}
@@ -41,16 +37,13 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
 .hdr-btn{color:var(--text-2);display:flex;position:relative}
 .hdr-dot{position:absolute;top:-1px;right:-2px;width:6px;height:6px;background:var(--bg-red);border-radius:50%}
 
-/* ── Feed ── */
 .feed{flex:1;overflow-y:auto;padding-bottom:72px}
 .feed::-webkit-scrollbar{display:none}
 
-/* ── Sticky ── */
 .sticky{position:sticky;top:0;z-index:10;margin:4px 20px 6px;background:rgba(25,109,254,0.08);backdrop-filter:blur(16px);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
 .dot-pulse{width:6px;height:6px;background:var(--bg-red);border-radius:50%;animation:p 1.5s infinite}
 @keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ── Section ── */
 .sec{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;padding:20px 20px 10px}
 
 /* ── Briefing ── */
@@ -66,73 +59,71 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
 .brief-f .cta{font-size:12px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;gap:3px}
 
 /* ════════════════════════════
-   SIGNAL ITEM — X/Threads style
-   1 focal point + progressive disclosure
+   SIGNAL ITEM v5
+   X-style nhưng history + context inline
    ════════════════════════════ */
+.item{padding:14px 20px;border-bottom:1px solid var(--line)}
 
-.item{padding:14px 20px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s}
-.item:active{background:rgba(255,255,255,0.02)}
-
-/* Row 1: icon + type + ticker + time */
+/* Top: icon + type + ticker + time */
 .item-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.item-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.item-icon .lucide{width:15px;height:15px}
-.item-icon.red{background:rgba(255,93,102,0.1);color:var(--text-red)}
-.item-icon.yellow{background:rgba(255,210,0,0.08);color:var(--text-yellow)}
-.item-icon.blue{background:rgba(35,205,237,0.08);color:var(--text-blue)}
-.item-icon.green{background:rgba(16,215,130,0.08);color:var(--text-green)}
-.item-icon.purple{background:rgba(153,69,255,0.08);color:var(--text-purple)}
-.item-icon.orange{background:rgba(237,112,47,0.08);color:var(--text-orange)}
+.item-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.item-ico .lucide{width:15px;height:15px}
+.item-ico.red{background:rgba(255,93,102,0.1);color:var(--text-red)}
+.item-ico.yellow{background:rgba(255,210,0,0.08);color:var(--text-yellow)}
+.item-ico.blue{background:rgba(35,205,237,0.08);color:var(--text-blue)}
+.item-ico.green{background:rgba(16,215,130,0.08);color:var(--text-green)}
+.item-ico.purple{background:rgba(153,69,255,0.08);color:var(--text-purple)}
+.item-ico.orange{background:rgba(237,112,47,0.08);color:var(--text-orange)}
 .item-type{font-size:12px;font-weight:600;color:var(--text-2)}
 .item-sep{color:var(--text-3);font-size:11px}
 .item-ticker{font-size:12px;font-weight:700;color:var(--text-1)}
 .item-time{font-size:12px;color:var(--text-3);margin-left:auto}
 
-/* Row 2: Title — THE focal point */
+/* Title */
 .item-title{font-size:15px;line-height:21px;font-weight:600;color:var(--text-1);margin-bottom:6px}
 
-/* Row 3: Key number — one line */
-.item-num{font-size:13px;line-height:18px;color:var(--text-2);margin-bottom:8px}
+/* Key number */
+.item-num{font-size:13px;line-height:18px;color:var(--text-2);margin-bottom:10px}
 .item-num strong{color:var(--text-1);font-weight:600}
 .item-num .up{color:var(--text-green);font-weight:700}
 .item-num .dn{color:var(--text-red);font-weight:700}
 
-/* Row 4: Action bar — minimal */
-.item-actions{display:flex;align-items:center;gap:20px}
-.act{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--text-3);cursor:pointer;transition:color .15s}
-.act:hover{color:var(--text-accent)}
-.act .lucide{width:15px;height:15px}
-.act-ai{color:var(--text-accent)}
+/* ── Inline footnotes: history + context ── */
+/* Kiểu "quoted reply" của X — nhỏ gọn, muted, scannable */
+.footnotes{margin-bottom:10px;display:flex;flex-direction:column;gap:4px}
+.fn{display:flex;gap:6px;align-items:baseline;font-size:12px;line-height:17px;color:var(--text-3)}
+.fn .lucide{width:12px;height:12px;flex-shrink:0;position:relative;top:2px;opacity:.5}
+.fn strong{color:var(--text-2);font-weight:600}
+.fn .hl{color:var(--text-1);font-weight:600}
+.fn .up{color:var(--text-green);font-weight:600}
+.fn .dn{color:var(--text-red);font-weight:600}
 
-/* ── Expanded Detail (hidden by default) ── */
-.item-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
-.item.expanded .item-detail{display:block}
-
-.detail-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
-.detail-row .lucide{width:13px;height:13px;flex-shrink:0;margin-top:2px;color:var(--text-3)}
-.detail-row p{font-size:12px;line-height:17px;color:var(--text-2)}
-.detail-row strong{color:var(--text-1);font-weight:600}
-
-.detail-label{font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;margin-top:6px}
-
-/* Chain (inside detail) */
-.chain{display:flex;align-items:center;gap:4px;margin-bottom:10px}
-.chain-n{background:var(--bg-2);border-radius:8px;padding:6px 12px;text-align:center}
-.chain-n.hl{background:rgba(75,146,255,0.08)}
-.chain-n .tk{font-size:12px;font-weight:700}
-.chain-n .sub{font-size:10px;color:var(--text-2)}
-.chain-n .sub-a{font-size:10px;color:var(--text-accent)}
+/* Chain inline */
+.chain-inline{display:flex;align-items:center;gap:4px;margin-bottom:10px;font-size:12px}
+.chain-pill{background:var(--bg-2);border-radius:6px;padding:4px 10px;font-weight:700;font-size:12px}
+.chain-pill.hl{color:var(--text-accent);background:rgba(75,146,255,0.08)}
+.chain-mid{color:var(--text-3);font-weight:500;font-size:11px}
 .chain-arr{color:var(--text-3);opacity:.4;display:flex}
 .chain-arr .lucide{width:12px;height:12px}
 
-/* Sources (inside detail) */
+/* Action bar */
+.actions{display:flex;align-items:center;gap:20px}
+.act{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--text-3);cursor:pointer}
+.act:hover{color:var(--text-2)}
+.act .lucide{width:15px;height:15px}
+.act-ai{color:var(--text-accent)}
+.act-ai:hover{color:var(--text-accent);opacity:.8}
+
+/* ── Expand: chỉ cho nguồn compound ── */
+.src-wrap{display:none;margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
+.item.expanded .src-wrap{display:block}
 .src{background:var(--bg-2);border-radius:8px;padding:8px 10px;margin-bottom:4px}
 .src-h{font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;display:flex;align-items:center;gap:4px}
 .src-h .lucide{width:11px;height:11px;opacity:.5}
 .src-p{font-size:12px;line-height:16px;color:var(--text-2)}
 
-/* ── Pro Card ── */
-.pro-blur{position:relative;margin-top:4px}
+/* ── Pro ── */
+.pro-blur{position:relative;margin-bottom:8px}
 .pro-blur-inner{filter:blur(5px);opacity:.5;pointer-events:none;user-select:none}
 .pro-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .pro-over .lucide{color:var(--text-3);width:22px;height:22px}
@@ -141,24 +132,22 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
 .pro-sub .lucide{width:12px;height:12px}
 .pro-btn{margin-top:4px;background:var(--bg-accent);color:#fff;font-size:12px;font-weight:600;padding:7px 18px;border-radius:8px;border:none;cursor:pointer;font-family:var(--font-body);display:flex;align-items:center;gap:4px}
 
-/* ── Gift ── */
-.gift-note{font-size:12px;color:var(--text-accent);background:rgba(75,146,255,0.06);border-radius:8px;padding:8px 10px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:5px;font-weight:500}
-.upsell{font-size:11px;color:var(--text-2);text-align:center;margin-top:8px;line-height:16px}
-.upsell strong{color:var(--text-1);font-weight:600}
+/* Gift */
+.gift-note{font-size:12px;color:var(--text-accent);background:rgba(75,146,255,0.06);border-radius:8px;padding:7px 10px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:5px;font-weight:500}
+.upsell{font-size:11px;color:var(--text-3);text-align:center;margin-top:6px;line-height:16px}
+.upsell strong{color:var(--text-2);font-weight:600}
 .btn-row{display:flex;gap:6px;margin-top:8px}
 .btn-row>*{flex:1}
 .btn-p{height:36px;background:var(--bg-accent);border:none;color:#fff;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-body);display:flex;align-items:center;justify-content:center;gap:4px}
 .btn-o{height:36px;background:transparent;border:1px solid rgba(75,146,255,0.2);color:var(--text-accent);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-body);display:flex;align-items:center;justify-content:center;gap:4px}
 
-/* ── VIP ── */
-.vip-bar{display:flex;align-items:center;gap:6px;padding:6px 10px;background:rgba(16,215,130,0.06);border-radius:6px;margin-bottom:6px;font-size:12px;color:var(--text-green);font-weight:600}
+/* VIP */
+.vip-bar{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-green);font-weight:600;margin-bottom:4px}
 .vip-bar .lucide{width:14px;height:14px}
 .delay{font-size:10px;color:var(--text-3);display:flex;align-items:center;gap:3px;margin-bottom:6px}
 .delay .lucide{width:11px;height:11px}
-.upsell-g{font-size:11px;color:var(--text-2);text-align:center;margin-bottom:8px}
-.upsell-g strong{color:var(--text-green);font-weight:600}
 
-/* ── Bottom ── */
+/* Bottom */
 .bbar{display:flex;justify-content:space-around;align-items:center;height:52px;background:var(--bg-1);border-top:1px solid var(--line);position:sticky;bottom:0}
 .btab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:500;color:var(--text-3);cursor:pointer}
 .btab.active{color:var(--text-accent)}
@@ -170,11 +159,7 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
 <div class="phone">
   <div class="sbar">
     <span>9:41</span>
-    <div class="sbar-r">
-      <i data-lucide="signal" class="lucide"></i>
-      <i data-lucide="wifi" class="lucide"></i>
-      <i data-lucide="battery-full" class="lucide"></i>
-    </div>
+    <div class="sbar-r"><i data-lucide="signal" class="lucide"></i><i data-lucide="wifi" class="lucide"></i><i data-lucide="battery-full" class="lucide"></i></div>
   </div>
 
   <div class="hdr">
@@ -186,10 +171,8 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
   </div>
 
   <div class="feed">
-
     <div class="sticky"><span class="dot-pulse"></span>1 tín hiệu mới</div>
 
-    <!-- Briefing -->
     <div class="brief">
       <div class="brief-row">
         <div class="brief-t"><i data-lucide="sun" class="lucide"></i> Bản tin sáng 18/03</div>
@@ -204,127 +187,89 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
 
     <div class="sec">Hôm nay</div>
 
-    <!-- Item 1: Compound (Critical) -->
+    <!-- 1: Compound -->
     <div class="item" onclick="this.classList.toggle('expanded')">
       <div class="item-top">
-        <div class="item-icon red"><i data-lucide="layers" class="lucide"></i></div>
+        <div class="item-ico red"><i data-lucide="layers" class="lucide"></i></div>
         <span class="item-type">Compound</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">HPG</span>
         <span class="item-time">9:32</span>
       </div>
-      <div class="item-title">Nghi vấn dumping từ EU + sentiment tiêu cực bùng + giá giảm 4.2%</div>
-      <div class="item-num">Giá <strong class="dn">25,300</strong> (–4.2%) · Volume gấp <strong>2.8x</strong> · Tiêu cực <strong class="dn">+340%</strong></div>
-      <div class="item-actions">
+      <div class="item-title">Nghi vấn dumping từ EU + sentiment tiêu cực + giá giảm 4.2%</div>
+      <div class="item-num">Giá <strong class="dn">25,300</strong> (–4.2%) · Vol <strong>2.8x</strong> · Tiêu cực <strong class="dn">+340%</strong></div>
+      <div class="footnotes">
+        <div class="fn"><i data-lucide="clock" class="lucide"></i> <span><strong>15/08/2025</strong> tương tự — giảm thêm 1.5%, hồi <span class="up">+12%</span> trong 3 tuần</span></div>
+        <div class="fn"><i data-lucide="user" class="lucide"></i> <span>Bạn cầm <span class="hl">2,000 HPG</span> (35%) · giảm thêm 8% → danh mục <span class="dn">–2.8%</span></span></div>
+      </div>
+      <div class="actions">
         <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
-        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Chi tiết</span>
-        <span class="act"><i data-lucide="share" class="lucide"></i></span>
+        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Nguồn</span>
+        <span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span>
         <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
       </div>
-
-      <!-- Expanded -->
-      <div class="item-detail">
-        <div class="detail-label">Lịch sử tương tự</div>
-        <div class="detail-row">
-          <i data-lucide="clock" class="lucide"></i>
-          <p><strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 1.5%, hồi +12% trong 3 tuần.</p>
-        </div>
-        <div class="detail-label">Danh mục của bạn</div>
-        <div class="detail-row">
-          <i data-lucide="user" class="lucide"></i>
-          <p>Đang cầm <strong>2,000 HPG</strong> (35%). Giảm thêm 8% → danh mục <strong style="color:var(--text-red)">–2.8%</strong>.</p>
-        </div>
-        <div class="detail-label">Nguồn</div>
-        <div class="src">
-          <div class="src-h"><i data-lucide="newspaper" class="lucide"></i> Tin tức</div>
-          <div class="src-p">UBCKNN yêu cầu giải trình BCTC Q4/2025 — nghi vấn khấu hao Dung Quất</div>
-        </div>
-        <div class="src">
-          <div class="src-h"><i data-lucide="message-circle" class="lucide"></i> Cảm xúc</div>
-          <div class="src-p">Tiêu cực +340% trên 5 nhóm Telegram. Phân loại: lo ngại thật.</div>
-        </div>
-        <div class="src">
-          <div class="src-h"><i data-lucide="trending-down" class="lucide"></i> Giá</div>
-          <div class="src-p">–4.2% phiên sáng, vol 2.8x avg. KN bán ròng 45 tỷ.</div>
-        </div>
+      <div class="src-wrap">
+        <div class="src"><div class="src-h"><i data-lucide="newspaper" class="lucide"></i> Tin tức</div><div class="src-p">UBCKNN yêu cầu giải trình BCTC Q4/2025 — nghi vấn khấu hao Dung Quất</div></div>
+        <div class="src"><div class="src-h"><i data-lucide="message-circle" class="lucide"></i> Cảm xúc</div><div class="src-p">Tiêu cực +340% trên 5 nhóm Telegram. Phân loại: lo ngại thật.</div></div>
+        <div class="src"><div class="src-h"><i data-lucide="trending-down" class="lucide"></i> Giá</div><div class="src-p">–4.2% phiên sáng, vol 2.8x avg. KN bán ròng 45 tỷ.</div></div>
       </div>
     </div>
 
-    <!-- Item 2: Adjacent -->
-    <div class="item" onclick="this.classList.toggle('expanded')">
+    <!-- 2: Adjacent -->
+    <div class="item">
       <div class="item-top">
-        <div class="item-icon yellow"><i data-lucide="git-branch" class="lucide"></i></div>
+        <div class="item-ico yellow"><i data-lucide="git-branch" class="lucide"></i></div>
         <span class="item-type">Adjacent</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">DXG → VCB</span>
         <span class="item-time">8:45</span>
       </div>
-      <div class="item-title">DXG giảm sàn — rủi ro nợ xấu BĐS lan sang VCB</div>
-      <div class="item-num">DXG dư bán <strong>14.7tr CP</strong> · Nợ BĐS tại VCB chiếm <strong>26%</strong></div>
-      <div class="item-actions">
-        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
-        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Chi tiết</span>
-        <span class="act"><i data-lucide="share" class="lucide"></i></span>
-        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
+      <div class="chain-inline">
+        <span class="chain-pill" style="color:var(--text-red)">DXG –12%</span>
+        <span class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span>
+        <span class="chain-mid">nợ xấu BĐS</span>
+        <span class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span>
+        <span class="chain-pill hl">VCB</span>
       </div>
-
-      <div class="item-detail">
-        <div class="chain">
-          <div class="chain-n"><div class="tk" style="color:var(--text-red)">DXG</div><div class="sub">–12%</div></div>
-          <div class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></div>
-          <div class="chain-n"><div class="sub">Nợ xấu BĐS</div></div>
-          <div class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></div>
-          <div class="chain-n hl"><div class="tk" style="color:var(--text-accent)">VCB</div><div class="sub-a">bạn cầm</div></div>
-        </div>
-        <div class="detail-label">Lịch sử tương tự</div>
-        <div class="detail-row">
-          <i data-lucide="clock" class="lucide"></i>
-          <p><strong>11/2022:</strong> FLC sụp → VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS.</p>
-        </div>
-        <div class="detail-label">Danh mục của bạn</div>
-        <div class="detail-row">
-          <i data-lucide="user" class="lucide"></i>
-          <p>Cầm <strong>1,500 VCB</strong> (42% danh mục). Theo dõi phản ứng VCB chiều nay.</p>
-        </div>
+      <div class="item-title">DXG giảm sàn — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
+      <div class="item-num">DXG dư bán <strong>14.7tr CP</strong> · Nợ BĐS tại VCB <strong>26%</strong> tổng cho vay</div>
+      <div class="footnotes">
+        <div class="fn"><i data-lucide="clock" class="lucide"></i> <span><strong>11/2022</strong> FLC sụp → VCB giảm 12% trong 1 tháng dù exposure thấp</span></div>
+        <div class="fn"><i data-lucide="user" class="lucide"></i> <span>Bạn cầm <span class="hl">1,500 VCB</span> (42%) · theo dõi phản ứng chiều nay</span></div>
+      </div>
+      <div class="actions">
+        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
+        <span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span>
+        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
       </div>
     </div>
 
-    <!-- Item 3: Technical -->
-    <div class="item" onclick="this.classList.toggle('expanded')">
+    <!-- 3: Technical -->
+    <div class="item">
       <div class="item-top">
-        <div class="item-icon orange"><i data-lucide="activity" class="lucide"></i></div>
+        <div class="item-ico orange"><i data-lucide="activity" class="lucide"></i></div>
         <span class="item-type">Kỹ thuật</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">FPT</span>
         <span class="item-time">8:12</span>
       </div>
       <div class="item-title">Breakout khỏi vùng tích lũy 4 tuần, volume xác nhận</div>
-      <div class="item-num">Vượt <strong>128,000</strong> · Volume <strong class="up">180%</strong> TB · RSI 62</div>
-      <div class="item-actions">
-        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
-        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Chi tiết</span>
-        <span class="act"><i data-lucide="share" class="lucide"></i></span>
-        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
+      <div class="item-num">Vượt <strong>128,000</strong> · Vol <strong class="up">180%</strong> TB · RSI 62</div>
+      <div class="footnotes">
+        <div class="fn"><i data-lucide="clock" class="lucide"></i> <span>2 lần breakout 12 tháng qua → tăng TB <span class="up">+14%</span> trong 20 phiên</span></div>
+        <div class="fn"><i data-lucide="eye" class="lucide"></i> <span>FPT trong watchlist từ 02/03 · chưa có trong danh mục</span></div>
       </div>
-
-      <div class="item-detail">
-        <div class="detail-label">Lịch sử tương tự</div>
-        <div class="detail-row">
-          <i data-lucide="clock" class="lucide"></i>
-          <p>2 lần breakout tương tự 12 tháng qua → tăng TB <strong>+14%</strong> trong 20 phiên.</p>
-        </div>
-        <div class="detail-label">Danh mục của bạn</div>
-        <div class="detail-row">
-          <i data-lucide="eye" class="lucide"></i>
-          <p>FPT trong watchlist từ 02/03. Chưa có trong danh mục.</p>
-        </div>
+      <div class="actions">
+        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
+        <span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span>
+        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
       </div>
     </div>
 
-    <!-- Item 4: Pro (locked) -->
+    <!-- 4: Pro locked -->
     <div class="item">
       <div class="item-top">
-        <div class="item-icon purple"><i data-lucide="crown" class="lucide"></i></div>
+        <div class="item-ico purple"><i data-lucide="crown" class="lucide"></i></div>
         <span class="item-type" style="color:var(--text-purple)">Pro</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">HPG</span>
@@ -333,7 +278,8 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
       <div class="item-title">Phân tích chuyên sâu HPG sau tin điều tra</div>
       <div class="pro-blur">
         <div class="pro-blur-inner">
-          <div class="item-num">RSI 28 vùng quá bán. Hỗ trợ 25,000 (MA200). P/E 8.5x vs ngành 10.2x.</div>
+          <div class="item-num">RSI 28 quá bán. Hỗ trợ 25,000 (MA200). P/E 8.5x vs ngành 10.2x → hấp dẫn.</div>
+          <div class="footnotes"><div class="fn">3 lần tương tự → hồi TB +12%. Bạn cầm 2,000 HPG (35%).</div></div>
         </div>
         <div class="pro-over">
           <i data-lucide="lock" class="lucide"></i>
@@ -344,10 +290,10 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
       </div>
     </div>
 
-    <!-- Item 5: Gift -->
-    <div class="item" onclick="this.classList.toggle('expanded')">
+    <!-- 5: Gift -->
+    <div class="item">
       <div class="item-top">
-        <div class="item-icon purple"><i data-lucide="gift" class="lucide"></i></div>
+        <div class="item-ico purple"><i data-lucide="gift" class="lucide"></i></div>
         <span class="item-type" style="color:var(--text-purple)">Quà tặng</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">VCB</span>
@@ -356,84 +302,57 @@ body{font-family:var(--font-body);background:#080809;color:var(--text-1);-webkit
       <div class="gift-note"><i data-lucide="gift" class="ico-sm"></i> Tính năng Pro — hôm nay tặng bạn</div>
       <div class="item-title">BCTC Q4: lãi ròng vượt kỳ vọng 18%, NIM cải thiện</div>
       <div class="item-num">EPS <strong class="up">4,850đ</strong> (+18% YoY) · NIM <strong class="up">3.8%</strong> · Nợ xấu <strong>0.68%</strong></div>
-      <div class="item-actions">
-        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
-        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Chi tiết</span>
-        <span class="act"><i data-lucide="share" class="lucide"></i></span>
-        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
+      <div class="footnotes">
+        <div class="fn"><i data-lucide="clock" class="lucide"></i> <span>3 lần BCTC vượt kỳ vọng → tăng TB <span class="up">+6.5%</span> trong 10 phiên</span></div>
+        <div class="fn"><i data-lucide="user" class="lucide"></i> <span>Bạn cầm <span class="hl">1,500 VCB</span> (42%) · giữ · kháng cự <span class="hl">98,000</span></span></div>
       </div>
-
-      <div class="item-detail">
-        <div class="detail-label">Lịch sử tương tự</div>
-        <div class="detail-row">
-          <i data-lucide="clock" class="lucide"></i>
-          <p>3 lần VCB BCTC vượt kỳ vọng → tăng TB <strong>+6.5%</strong> trong 10 phiên.</p>
-        </div>
-        <div class="detail-label">Danh mục của bạn</div>
-        <div class="detail-row">
-          <i data-lucide="user" class="lucide"></i>
-          <p>Cầm <strong>1,500 VCB</strong> (42%). Giữ. Kháng cự <strong>98,000</strong>.</p>
-        </div>
-        <div class="upsell">Pro subscribers nhận phân tích này <strong>mỗi ngày</strong>.</div>
-        <div class="btn-row">
-          <button class="btn-o"><i data-lucide="sparkles" class="ico-sm"></i> Hỏi thêm</button>
-          <button class="btn-p"><i data-lucide="unlock" class="ico-sm"></i> Nâng cấp</button>
-        </div>
+      <div class="upsell">Pro nhận phân tích này <strong>mỗi ngày</strong></div>
+      <div class="btn-row">
+        <button class="btn-o"><i data-lucide="sparkles" class="ico-sm"></i> Hỏi thêm</button>
+        <button class="btn-p"><i data-lucide="unlock" class="ico-sm"></i> Nâng cấp</button>
       </div>
     </div>
 
     <div class="sec">Hôm qua — đã unlock</div>
 
-    <!-- Item 6: Unlocked -->
-    <div class="item" onclick="this.classList.toggle('expanded')">
+    <!-- 6: Unlocked -->
+    <div class="item">
       <div class="item-top">
-        <div class="item-icon green"><i data-lucide="check-circle" class="lucide"></i></div>
+        <div class="item-ico green"><i data-lucide="check-circle" class="lucide"></i></div>
         <span class="item-type" style="color:var(--text-green)">Unlocked</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">MWG</span>
         <span class="item-time">Hôm qua</span>
       </div>
       <div class="delay"><i data-lucide="timer" class="lucide"></i> Đã delay 24h</div>
-      <div class="item-title">Breakout 52,000 sau chuỗi 3 phiên tăng liên tiếp</div>
-      <div class="item-num">Volume <strong class="up">220%</strong> TB · RSI 65</div>
+      <div class="item-title">Breakout 52,000 sau 3 phiên tăng liên tiếp</div>
+      <div class="item-num">Vol <strong class="up">220%</strong> TB · RSI 65</div>
       <div class="vip-bar"><i data-lucide="trending-up" class="lucide"></i> Pro đã biết sớm 1 ngày: MWG +3.2%</div>
-      <div class="item-actions">
+      <div class="actions">
         <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
-        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Chi tiết</span>
-        <span class="act"><i data-lucide="share" class="lucide"></i></span>
+        <span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span>
         <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
-      </div>
-
-      <div class="item-detail">
-        <div class="upsell-g">Chênh lệch: <strong>+3.2%</strong></div>
-        <button class="btn-p" style="margin:0 auto"><i data-lucide="unlock" class="ico-sm"></i> Nâng cấp Pro</button>
       </div>
     </div>
 
-    <!-- Item 7: Macro -->
-    <div class="item" onclick="this.classList.toggle('expanded')">
+    <!-- 7: Macro -->
+    <div class="item">
       <div class="item-top">
-        <div class="item-icon yellow"><i data-lucide="globe" class="lucide"></i></div>
+        <div class="item-ico yellow"><i data-lucide="globe" class="lucide"></i></div>
         <span class="item-type">Vĩ mô</span>
         <span class="item-sep">·</span>
         <span class="item-ticker">DXY</span>
         <span class="item-time">22:30</span>
       </div>
-      <div class="item-title">DXY bứt phá 105.2 — KN dự kiến xả ròng, áp lực VN-Index</div>
-      <div class="item-num">DXY <strong class="up">+0.8%</strong> · USD/VND <strong>25,180</strong></div>
-      <div class="item-actions">
-        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
-        <span class="act"><i data-lucide="chevron-down" class="lucide"></i> Chi tiết</span>
-        <span class="act"><i data-lucide="share" class="lucide"></i></span>
-        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
+      <div class="item-title">DXY bứt phá 105.2 — KN dự kiến xả ròng</div>
+      <div class="item-num">DXY <strong class="up">+0.8%</strong> · USD/VND <strong>25,180</strong> · KN bán ròng 3-5 phiên</div>
+      <div class="footnotes">
+        <div class="fn"><i data-lucide="briefcase" class="lucide"></i> <span><span class="hl">HPG</span> (35%) và <span class="hl">VCB</span> (42%) chịu áp lực · không mua mới</span></div>
       </div>
-
-      <div class="item-detail">
-        <div class="detail-label">Danh mục của bạn</div>
-        <div class="detail-row">
-          <i data-lucide="briefcase" class="lucide"></i>
-          <p><strong>HPG</strong> (35%) và <strong>VCB</strong> (42%) chịu áp lực. Không mua mới hôm nay.</p>
-        </div>
+      <div class="actions">
+        <span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span>
+        <span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span>
+        <span class="act"><i data-lucide="bookmark" class="lucide"></i></span>
       </div>
     </div>
 
