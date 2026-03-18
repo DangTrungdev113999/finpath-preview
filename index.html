@@ -21,163 +21,140 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-font-smoothing:antialiased;overflow:hidden}
-.lucide{width:18px;height:18px;stroke-width:1.75}
-.ico-s{width:14px;height:14px;stroke-width:1.75}
-.ico-xs{width:12px;height:12px;stroke-width:2}
-.ico-l{width:20px;height:20px;stroke-width:1.5}
-.ico-xl{width:28px;height:28px;stroke-width:1.5}
-.ico-2xl{width:40px;height:40px;stroke-width:1.25}
+.lucide{width:18px;height:18px;stroke-width:1.75}.ico-s{width:14px;height:14px;stroke-width:1.75}.ico-xs{width:12px;height:12px;stroke-width:2}
 
-/* Phone */
 .phone{width:390px;height:844px;margin:20px auto;background:var(--bg-1);border-radius:44px;overflow:hidden;border:2px solid #161618;display:flex;flex-direction:column;position:relative}
-
-/* Status bar */
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:14px 28px 6px;font-size:15px;font-weight:600;flex-shrink:0}
-.sbar-r{display:flex;gap:5px;align-items:center}
-.sbar-r .lucide{width:15px;height:15px}
+.sbar-r{display:flex;gap:5px;align-items:center}.sbar-r .lucide{width:15px;height:15px}
 
-/* Screens */
-.screen{display:none;flex-direction:column;flex:1;overflow:hidden}
+.screen{display:none;flex-direction:column;flex:1;overflow:hidden;animation:fadeIn .2s ease}
 .screen.active{display:flex}
 .screen-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .screen-scroll::-webkit-scrollbar{display:none}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Buttons */
+.btn{width:100%;height:50px;border-radius:var(--r2);font-size:15px;font-weight:600;font-family:var(--font-b);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{opacity:.85}
+.btn-primary{background:var(--bg-accent);color:#fff}
+.btn-sm{height:40px;font-size:13px;border-radius:10px}
+.up{color:var(--text-green);font-weight:700}.dn{color:var(--text-red);font-weight:700}.ref{color:var(--text-yellow);font-weight:700}
 
 /* Bottom bar */
 .bbar{display:flex;justify-content:space-around;align-items:center;height:52px;background:var(--bg-1);border-top:1px solid var(--line);flex-shrink:0}
 .btab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:500;color:var(--text-3);cursor:pointer}
-.btab.active{color:var(--text-accent)}
-.btab .lucide{width:20px;height:20px;stroke-width:1.5}
+.btab.active{color:var(--text-accent)}.btab .lucide{width:20px;height:20px;stroke-width:1.5}
 
 /* ═══════════════════
    ONBOARDING
    ═══════════════════ */
 .ob{padding:0 24px;display:flex;flex-direction:column;justify-content:space-between;height:100%}
 .ob-top{flex:1;display:flex;flex-direction:column;justify-content:center}
-.ob-logo{font-family:var(--font-t);font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-0.5px}
-.ob-logo b{color:var(--text-accent)}
+.ob-logo{font-family:var(--font-t);font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-0.5px}.ob-logo b{color:var(--text-accent)}
 .ob-sub{font-size:15px;color:var(--text-2);line-height:22px;margin-bottom:32px}
 .ob-title{font-family:var(--font-t);font-size:20px;font-weight:700;margin-bottom:20px;line-height:28px}
 .ob-opts{display:flex;flex-direction:column;gap:10px}
 .ob-opt{display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-2);border-radius:var(--r1);border:1.5px solid transparent;cursor:pointer;transition:all .2s}
 .ob-opt:hover,.ob-opt.selected{border-color:var(--bg-accent);background:rgba(25,109,254,0.06)}
-.ob-opt-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.ob-opt-text{flex:1}
-.ob-opt-label{font-size:15px;font-weight:600;margin-bottom:2px}
-.ob-opt-desc{font-size:12px;color:var(--text-2);line-height:16px}
-.ob-opt .check{width:22px;height:22px;border-radius:50%;border:2px solid var(--text-3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
-.ob-opt.selected .check{border-color:var(--bg-accent);background:var(--bg-accent)}
-.ob-opt.selected .check .lucide{color:#fff;width:14px;height:14px}
-
-/* Style options (horizontal) */
+.ob-opt-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ob-opt-text{flex:1}.ob-opt-label{font-size:15px;font-weight:600;margin-bottom:2px}.ob-opt-desc{font-size:12px;color:var(--text-2);line-height:16px}
+.ob-opt .check{width:22px;height:22px;border-radius:50%;border:2px solid var(--text-3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ob-opt.selected .check{border-color:var(--bg-accent);background:var(--bg-accent)}.ob-opt.selected .check .lucide{color:#fff;width:14px;height:14px}
 .ob-styles{display:flex;gap:10px}
 .ob-style{flex:1;padding:20px 14px;background:var(--bg-2);border-radius:var(--r1);border:1.5px solid transparent;cursor:pointer;text-align:center;transition:all .2s}
 .ob-style:hover,.ob-style.selected{border-color:var(--bg-accent);background:rgba(25,109,254,0.06)}
-.ob-style-ico{font-size:28px;margin-bottom:8px}
-.ob-style-label{font-size:14px;font-weight:600;margin-bottom:4px}
-.ob-style-desc{font-size:11px;color:var(--text-2);line-height:15px}
-
-/* Ticker input */
-.ob-input-wrap{margin-bottom:12px}
-.ob-input{width:100%;height:48px;background:var(--bg-2);border:1.5px solid var(--line-2);border-radius:var(--r2);padding:0 16px;font-size:15px;font-family:var(--font-b);color:var(--text-1);outline:none;transition:border .2s}
-.ob-input:focus{border-color:var(--bg-accent)}
-.ob-input::placeholder{color:var(--text-3)}
+.ob-style-ico{font-size:28px;margin-bottom:8px}.ob-style-label{font-size:14px;font-weight:600;margin-bottom:4px}.ob-style-desc{font-size:11px;color:var(--text-2);line-height:15px}
+.ob-input{width:100%;height:48px;background:var(--bg-2);border:1.5px solid var(--line-2);border-radius:var(--r2);padding:0 16px;font-size:15px;font-family:var(--font-b);color:var(--text-1);outline:none}.ob-input:focus{border-color:var(--bg-accent)}.ob-input::placeholder{color:var(--text-3)}
 .ob-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.ob-chip{padding:8px 14px;background:var(--bg-2);border-radius:var(--rr);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .15s;border:1px solid transparent}
-.ob-chip:hover{color:var(--text-1);border-color:var(--line-2)}
+.ob-chip{padding:8px 14px;background:var(--bg-2);border-radius:var(--rr);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer;border:1px solid transparent}
 .ob-chip.selected{background:rgba(25,109,254,0.1);color:var(--text-accent);border-color:var(--bg-accent)}
-
-/* Notification permission */
 .ob-notif{text-align:center;padding:40px 0}
-.ob-notif-ico{width:72px;height:72px;border-radius:20px;background:rgba(25,109,254,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
-.ob-notif-ico .lucide{width:36px;height:36px;color:var(--text-accent)}
+.ob-notif-ico{width:72px;height:72px;border-radius:20px;background:rgba(25,109,254,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}.ob-notif-ico .lucide{width:36px;height:36px;color:var(--text-accent)}
 .ob-notif-title{font-family:var(--font-t);font-size:20px;font-weight:700;margin-bottom:8px}
 .ob-notif-desc{font-size:14px;color:var(--text-2);line-height:20px;max-width:280px;margin:0 auto}
-
-/* Progress */
-.ob-progress{display:flex;gap:4px;margin-bottom:16px}
-.ob-dot{flex:1;height:3px;border-radius:2px;background:var(--bg-3)}
-.ob-dot.done{background:var(--bg-accent)}
-.ob-dot.current{background:var(--text-accent)}
-
-/* Buttons */
+.ob-progress{display:flex;gap:4px;margin-bottom:16px}.ob-dot{flex:1;height:3px;border-radius:2px;background:var(--bg-3)}.ob-dot.done{background:var(--bg-accent)}.ob-dot.current{background:var(--text-accent)}
 .ob-bottom{padding-bottom:40px}
-.btn{width:100%;height:50px;border-radius:var(--r2);font-size:15px;font-weight:600;font-family:var(--font-b);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s}
-.btn:active{opacity:.85}
-.btn-primary{background:var(--bg-accent);color:#fff}
-.btn-secondary{background:transparent;color:var(--text-accent);border:1px solid rgba(75,146,255,0.25)}
-.btn-ghost{background:transparent;color:var(--text-2)}
-.btn:disabled{opacity:.4;cursor:default}
-.btn-sm{height:40px;font-size:13px;border-radius:10px}
-.btn-row{display:flex;gap:8px;margin-top:10px}
-.btn-row>*{flex:1}
-
-/* Skip */
 .ob-skip{text-align:center;margin-top:12px;font-size:13px;color:var(--text-2);cursor:pointer}
 
 /* ═══════════════════
-   HOME
+   HOME — match reference layout
    ═══════════════════ */
-.home-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 8px;flex-shrink:0}
-.home-logo{font-family:var(--font-t);font-size:22px;font-weight:700;letter-spacing:-.3px}
-.home-logo b{color:var(--text-accent)}
-.home-hdr-r{display:flex;gap:16px;align-items:center}
-.home-hdr-btn{color:var(--text-2);display:flex;position:relative}
-.home-hdr-dot{position:absolute;top:-1px;right:-2px;width:6px;height:6px;background:var(--bg-red);border-radius:50%}
+.h-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 8px;flex-shrink:0}
+.h-logo{font-family:var(--font-t);font-size:22px;font-weight:700;letter-spacing:-.3px}.h-logo b{color:var(--text-accent)}
+.h-hdr-r{display:flex;gap:16px;align-items:center}
+.h-btn{color:var(--text-2);display:flex;position:relative}
+.h-dot{position:absolute;top:-1px;right:-2px;width:6px;height:6px;background:var(--bg-red);border-radius:50%}
 
-/* Segment tabs */
-.seg{display:flex;gap:6px;padding:8px 20px;flex-shrink:0}
-.seg-item{padding:6px 14px;border-radius:var(--rr);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .15s}
-.seg-item.active{background:var(--bg-accent);color:#fff;font-weight:600}
+/* Segment */
+.seg{display:flex;gap:6px;padding:6px 20px 10px;flex-shrink:0}
+.seg-i{padding:6px 14px;border-radius:var(--rr);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer}
+.seg-i.active{background:var(--bg-accent);color:#fff;font-weight:600}
 
-/* Index banner */
-.idx-banner{margin:8px 20px 12px;display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.idx-banner::-webkit-scrollbar{display:none}
-.idx-card{min-width:150px;padding:12px 14px;background:var(--bg-2);border-radius:var(--r2);flex-shrink:0}
+/* Index row — giống Finpath: 3 index nằm ngang, compact */
+.idx-row{display:flex;padding:4px 20px 12px;gap:2px}
+.idx-item{flex:1;text-align:center;padding:10px 4px;cursor:pointer}
+.idx-item.active{background:var(--bg-2);border-radius:10px}
 .idx-name{font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:4px}
-.idx-val{font-size:18px;font-weight:700;font-family:var(--font-t)}
-.idx-chg{font-size:12px;font-weight:600;margin-top:2px}
+.idx-val{font-size:17px;font-weight:700;font-family:var(--font-t);margin-bottom:2px}
+.idx-chg{font-size:12px;font-weight:600}
 
-/* Section */
-.h-sec{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 10px}
-.h-sec-t{font-size:14px;font-weight:700}
-.h-sec-more{font-size:12px;font-weight:500;color:var(--text-accent);display:flex;align-items:center;gap:2px;cursor:pointer}
+/* Breadth row */
+.breadth{display:flex;justify-content:center;gap:16px;padding:0 20px 12px;font-size:12px;font-weight:600}
+.breadth-item{display:flex;align-items:center;gap:4px}
+.breadth-dot{width:8px;height:8px;border-radius:2px}
 
-/* Sector heatmap */
-.sectors{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 20px 12px}
-.sector{padding:10px 6px;background:var(--bg-2);border-radius:10px;text-align:center}
-.sector-name{font-size:10px;color:var(--text-2);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sector-chg{font-size:13px;font-weight:700}
+/* Analysis CTA */
+.analysis-cta{margin:0 20px 12px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:rgba(25,109,254,0.08);border-radius:10px;font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer}
 
-/* Stock list */
-.stk-row{display:flex;align-items:center;padding:10px 20px;gap:12px;cursor:pointer}
-.stk-row:active{background:rgba(255,255,255,.02)}
-.stk-rank{font-size:11px;font-weight:600;color:var(--text-3);width:18px;text-align:center}
-.stk-info{flex:1;min-width:0}
-.stk-tk{font-size:14px;font-weight:700}
-.stk-name{font-size:11px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.stk-right{text-align:right}
-.stk-price{font-size:14px;font-weight:600}
-.stk-chg{font-size:12px;font-weight:600}
+/* Stats grid — 2x2 like reference */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0 20px 12px;background:var(--bg-2);border-radius:var(--r1);overflow:hidden}
+.stat{padding:12px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.stat:nth-child(even){border-right:none}
+.stat:nth-last-child(-n+2){border-bottom:none}
+.stat-label{font-size:11px;color:var(--text-2);margin-bottom:3px}
+.stat-val{font-size:14px;font-weight:600}
 
-/* Liquidity mini */
-.liq{margin:0 20px 12px;padding:14px;background:var(--bg-2);border-radius:var(--r1)}
-.liq-title{font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:8px}
-.liq-val{font-size:22px;font-weight:700;font-family:var(--font-t);margin-bottom:4px}
-.liq-sub{font-size:12px;color:var(--text-2)}
-.liq-bar{height:4px;background:var(--bg-3);border-radius:2px;margin-top:8px;overflow:hidden}
-.liq-fill{height:100%;border-radius:2px;background:var(--bg-accent)}
+/* Sub tabs */
+.sub-tabs{display:flex;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto;flex-shrink:0}
+.sub-tabs::-webkit-scrollbar{display:none}
+.sub-tab{font-size:13px;font-weight:500;color:var(--text-2);padding:10px 14px;border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer}
+.sub-tab.active{color:var(--text-1);font-weight:600;border-bottom-color:var(--text-accent)}
 
-/* Foreign */
-.foreign{margin:0 20px 12px;padding:14px;background:var(--bg-2);border-radius:var(--r1)}
-.foreign-title{font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:8px}
-.foreign-val{font-size:20px;font-weight:700;font-family:var(--font-t)}
-.foreign-row{display:flex;justify-content:space-between;margin-top:8px;font-size:12px}
-.foreign-item{color:var(--text-2)}
-.foreign-item strong{color:var(--text-1);font-weight:600}
+/* Sector grid — heatmap style */
+.heat{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:12px 20px}
+.heat-cell{padding:8px 4px;background:var(--bg-2);border-radius:8px;text-align:center}
+.heat-name{font-size:10px;color:var(--text-2);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.heat-tk{font-size:12px;font-weight:700;margin-bottom:2px}
+.heat-chg{font-size:11px;font-weight:600}
 
-/* News ticker */
+/* Liquidity section */
+.liq-section{margin:4px 20px 12px;padding:14px;background:var(--bg-2);border-radius:var(--r1)}
+.liq-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.liq-title{font-size:13px;font-weight:600}
+.liq-sub{font-size:11px;color:var(--text-2)}
+.liq-big{font-size:22px;font-weight:700;font-family:var(--font-t);margin-bottom:4px}
+.liq-meta{display:flex;gap:16px;font-size:12px;color:var(--text-2);margin-bottom:10px}
+.liq-bar-bg{height:6px;background:var(--bg-3);border-radius:3px;overflow:hidden}
+.liq-bar-fill{height:100%;border-radius:3px}
+
+/* Foreign section */
+.foreign-section{margin:0 20px 12px;padding:14px;background:var(--bg-2);border-radius:var(--r1)}
+.foreign-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.foreign-title{font-size:13px;font-weight:600}
+.foreign-big{font-size:20px;font-weight:700;font-family:var(--font-t);margin-bottom:8px}
+.foreign-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.foreign-col{font-size:12px;color:var(--text-2)}
+.foreign-col strong{display:block;font-size:14px;font-weight:600;margin-top:2px}
+
+/* Section header */
+.sec-h{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 8px}
+.sec-h-t{font-size:14px;font-weight:700}
+.sec-h-more{font-size:12px;font-weight:500;color:var(--text-accent);display:flex;align-items:center;gap:2px;cursor:pointer}
+
+/* News card */
 .news{margin:0 20px 12px;padding:12px 14px;background:var(--bg-2);border-radius:var(--r2);cursor:pointer}
 .news-label{font-size:10px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.news-label .lucide{width:12px;height:12px}
 .news-text{font-size:13px;line-height:18px;color:var(--text-1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
 /* ═══════════════════
@@ -185,334 +162,250 @@ body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-fo
    ═══════════════════ */
 .intel-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 14px;flex-shrink:0}
 .intel-title{font-family:var(--font-t);font-size:20px;font-weight:700}
-.intel-hdr-r{display:flex;gap:16px;align-items:center}
-
 .sticky{position:sticky;top:0;z-index:10;margin:4px 20px 6px;background:rgba(25,109,254,0.08);backdrop-filter:blur(16px);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
 .dot-pulse{width:6px;height:6px;background:var(--bg-red);border-radius:50%;animation:p 1.5s infinite}
 @keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
-
 .sec-label{font-size:11px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;padding:16px 20px 8px}
 
 /* Briefing */
 .brief{margin:4px 20px 8px;padding:14px 16px;background:var(--bg-2);border-radius:14px;cursor:pointer}
 .brief-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.brief-t{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px}
-.brief-t .lucide{width:15px;height:15px;color:var(--bg-yellow)}
+.brief-t{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px}.brief-t .lucide{width:15px;height:15px;color:var(--bg-yellow)}
 .brief-new{font-size:9px;font-weight:700;color:var(--text-accent);background:rgba(75,146,255,0.12);padding:2px 6px;border-radius:99px;text-transform:uppercase}
-.brief-p{font-size:13px;line-height:19px;color:var(--text-1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.brief-p strong{font-weight:600}
+.brief-p{font-size:13px;line-height:19px;color:var(--text-1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.brief-p strong{font-weight:600}
 .brief-f{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
 .brief-f .time{font-size:11px;color:var(--text-2)}
 .brief-f .cta{font-size:12px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;gap:3px}
 
-/* Signal item */
-.item{padding:14px 20px;border-bottom:1px solid var(--line);cursor:pointer}
-.item:active{background:rgba(255,255,255,.02)}
-.item-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.item-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.item-ico .lucide{width:15px;height:15px}
-.item-ico.red{background:rgba(255,93,102,0.1);color:var(--text-red)}
-.item-ico.yellow{background:rgba(255,210,0,0.08);color:var(--text-yellow)}
-.item-ico.blue{background:rgba(35,205,237,0.08);color:var(--text-blue)}
-.item-ico.green{background:rgba(16,215,130,0.08);color:var(--text-green)}
-.item-ico.purple{background:rgba(153,69,255,0.08);color:var(--text-purple)}
-.item-ico.orange{background:rgba(237,112,47,0.08);color:var(--text-orange)}
-.item-type{font-size:12px;font-weight:600;color:var(--text-1)}
-.item-sep{color:var(--text-3);font-size:11px}
-.item-ticker{font-size:12px;font-weight:700;color:var(--text-1)}
-.item-time{font-size:12px;color:var(--text-2);margin-left:auto}
-.item-title{font-size:15px;line-height:21px;font-weight:600;color:var(--text-1);margin-bottom:6px}
-.item-num{font-size:13px;line-height:18px;color:var(--text-1);margin-bottom:10px}
-.item-num strong{font-weight:600}
-.up{color:var(--text-green);font-weight:700}
-.dn{color:var(--text-red);font-weight:700}
+/* ═══ SIGNAL CARD — v7: maximum clarity ═══
+   Hierarchy: Ticker → Title → Number → History → Context → CTA
+   No tags. No type labels. Just what matters. */
+.sig{padding:16px 20px;border-bottom:1px solid var(--line);cursor:pointer}
+.sig:active{background:rgba(255,255,255,.015)}
 
-.fn{display:flex;gap:6px;align-items:baseline;font-size:12px;line-height:17px;color:var(--text-2);margin-bottom:4px}
-.fn .lucide{width:12px;height:12px;flex-shrink:0;position:relative;top:2px;opacity:.5}
-.fn strong{color:var(--text-1);font-weight:600}
-.fn .hl{color:var(--text-1);font-weight:600}
+/* Row 1: ticker + dot + time — scan anchor */
+.sig-top{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.sig-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sig-dot.crit{background:var(--bg-red);box-shadow:0 0 4px rgba(255,93,102,0.4)}
+.sig-dot.high{background:var(--bg-yellow)}
+.sig-dot.med{background:var(--bg-blue)}
+.sig-ticker{font-size:14px;font-weight:700;font-family:var(--font-t)}
+.sig-time{font-size:12px;color:var(--text-2);margin-left:auto}
 
-.chain-inline{display:flex;align-items:center;gap:4px;margin-bottom:10px;font-size:12px}
-.chain-pill{background:var(--bg-2);border-radius:6px;padding:4px 10px;font-weight:700;font-size:12px}
-.chain-pill.hl{color:var(--text-accent);background:rgba(75,146,255,0.08)}
-.chain-mid{color:var(--text-2);font-weight:500;font-size:11px}
-.chain-arr{color:var(--text-3);opacity:.4;display:flex}
-.chain-arr .lucide{width:12px;height:12px}
+/* Row 2: title — THE focal point */
+.sig-title{font-size:15px;line-height:22px;font-weight:600;margin-bottom:8px}
 
-.actions{display:flex;align-items:center;gap:20px;margin-top:2px}
-.act{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--text-2);cursor:pointer}
-.act .lucide{width:15px;height:15px}
-.act-ai{color:var(--text-accent)}
+/* Row 3: key numbers — one compact line */
+.sig-nums{font-size:13px;color:var(--text-1);margin-bottom:10px;line-height:18px}
+.sig-nums strong{font-weight:600}
 
-.src-wrap{display:none;margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
-.item.expanded .src-wrap{display:block}
-.src{background:var(--bg-2);border-radius:8px;padding:8px 10px;margin-bottom:4px}
-.src-h{font-size:10px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;display:flex;align-items:center;gap:4px}
-.src-h .lucide{width:11px;height:11px;opacity:.5}
-.src-p{font-size:12px;line-height:16px;color:var(--text-1)}
+/* Row 4: history — subtle but readable */
+.sig-hist{font-size:12px;line-height:17px;color:var(--text-2);margin-bottom:4px;padding-left:18px;position:relative}
+.sig-hist::before{content:'';position:absolute;left:0;top:5px;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--text-3)}
+.sig-hist strong{color:var(--text-1);font-weight:600}
 
+/* Row 5: context — personal, slightly highlighted */
+.sig-ctx{font-size:12px;line-height:17px;color:var(--text-2);padding-left:18px;position:relative;margin-bottom:10px}
+.sig-ctx::before{content:'';position:absolute;left:3px;top:4px;width:5px;height:5px;border-radius:50%;background:var(--text-accent)}
+.sig-ctx strong{color:var(--text-1);font-weight:600}
+
+/* Row 6: CTA — just one */
+.sig-cta{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer}
+.sig-cta .lucide{width:15px;height:15px}
+
+/* Chain (for adjacent) */
+.sig-chain{display:flex;align-items:center;gap:4px;margin-bottom:10px;font-size:12px;font-weight:600}
+.sig-chain-pill{background:var(--bg-2);border-radius:6px;padding:4px 10px}
+.sig-chain-pill.hl{color:var(--text-accent);background:rgba(75,146,255,0.08)}
+.sig-chain-arr{color:var(--text-3);opacity:.5;display:flex}.sig-chain-arr .lucide{width:12px;height:12px}
+.sig-chain-mid{color:var(--text-2);font-weight:500;font-size:11px}
+
+/* Pro card */
 .pro-blur{position:relative;margin-bottom:8px}
 .pro-blur-inner{filter:blur(5px);opacity:.5;pointer-events:none;user-select:none}
 .pro-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .pro-over .lucide{color:var(--text-3);width:22px;height:22px}
 .pro-lbl{font-size:12px;font-weight:600;color:var(--text-1)}
-.pro-sub{font-size:11px;color:var(--text-accent);display:flex;align-items:center;gap:3px}
-.pro-sub .lucide{width:12px;height:12px}
+.pro-sub{font-size:11px;color:var(--text-accent);display:flex;align-items:center;gap:3px}.pro-sub .lucide{width:12px;height:12px}
 .pro-btn{margin-top:4px;background:var(--bg-accent);color:#fff;font-size:12px;font-weight:600;padding:7px 18px;border-radius:8px;border:none;cursor:pointer;font-family:var(--font-b);display:flex;align-items:center;gap:4px}
 
-.gift-note{font-size:12px;color:var(--text-accent);background:rgba(75,146,255,0.06);border-radius:8px;padding:7px 10px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:5px;font-weight:500}
-.upsell{font-size:11px;color:var(--text-2);text-align:center;margin-top:6px}
-.upsell strong{color:var(--text-1);font-weight:600}
-.vip-bar{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-green);font-weight:600;margin-bottom:4px}
-.vip-bar .lucide{width:14px;height:14px}
-.delay{font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:3px;margin-bottom:6px}
-.delay .lucide{width:11px;height:11px}
-
-/* ═══════════════════
-   SIGNAL DETAIL
-   ═══════════════════ */
-.detail-hdr{display:flex;align-items:center;gap:12px;padding:10px 20px 14px;flex-shrink:0}
-.detail-back{color:var(--text-2);display:flex;cursor:pointer}
-.detail-hdr-title{font-family:var(--font-t);font-size:18px;font-weight:700}
-.detail-body{padding:0 20px 20px}
+/* ═══ DETAIL SCREEN ═══ */
+.d-hdr{display:flex;align-items:center;gap:12px;padding:10px 20px 14px;flex-shrink:0}
+.d-back{color:var(--text-2);display:flex;cursor:pointer}
+.d-hdr-t{font-family:var(--font-t);font-size:18px;font-weight:700}
+.d-body{padding:0 20px 20px}
 .d-title{font-size:18px;line-height:26px;font-weight:700;font-family:var(--font-t);margin-bottom:12px}
-.d-num{font-size:14px;line-height:20px;color:var(--text-1);margin-bottom:16px}
-.d-section{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin:16px 0 8px;display:flex;align-items:center;gap:6px}
-.d-section .lucide{width:14px;height:14px;opacity:.5}
-.d-hist{padding:12px;background:rgba(35,205,237,0.05);border-left:2px solid rgba(35,205,237,0.3);border-radius:0 10px 10px 0;font-size:13px;line-height:19px;color:var(--text-1);margin-bottom:12px}
-.d-ctx{padding:12px;background:var(--bg-2);border-radius:10px;font-size:13px;line-height:19px;color:var(--text-1);margin-bottom:12px}
-.d-src{padding:12px;background:var(--bg-2);border-radius:10px;margin-bottom:8px}
-.d-src-h{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:4px}
-.d-src-h .lucide{width:13px;height:13px;opacity:.5}
+.d-nums{font-size:14px;line-height:20px;color:var(--text-1);margin-bottom:16px}
+.d-sec{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+.d-sec .lucide{width:14px;height:14px;opacity:.5}
+.d-box{padding:12px;background:var(--bg-2);border-radius:10px;font-size:13px;line-height:19px;color:var(--text-1);margin-bottom:8px}
+.d-hist{padding:12px;background:rgba(35,205,237,0.04);border-left:2px solid rgba(35,205,237,0.25);border-radius:0 10px 10px 0;font-size:13px;line-height:19px;color:var(--text-1);margin-bottom:12px}
+.d-src{padding:12px;background:var(--bg-2);border-radius:10px;margin-bottom:6px}
+.d-src-h{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:4px}.d-src-h .lucide{width:13px;height:13px;opacity:.5}
 .d-src-p{font-size:13px;line-height:19px;color:var(--text-1)}
-
-/* Transition */
-.screen{animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
 <div class="phone">
-  <div class="sbar">
-    <span>9:41</span>
-    <div class="sbar-r"><i data-lucide="signal" class="lucide"></i><i data-lucide="wifi" class="lucide"></i><i data-lucide="battery-full" class="lucide"></i></div>
-  </div>
+  <div class="sbar"><span>9:41</span><div class="sbar-r"><i data-lucide="signal" class="lucide"></i><i data-lucide="wifi" class="lucide"></i><i data-lucide="battery-full" class="lucide"></i></div></div>
 
-  <!-- ═══ ONBOARDING 1: Welcome ═══ -->
+  <!-- ═══ ONBOARDING 1 ═══ -->
   <div class="screen active" id="ob1">
-    <div class="ob">
-      <div class="ob-top">
-        <div class="ob-logo">Fin<b>path</b></div>
-        <div class="ob-sub">Tình báo viên AI cho nhà đầu tư</div>
-        <div class="ob-title">Bạn quan tâm thị trường nào?</div>
-        <div class="ob-opts" id="market-opts">
-          <div class="ob-opt" onclick="selectOpt(this,'market-opts')">
-            <div class="ob-opt-ico" style="background:rgba(16,215,130,0.1)">📈</div>
-            <div class="ob-opt-text">
-              <div class="ob-opt-label">Chứng khoán</div>
-              <div class="ob-opt-desc">Cổ phiếu Việt Nam, VN-Index, HNX</div>
-            </div>
-            <div class="check"><i data-lucide="check" class="lucide"></i></div>
-          </div>
-          <div class="ob-opt" onclick="selectOpt(this,'market-opts')">
-            <div class="ob-opt-ico" style="background:rgba(255,210,0,0.1)">🪙</div>
-            <div class="ob-opt-text">
-              <div class="ob-opt-label">Vàng</div>
-              <div class="ob-opt-desc">Vàng SJC, vàng thế giới, XAU/USD</div>
-            </div>
-            <div class="check"><i data-lucide="check" class="lucide"></i></div>
-          </div>
-          <div class="ob-opt" onclick="selectOpt(this,'market-opts')">
-            <div class="ob-opt-ico" style="background:rgba(237,112,47,0.1)">₿</div>
-            <div class="ob-opt-text">
-              <div class="ob-opt-label">Crypto</div>
-              <div class="ob-opt-desc">Bitcoin, Ethereum, Altcoins</div>
-            </div>
-            <div class="check"><i data-lucide="check" class="lucide"></i></div>
-          </div>
-        </div>
+    <div class="ob"><div class="ob-top">
+      <div class="ob-logo">Fin<b>path</b></div>
+      <div class="ob-sub">Tình báo viên AI cho nhà đầu tư</div>
+      <div class="ob-title">Bạn quan tâm thị trường nào?</div>
+      <div class="ob-opts" id="mo">
+        <div class="ob-opt" onclick="selectOpt(this,'mo')"><div class="ob-opt-ico" style="background:rgba(16,215,130,0.1)"><i data-lucide="trending-up" class="lucide" style="color:var(--text-green)"></i></div><div class="ob-opt-text"><div class="ob-opt-label">Chứng khoán</div><div class="ob-opt-desc">Cổ phiếu Việt Nam, VN-Index, HNX</div></div><div class="check"><i data-lucide="check" class="lucide"></i></div></div>
+        <div class="ob-opt" onclick="selectOpt(this,'mo')"><div class="ob-opt-ico" style="background:rgba(255,210,0,0.1)"><i data-lucide="circle-dollar-sign" class="lucide" style="color:var(--text-yellow)"></i></div><div class="ob-opt-text"><div class="ob-opt-label">Vàng</div><div class="ob-opt-desc">Vàng SJC, vàng thế giới, XAU/USD</div></div><div class="check"><i data-lucide="check" class="lucide"></i></div></div>
+        <div class="ob-opt" onclick="selectOpt(this,'mo')"><div class="ob-opt-ico" style="background:rgba(237,112,47,0.1)"><i data-lucide="bitcoin" class="lucide" style="color:var(--bg-orange)"></i></div><div class="ob-opt-text"><div class="ob-opt-label">Crypto</div><div class="ob-opt-desc">Bitcoin, Ethereum, Altcoins</div></div><div class="check"><i data-lucide="check" class="lucide"></i></div></div>
       </div>
-      <div class="ob-bottom">
-        <div class="ob-progress"><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-        <button class="btn btn-primary" onclick="goScreen('ob2')">Tiếp tục</button>
-      </div>
-    </div>
+    </div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="goScreen('ob2')">Tiếp tục</button></div></div>
   </div>
 
-  <!-- ═══ ONBOARDING 2: Phong cách ═══ -->
+  <!-- ═══ ONBOARDING 2 ═══ -->
   <div class="screen" id="ob2">
-    <div class="ob">
-      <div class="ob-top">
-        <div class="ob-title" style="margin-top:20px">Phong cách đầu tư của bạn?</div>
-        <div class="ob-styles" id="style-opts">
-          <div class="ob-style" onclick="selectStyle(this,'style-opts')">
-            <div class="ob-style-ico">🌱</div>
-            <div class="ob-style-label">Mới bắt đầu</div>
-            <div class="ob-style-desc">Tôi muốn học cách đầu tư an toàn</div>
-          </div>
-          <div class="ob-style" onclick="selectStyle(this,'style-opts')">
-            <div class="ob-style-ico">⚡</div>
-            <div class="ob-style-label">Có kinh nghiệm</div>
-            <div class="ob-style-desc">Tôi cần dữ liệu nhanh, gọn, bén</div>
-          </div>
-        </div>
+    <div class="ob"><div class="ob-top">
+      <div class="ob-title" style="margin-top:20px">Phong cách đầu tư của bạn?</div>
+      <div class="ob-styles" id="so">
+        <div class="ob-style" onclick="selectStyle(this,'so')"><div class="ob-style-ico"><i data-lucide="sprout" class="lucide" style="width:28px;height:28px;color:var(--text-green)"></i></div><div class="ob-style-label">Mới bắt đầu</div><div class="ob-style-desc">Tôi muốn học cách đầu tư an toàn</div></div>
+        <div class="ob-style" onclick="selectStyle(this,'so')"><div class="ob-style-ico"><i data-lucide="zap" class="lucide" style="width:28px;height:28px;color:var(--text-yellow)"></i></div><div class="ob-style-label">Có kinh nghiệm</div><div class="ob-style-desc">Tôi cần dữ liệu nhanh, gọn, bén</div></div>
       </div>
-      <div class="ob-bottom">
-        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-        <button class="btn btn-primary" onclick="goScreen('ob3')">Tiếp tục</button>
-      </div>
-    </div>
+    </div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="goScreen('ob3')">Tiếp tục</button></div></div>
   </div>
 
-  <!-- ═══ ONBOARDING 3: Nhập mã ═══ -->
+  <!-- ═══ ONBOARDING 3 ═══ -->
   <div class="screen" id="ob3">
-    <div class="ob">
-      <div class="ob-top">
-        <div class="ob-title" style="margin-top:20px">Bạn đang theo dõi mã nào?</div>
-        <div class="ob-sub" style="margin-bottom:20px">Chọn hoặc nhập mã để AI theo dõi cho bạn</div>
-        <div class="ob-input-wrap">
-          <input class="ob-input" placeholder="Tìm mã: VCB, HPG, FPT..." type="text">
-        </div>
-        <div class="ob-chips">
-          <div class="ob-chip selected" onclick="this.classList.toggle('selected')">HPG</div>
-          <div class="ob-chip selected" onclick="this.classList.toggle('selected')">VCB</div>
-          <div class="ob-chip" onclick="this.classList.toggle('selected')">FPT</div>
-          <div class="ob-chip" onclick="this.classList.toggle('selected')">SSI</div>
-          <div class="ob-chip" onclick="this.classList.toggle('selected')">VNM</div>
-          <div class="ob-chip" onclick="this.classList.toggle('selected')">MWG</div>
-          <div class="ob-chip" onclick="this.classList.toggle('selected')">TCB</div>
-          <div class="ob-chip" onclick="this.classList.toggle('selected')">VHM</div>
-        </div>
+    <div class="ob"><div class="ob-top">
+      <div class="ob-title" style="margin-top:20px">Bạn đang theo dõi mã nào?</div>
+      <div class="ob-sub" style="margin-bottom:20px">Chọn hoặc nhập mã để AI theo dõi cho bạn</div>
+      <input class="ob-input" placeholder="Tìm mã: VCB, HPG, FPT..." type="text">
+      <div class="ob-chips">
+        <div class="ob-chip selected" onclick="this.classList.toggle('selected')">HPG</div>
+        <div class="ob-chip selected" onclick="this.classList.toggle('selected')">VCB</div>
+        <div class="ob-chip" onclick="this.classList.toggle('selected')">FPT</div>
+        <div class="ob-chip" onclick="this.classList.toggle('selected')">SSI</div>
+        <div class="ob-chip" onclick="this.classList.toggle('selected')">VNM</div>
+        <div class="ob-chip" onclick="this.classList.toggle('selected')">MWG</div>
+        <div class="ob-chip" onclick="this.classList.toggle('selected')">TCB</div>
+        <div class="ob-chip" onclick="this.classList.toggle('selected')">VHM</div>
       </div>
-      <div class="ob-bottom">
-        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-        <button class="btn btn-primary" onclick="goScreen('ob4')">Tiếp tục</button>
-        <div class="ob-skip" onclick="goScreen('ob4')">Bỏ qua, thêm sau</div>
-      </div>
-    </div>
+    </div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="goScreen('ob4')">Tiếp tục</button><div class="ob-skip" onclick="goScreen('ob4')">Bỏ qua, thêm sau</div></div></div>
   </div>
 
-  <!-- ═══ ONBOARDING 4: Thông báo ═══ -->
+  <!-- ═══ ONBOARDING 4 ═══ -->
   <div class="screen" id="ob4">
-    <div class="ob">
-      <div class="ob-top">
-        <div class="ob-notif">
-          <div class="ob-notif-ico"><i data-lucide="bell-ring" class="lucide"></i></div>
-          <div class="ob-notif-title">Bật thông báo</div>
-          <div class="ob-notif-desc">Nhận tín hiệu quan trọng ngay khi xảy ra. AI chỉ gửi khi thực sự cần — không spam.</div>
-        </div>
-      </div>
-      <div class="ob-bottom">
-        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div></div>
-        <button class="btn btn-primary" onclick="goScreen('ob5')"><i data-lucide="bell" class="ico-s"></i> Bật thông báo</button>
-        <div class="ob-skip" onclick="goScreen('ob5')">Để sau</div>
-      </div>
-    </div>
+    <div class="ob"><div class="ob-top">
+      <div class="ob-notif"><div class="ob-notif-ico"><i data-lucide="bell-ring" class="lucide"></i></div><div class="ob-notif-title">Bật thông báo</div><div class="ob-notif-desc">Nhận tín hiệu quan trọng ngay khi xảy ra. AI chỉ gửi khi thực sự cần.</div></div>
+    </div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="goScreen('ob5')"><i data-lucide="bell" class="ico-s"></i> Bật thông báo</button><div class="ob-skip" onclick="goScreen('ob5')">Để sau</div></div></div>
   </div>
 
-  <!-- ═══ ONBOARDING 5: Mẫu tín hiệu ═══ -->
+  <!-- ═══ ONBOARDING 5 ═══ -->
   <div class="screen" id="ob5">
-    <div class="ob">
-      <div class="ob-top">
-        <div class="ob-title" style="margin-top:20px">Đây là tín hiệu đầu tiên của bạn</div>
-        <div class="ob-sub" style="margin-bottom:16px">AI sẽ gửi cho bạn tín hiệu như thế này mỗi ngày</div>
-        <div style="background:var(--bg-2);border-radius:14px;padding:14px">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div class="item-ico orange" style="width:24px;height:24px"><i data-lucide="activity" class="lucide" style="width:13px;height:13px"></i></div>
-            <span style="font-size:12px;font-weight:600">Kỹ thuật · HPG · Vừa xong</span>
-          </div>
-          <div style="font-size:14px;font-weight:600;line-height:20px;margin-bottom:6px">HPG vượt kháng cự 26,500 — volume xác nhận breakout</div>
-          <div style="font-size:12px;color:var(--text-2);margin-bottom:8px">Vol <span class="up">200%</span> TB · RSI 61 · chưa overbought</div>
-          <div style="font-size:11px;color:var(--text-2);display:flex;gap:6px;align-items:baseline"><i data-lucide="clock" class="lucide" style="width:11px;height:11px;opacity:.5;position:relative;top:2px"></i> 2 lần tương tự → tăng TB <span class="up">+14%</span></div>
-        </div>
+    <div class="ob"><div class="ob-top">
+      <div class="ob-title" style="margin-top:20px">Đây là tín hiệu đầu tiên</div>
+      <div class="ob-sub" style="margin-bottom:16px">AI sẽ gửi cho bạn tín hiệu như thế này mỗi ngày</div>
+      <div style="background:var(--bg-2);border-radius:14px;padding:14px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><span class="sig-dot high"></span><span style="font-size:14px;font-weight:700;font-family:var(--font-t)">HPG</span><span style="font-size:12px;color:var(--text-2);margin-left:auto">Vừa xong</span></div>
+        <div style="font-size:14px;font-weight:600;line-height:20px;margin-bottom:6px">HPG vượt kháng cự 26,500 — volume xác nhận breakout</div>
+        <div style="font-size:12px;color:var(--text-2)">Vol <span class="up">200%</span> TB · RSI 61</div>
       </div>
-      <div class="ob-bottom">
-        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div></div>
-        <button class="btn btn-primary" onclick="goScreen('home')">Bắt đầu sử dụng</button>
-      </div>
-    </div>
+    </div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div></div><button class="btn btn-primary" onclick="goScreen('home')">Bắt đầu sử dụng</button></div></div>
   </div>
 
   <!-- ═══ HOME ═══ -->
   <div class="screen" id="home">
-    <div class="home-hdr">
-      <div class="home-logo">Fin<b>path</b></div>
-      <div class="home-hdr-r">
-        <div class="home-hdr-btn"><i data-lucide="search" class="lucide"></i></div>
-        <div class="home-hdr-btn"><i data-lucide="bell" class="lucide"></i><div class="home-hdr-dot"></div></div>
-      </div>
+    <div class="h-hdr">
+      <div class="h-logo">Fin<b>path</b></div>
+      <div class="h-hdr-r"><div class="h-btn"><i data-lucide="search" class="lucide"></i></div><div class="h-btn"><i data-lucide="bell" class="lucide"></i><div class="h-dot"></div></div></div>
     </div>
     <div class="seg">
-      <div class="seg-item active">Chứng khoán</div>
-      <div class="seg-item">Vàng</div>
-      <div class="seg-item">Crypto</div>
+      <div class="seg-i active">Chứng khoán</div>
+      <div class="seg-i">Vàng</div>
+      <div class="seg-i">Crypto</div>
     </div>
     <div class="screen-scroll">
-      <div class="idx-banner">
-        <div class="idx-card">
-          <div class="idx-name">VNINDEX</div>
-          <div class="idx-val">1,625.97</div>
-          <div class="idx-chg up">+32.4 (+2.03%)</div>
-        </div>
-        <div class="idx-card">
-          <div class="idx-name">VN30</div>
-          <div class="idx-val">1,165.02</div>
-          <div class="idx-chg up">+18.7 (+1.63%)</div>
-        </div>
-        <div class="idx-card">
-          <div class="idx-name">HNX</div>
-          <div class="idx-val">266.47</div>
-          <div class="idx-chg dn">-3.2 (-1.19%)</div>
-        </div>
+      <!-- Index row — 3 columns -->
+      <div class="idx-row">
+        <div class="idx-item active"><div class="idx-name">VNINDEX</div><div class="idx-val">1,625.97</div><div class="idx-chg up">+32.4 (+2.03%)</div></div>
+        <div class="idx-item"><div class="idx-name">VN30</div><div class="idx-val">1,165.02</div><div class="idx-chg up">+18.7 (+1.63%)</div></div>
+        <div class="idx-item"><div class="idx-name">HNX</div><div class="idx-val">266.47</div><div class="idx-chg dn">-3.2 (-1.19%)</div></div>
       </div>
 
+      <!-- Breadth -->
+      <div class="breadth">
+        <div class="breadth-item"><div class="breadth-dot" style="background:var(--bg-green)"></div><span class="up">148</span></div>
+        <div class="breadth-item"><div class="breadth-dot" style="background:var(--bg-yellow)"></div><span class="ref">42</span></div>
+        <div class="breadth-item"><div class="breadth-dot" style="background:var(--bg-red)"></div><span class="dn">131</span></div>
+        <div class="breadth-item" style="color:var(--text-2)">5,432 tỷ</div>
+      </div>
+
+      <!-- Analysis CTA -->
+      <div class="analysis-cta"><i data-lucide="sparkles" class="ico-s"></i> Phân tích VNINDEX</div>
+
+      <!-- Stats 2x2 -->
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Tham chiếu</div><div class="stat-val ref">1,593.57</div></div>
+        <div class="stat"><div class="stat-label">Mở cửa</div><div class="stat-val">1,608.06</div></div>
+        <div class="stat"><div class="stat-label">Cao nhất</div><div class="stat-val up">1,631.96</div></div>
+        <div class="stat"><div class="stat-label">Thấp nhất</div><div class="stat-val dn">1,585.05</div></div>
+      </div>
+
+      <!-- Second stats row -->
+      <div class="stats" style="margin-top:0">
+        <div class="stat"><div class="stat-label">Khối lượng</div><div class="stat-val">699 triệu</div></div>
+        <div class="stat"><div class="stat-label">Giá trị GD</div><div class="stat-val">12.64k tỷ</div></div>
+        <div class="stat"><div class="stat-label">GTGD dự kiến</div><div class="stat-val">16.3k tỷ</div></div>
+        <div class="stat"><div class="stat-label">NN Ròng</div><div class="stat-val dn">-354.5 tỷ</div></div>
+      </div>
+
+      <!-- News -->
       <div class="news" onclick="goScreen('intel')">
-        <div class="news-label"><i data-lucide="zap" class="ico-xs"></i> Điểm tin nóng</div>
-        <div class="news-text">HPG bị yêu cầu giải trình BCTC — 3 nguồn cùng báo tín hiệu tiêu cực. Xem phân tích →</div>
+        <div class="news-label"><i data-lucide="zap" class="lucide"></i> Điểm tin nóng</div>
+        <div class="news-text">HPG bị yêu cầu giải trình BCTC — 3 nguồn cùng báo tín hiệu tiêu cực. Xem phân tích AI →</div>
       </div>
 
-      <div class="h-sec">
-        <div class="h-sec-t">Ngành</div>
-        <div class="h-sec-more">Tất cả <i data-lucide="chevron-right" class="ico-xs"></i></div>
-      </div>
-      <div class="sectors">
-        <div class="sector"><div class="sector-name">Chứng khoán</div><div class="sector-chg up">+1.8%</div></div>
-        <div class="sector"><div class="sector-name">Bất động sản</div><div class="sector-chg dn">-2.1%</div></div>
-        <div class="sector"><div class="sector-name">Ngân hàng</div><div class="sector-chg up">+0.9%</div></div>
-        <div class="sector"><div class="sector-name">Thép</div><div class="sector-chg dn">-3.4%</div></div>
-        <div class="sector"><div class="sector-name">Công nghệ</div><div class="sector-chg up">+2.5%</div></div>
-        <div class="sector"><div class="sector-name">Dầu khí</div><div class="sector-chg up">+0.4%</div></div>
-        <div class="sector"><div class="sector-name">Tiêu dùng</div><div class="sector-chg dn">-0.7%</div></div>
-        <div class="sector"><div class="sector-name">Logistic</div><div class="sector-chg up">+1.2%</div></div>
+      <!-- Sub tabs -->
+      <div class="sub-tabs">
+        <div class="sub-tab active">Tổng quan</div>
+        <div class="sub-tab">Cổ phiếu</div>
+        <div class="sub-tab">Ngành</div>
+        <div class="sub-tab">Tác động</div>
       </div>
 
-      <div class="liq">
-        <div class="liq-title">Thanh khoản hôm nay</div>
-        <div class="liq-val">16,354 <span style="font-size:14px;font-weight:500;color:var(--text-2)">Tỷ</span></div>
-        <div class="liq-sub">So với TB 5 phiên: <span class="up">+12.8%</span></div>
-        <div class="liq-bar"><div class="liq-fill" style="width:72%"></div></div>
+      <!-- Heatmap -->
+      <div class="heat">
+        <div class="heat-cell"><div class="heat-name">Chứng khoán</div><div class="heat-tk">SSI</div><div class="heat-chg up">+1.8%</div></div>
+        <div class="heat-cell"><div class="heat-name">Bất động sản</div><div class="heat-tk">VHM</div><div class="heat-chg dn">-2.1%</div></div>
+        <div class="heat-cell"><div class="heat-name">Ngân hàng</div><div class="heat-tk">VCB</div><div class="heat-chg up">+0.9%</div></div>
+        <div class="heat-cell"><div class="heat-name">Thép</div><div class="heat-tk">HPG</div><div class="heat-chg dn">-4.2%</div></div>
+        <div class="heat-cell"><div class="heat-name">Công nghệ</div><div class="heat-tk">FPT</div><div class="heat-chg up">+3.9%</div></div>
+        <div class="heat-cell"><div class="heat-name">Dầu khí</div><div class="heat-tk">GAS</div><div class="heat-chg up">+0.4%</div></div>
+        <div class="heat-cell"><div class="heat-name">Tiêu dùng</div><div class="heat-tk">MWG</div><div class="heat-chg dn">-0.7%</div></div>
+        <div class="heat-cell"><div class="heat-name">Logistic</div><div class="heat-tk">GMD</div><div class="heat-chg up">+1.2%</div></div>
       </div>
 
-      <div class="foreign">
-        <div class="foreign-title">Nước ngoài hôm nay</div>
-        <div class="foreign-val dn">-354.53 <span style="font-size:14px;font-weight:500">Tỷ</span></div>
-        <div class="foreign-row">
-          <div class="foreign-item">Mua: <strong class="up">+545 Tỷ</strong></div>
-          <div class="foreign-item">Bán: <strong class="dn">-899 Tỷ</strong></div>
+      <!-- Liquidity -->
+      <div class="liq-section">
+        <div class="liq-head"><div class="liq-title">Thanh khoản hôm nay</div><div class="liq-sub">HOSE</div></div>
+        <div class="liq-big">16,354 <span style="font-size:14px;font-weight:500;color:var(--text-2)">Tỷ</span></div>
+        <div class="liq-meta"><span>So TB 5 phiên: <span class="up">+12.8%</span></span><span>So hôm qua: <span class="dn">-2.8%</span></span></div>
+        <div class="liq-bar-bg"><div class="liq-bar-fill" style="width:72%;background:var(--bg-accent)"></div></div>
+      </div>
+
+      <!-- Foreign -->
+      <div class="foreign-section">
+        <div class="foreign-head"><div class="foreign-title">Nước ngoài hôm nay</div></div>
+        <div class="foreign-big dn">-354.53 Tỷ</div>
+        <div class="foreign-grid">
+          <div class="foreign-col">Tổng mua<strong class="up">+545.18 Tỷ</strong></div>
+          <div class="foreign-col">Tổng bán<strong class="dn">-899.71 Tỷ</strong></div>
         </div>
       </div>
-
-      <div class="h-sec"><div class="h-sec-t">Top tăng</div><div class="h-sec-more">Xem tất cả <i data-lucide="chevron-right" class="ico-xs"></i></div></div>
-      <div class="stk-row"><div class="stk-rank">1</div><div class="stk-info"><div class="stk-tk">SSI</div><div class="stk-name">Chứng khoán SSI</div></div><div class="stk-right"><div class="stk-price">45.34</div><div class="stk-chg up">+4.32%</div></div></div>
-      <div class="stk-row"><div class="stk-rank">2</div><div class="stk-info"><div class="stk-tk">FPT</div><div class="stk-name">Tập đoàn FPT</div></div><div class="stk-right"><div class="stk-price">128.50</div><div class="stk-chg up">+3.88%</div></div></div>
-      <div class="stk-row"><div class="stk-rank">3</div><div class="stk-info"><div class="stk-tk">VHM</div><div class="stk-name">Vinhomes</div></div><div class="stk-right"><div class="stk-price">42.10</div><div class="stk-chg up">+3.45%</div></div></div>
-      <div class="stk-row"><div class="stk-rank">4</div><div class="stk-info"><div class="stk-tk">TCB</div><div class="stk-name">Techcombank</div></div><div class="stk-right"><div class="stk-price">35.80</div><div class="stk-chg up">+2.87%</div></div></div>
-      <div class="stk-row"><div class="stk-rank">5</div><div class="stk-info"><div class="stk-tk">ACB</div><div class="stk-name">Ngân hàng Á Châu</div></div><div class="stk-right"><div class="stk-price">27.65</div><div class="stk-chg up">+2.41%</div></div></div>
 
       <div style="height:20px"></div>
     </div>
-
     <div class="bbar">
       <div class="btab active" onclick="goScreen('home')"><i data-lucide="bar-chart-3" class="lucide"></i><span>Finpath</span></div>
       <div class="btab"><i data-lucide="list" class="lucide"></i><span>Bảng giá</span></div>
@@ -525,182 +418,131 @@ body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-fo
   <div class="screen" id="intel">
     <div class="intel-hdr">
       <div class="intel-title">Tình báo</div>
-      <div class="intel-hdr-r">
-        <div class="home-hdr-btn"><i data-lucide="settings" class="lucide"></i></div>
-        <div class="home-hdr-btn"><i data-lucide="bell" class="lucide"></i><div class="home-hdr-dot"></div></div>
-      </div>
+      <div class="h-hdr-r"><div class="h-btn"><i data-lucide="settings" class="lucide"></i></div><div class="h-btn"><i data-lucide="bell" class="lucide"></i><div class="h-dot"></div></div></div>
     </div>
     <div class="screen-scroll">
       <div class="sticky"><span class="dot-pulse"></span>1 tín hiệu mới</div>
-      <div class="brief" onclick="goScreen('detail-briefing')">
-        <div class="brief-row"><div class="brief-t"><i data-lucide="sun" class="lucide"></i> Bản tin sáng 18/03</div><span class="brief-new">Mới</span></div>
-        <div class="brief-p"><strong>HPG:</strong> Đang bị yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại.</div>
-        <div class="brief-f"><span class="time">7:00</span><span class="cta">Đọc đầy đủ <i data-lucide="chevron-right" class="ico-s"></i></span></div>
-      </div>
+      <div class="brief" onclick="goScreen('d-brief')"><div class="brief-row"><div class="brief-t"><i data-lucide="sun" class="lucide"></i> Bản tin sáng 18/03</div><span class="brief-new">Mới</span></div><div class="brief-p"><strong>HPG:</strong> Đang bị yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại.</div><div class="brief-f"><span class="time">7:00</span><span class="cta">Đọc đầy đủ <i data-lucide="chevron-right" class="ico-s"></i></span></div></div>
+
       <div class="sec-label">Hôm nay</div>
-      <div class="item" onclick="goScreen('detail1')">
-        <div class="item-top"><div class="item-ico red"><i data-lucide="layers" class="lucide"></i></div><span class="item-type">Compound</span><span class="item-sep">·</span><span class="item-ticker">HPG</span><span class="item-time">9:32</span></div>
-        <div class="item-title">Nghi vấn dumping từ EU + sentiment tiêu cực + giá giảm 4.2%</div>
-        <div class="item-num">Giá <strong class="dn">25,300</strong> (–4.2%) · Vol <strong>2.8x</strong> · Tiêu cực <strong class="dn">+340%</strong></div>
-        <div class="fn"><i data-lucide="clock" class="lucide"></i><span><strong>15/08/2025</strong> tương tự — hồi <span class="up">+12%</span> trong 3 tuần</span></div>
-        <div class="fn"><i data-lucide="user" class="lucide"></i><span>Bạn cầm <span class="hl">2,000 HPG</span> (35%) · giảm 8% → DM <span class="dn">–2.8%</span></span></div>
-        <div class="actions"><span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span><span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span><span class="act"><i data-lucide="bookmark" class="lucide"></i></span></div>
+
+      <!-- Compound HPG -->
+      <div class="sig" onclick="goScreen('d1')">
+        <div class="sig-top"><span class="sig-dot crit"></span><span class="sig-ticker">HPG</span><span class="sig-time">9:32</span></div>
+        <div class="sig-title">Nghi vấn dumping từ EU + sentiment tiêu cực bùng + giá giảm 4.2%</div>
+        <div class="sig-nums">Giá <strong class="dn">25,300</strong> (–4.2%) · Vol gấp <strong>2.8x</strong> · Tiêu cực <strong class="dn">+340%</strong></div>
+        <div class="sig-hist"><strong>15/08/2025</strong> tương tự — hồi <span class="up">+12%</span> trong 3 tuần</div>
+        <div class="sig-ctx">Bạn cầm <strong>2,000 HPG</strong> (35%) · giảm thêm 8% → DM <span class="dn">–2.8%</span></div>
+        <div class="sig-cta"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI về HPG</div>
       </div>
-      <div class="item" onclick="goScreen('detail2')">
-        <div class="item-top"><div class="item-ico yellow"><i data-lucide="git-branch" class="lucide"></i></div><span class="item-type">Adjacent</span><span class="item-sep">·</span><span class="item-ticker">DXG → VCB</span><span class="item-time">8:45</span></div>
-        <div class="chain-inline"><span class="chain-pill" style="color:var(--text-red)">DXG –12%</span><span class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span><span class="chain-mid">nợ xấu BĐS</span><span class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span><span class="chain-pill hl">VCB</span></div>
-        <div class="item-title">DXG giảm sàn — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
-        <div class="item-num">DXG dư bán <strong>14.7tr CP</strong> · Nợ BĐS tại VCB <strong>26%</strong></div>
-        <div class="fn"><i data-lucide="clock" class="lucide"></i><span><strong>11/2022</strong> FLC sụp → VCB giảm 12% trong 1 tháng</span></div>
-        <div class="fn"><i data-lucide="user" class="lucide"></i><span>Bạn cầm <span class="hl">1,500 VCB</span> (42%) · theo dõi chiều nay</span></div>
-        <div class="actions"><span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span><span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span><span class="act"><i data-lucide="bookmark" class="lucide"></i></span></div>
+
+      <!-- Adjacent DXG→VCB -->
+      <div class="sig" onclick="goScreen('d2')">
+        <div class="sig-top"><span class="sig-dot high"></span><span class="sig-ticker">DXG → VCB</span><span class="sig-time">8:45</span></div>
+        <div class="sig-chain"><span class="sig-chain-pill" style="color:var(--text-red)">DXG –12%</span><span class="sig-chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span><span class="sig-chain-mid">nợ xấu BĐS</span><span class="sig-chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span><span class="sig-chain-pill hl">VCB</span></div>
+        <div class="sig-title">DXG giảm sàn — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
+        <div class="sig-nums">DXG dư bán <strong>14.7tr CP</strong> · Nợ BĐS tại VCB <strong>26%</strong> tổng cho vay</div>
+        <div class="sig-hist"><strong>11/2022</strong> FLC sụp → VCB giảm 12% trong 1 tháng</div>
+        <div class="sig-ctx">Bạn cầm <strong>1,500 VCB</strong> (42%) · theo dõi chiều nay</div>
+        <div class="sig-cta"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI về VCB</div>
       </div>
-      <div class="item">
-        <div class="item-top"><div class="item-ico orange"><i data-lucide="activity" class="lucide"></i></div><span class="item-type">Kỹ thuật</span><span class="item-sep">·</span><span class="item-ticker">FPT</span><span class="item-time">8:12</span></div>
-        <div class="item-title">Breakout khỏi vùng tích lũy 4 tuần, volume xác nhận</div>
-        <div class="item-num">Vượt <strong>128,000</strong> · Vol <strong class="up">180%</strong> TB · RSI 62</div>
-        <div class="fn"><i data-lucide="clock" class="lucide"></i><span>2 lần tương tự → tăng TB <span class="up">+14%</span> trong 20 phiên</span></div>
-        <div class="fn"><i data-lucide="eye" class="lucide"></i><span>FPT trong watchlist · chưa có trong danh mục</span></div>
-        <div class="actions"><span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span><span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span><span class="act"><i data-lucide="bookmark" class="lucide"></i></span></div>
+
+      <!-- Technical FPT -->
+      <div class="sig">
+        <div class="sig-top"><span class="sig-dot med"></span><span class="sig-ticker">FPT</span><span class="sig-time">8:12</span></div>
+        <div class="sig-title">Breakout khỏi vùng tích lũy 4 tuần, volume xác nhận</div>
+        <div class="sig-nums">Vượt <strong>128,000</strong> · Vol <strong class="up">180%</strong> TB · RSI 62</div>
+        <div class="sig-hist">2 lần tương tự → tăng TB <span class="up">+14%</span> trong 20 phiên</div>
+        <div class="sig-ctx">FPT trong watchlist · chưa có trong danh mục</div>
+        <div class="sig-cta"><i data-lucide="sparkles" class="lucide"></i> Phân tích FPT</div>
       </div>
-      <div class="item">
-        <div class="item-top"><div class="item-ico purple"><i data-lucide="crown" class="lucide"></i></div><span class="item-type" style="color:var(--text-purple)">Pro</span><span class="item-sep">·</span><span class="item-ticker">HPG</span><span class="item-time">14:30</span></div>
-        <div class="item-title">Phân tích chuyên sâu HPG sau tin điều tra</div>
-        <div class="pro-blur"><div class="pro-blur-inner"><div class="item-num">RSI 28 quá bán. Hỗ trợ 25,000. P/E 8.5x vs ngành 10.2x.</div></div><div class="pro-over"><i data-lucide="lock" class="lucide"></i><span class="pro-lbl">549k/tháng</span><span class="pro-sub"><i data-lucide="timer" class="lucide"></i> Mở sau 18h</span><button class="pro-btn"><i data-lucide="unlock" class="ico-s"></i> Mở khóa</button></div></div>
+
+      <!-- Pro locked -->
+      <div class="sig">
+        <div class="sig-top"><span class="sig-dot high"></span><span class="sig-ticker" style="color:var(--text-purple)">HPG · Pro</span><span class="sig-time">14:30</span></div>
+        <div class="sig-title">Phân tích chuyên sâu HPG sau tin điều tra</div>
+        <div class="pro-blur"><div class="pro-blur-inner"><div class="sig-nums">RSI 28 quá bán. Hỗ trợ 25,000. P/E 8.5x vs ngành 10.2x.</div></div><div class="pro-over"><i data-lucide="lock" class="lucide"></i><span class="pro-lbl">549k/tháng</span><span class="pro-sub"><i data-lucide="timer" class="lucide"></i> Mở sau 18h</span><button class="pro-btn"><i data-lucide="unlock" class="ico-s"></i> Mở khóa</button></div></div>
       </div>
-      <div class="item">
-        <div class="item-top"><div class="item-ico yellow"><i data-lucide="globe" class="lucide"></i></div><span class="item-type">Vĩ mô</span><span class="item-sep">·</span><span class="item-ticker">DXY</span><span class="item-time">22:30</span></div>
-        <div class="item-title">DXY bứt phá 105.2 — KN dự kiến xả ròng</div>
-        <div class="item-num">DXY <strong class="up">+0.8%</strong> · USD/VND <strong>25,180</strong></div>
-        <div class="fn"><i data-lucide="briefcase" class="lucide"></i><span><span class="hl">HPG</span> (35%) và <span class="hl">VCB</span> (42%) chịu áp lực</span></div>
-        <div class="actions"><span class="act act-ai"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI</span><span class="act" style="margin-left:auto"><i data-lucide="share" class="lucide"></i></span><span class="act"><i data-lucide="bookmark" class="lucide"></i></span></div>
+
+      <!-- Macro DXY -->
+      <div class="sig">
+        <div class="sig-top"><span class="sig-dot high"></span><span class="sig-ticker">DXY</span><span class="sig-time">22:30</span></div>
+        <div class="sig-title">DXY bứt phá 105.2 — KN dự kiến xả ròng</div>
+        <div class="sig-nums">DXY <strong class="up">+0.8%</strong> · USD/VND <strong>25,180</strong> · KN bán ròng 3-5 phiên</div>
+        <div class="sig-ctx"><strong>HPG</strong> (35%) và <strong>VCB</strong> (42%) chịu áp lực</div>
+        <div class="sig-cta"><i data-lucide="sparkles" class="lucide"></i> Hỏi AI về DXY</div>
       </div>
+
       <div style="height:20px"></div>
     </div>
     <div class="bbar">
       <div class="btab" onclick="goScreen('home')"><i data-lucide="bar-chart-3" class="lucide"></i><span>Finpath</span></div>
       <div class="btab"><i data-lucide="list" class="lucide"></i><span>Bảng giá</span></div>
       <div class="btab"><i data-lucide="users" class="lucide"></i><span>Cộng đồng</span></div>
-      <div class="btab active" onclick="goScreen('intel')"><i data-lucide="brain" class="lucide"></i><span>Tình báo</span></div>
+      <div class="btab active"><i data-lucide="brain" class="lucide"></i><span>Tình báo</span></div>
     </div>
   </div>
 
-  <!-- ═══ DETAIL: Compound HPG ═══ -->
-  <div class="screen" id="detail1">
-    <div class="detail-hdr">
-      <div class="detail-back" onclick="goScreen('intel')"><i data-lucide="arrow-left" class="lucide"></i></div>
-      <div class="detail-hdr-title">HPG · Compound</div>
-    </div>
-    <div class="screen-scroll">
-      <div class="detail-body">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><div class="item-ico red"><i data-lucide="layers" class="lucide"></i></div><span style="font-size:12px;color:var(--text-2)">3 nguồn · 9:32 hôm nay · Mức độ: <strong class="dn">Nghiêm trọng</strong></span></div>
-        <div class="d-title">3 nguồn cùng chỉ về HPG: nghi vấn dumping từ EU, sentiment tiêu cực bùng trên Telegram, giá giảm 4.2%</div>
-        <div class="d-num">Tiêu cực tăng <strong class="dn">340%</strong> trên 5 nhóm Telegram. Giá 26,400 → <strong class="dn">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> TB 20 phiên. KN bán ròng <strong>45 tỷ</strong>.</div>
-
-        <div class="d-section"><i data-lucide="clock" class="lucide"></i> Lịch sử tương tự</div>
-        <div class="d-hist"><strong>15/08/2025:</strong> Tín hiệu compound tương tự — HPG giảm thêm 1.5% so với thị trường, sau đó hồi lại <strong class="up">+12%</strong> trong 3 tuần. Nguyên nhân: tin xấu ngắn hạn, fundamentals không thay đổi.</div>
-
-        <div class="d-section"><i data-lucide="user" class="lucide"></i> Danh mục của bạn</div>
-        <div class="d-ctx">Bạn đang cầm <strong>2,000 HPG</strong> — chiếm <strong>35%</strong> danh mục. Nếu HPG giảm thêm 8%, danh mục ước tính giảm <strong class="dn">–2.8%</strong>.<br><br>⚠️ <strong>Nhắc nhở:</strong> Bạn đã 3 lần bán vội khi có tin xấu tương tự. Cả 3 lần giá hồi lại trong 2-3 tuần.</div>
-
-        <div class="d-section"><i data-lucide="layers" class="lucide"></i> Chi tiết từng nguồn</div>
-        <div class="d-src"><div class="d-src-h"><i data-lucide="newspaper" class="lucide"></i> Tin tức</div><div class="d-src-p">UBCKNN yêu cầu HPG giải trình BCTC Q4/2025 — nghi vấn hạch toán khấu hao nhà máy Dung Quất. Deadline trả lời: 25/03.</div></div>
-        <div class="d-src"><div class="d-src-h"><i data-lucide="message-circle" class="lucide"></i> Cảm xúc MXH</div><div class="d-src-p">Tiêu cực tăng 340% trên 5 nhóm Telegram trong 1 giờ. AI phân loại: <strong>lo ngại thật</strong> (không phải FUD). Keyword chính: "giải trình", "khấu hao", "bán".</div></div>
-        <div class="d-src"><div class="d-src-h"><i data-lucide="trending-down" class="lucide"></i> Biến động giá</div><div class="d-src-p">Giảm 4.2% phiên sáng. Volume 2.8x average. Khối ngoại bán ròng 45 tỷ. Hỗ trợ gần nhất: 25,000 (MA200).</div></div>
-
-        <div style="margin-top:20px">
-          <button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI thêm về HPG</button>
-        </div>
-        <div style="height:30px"></div>
-      </div>
-    </div>
+  <!-- ═══ DETAIL: HPG Compound ═══ -->
+  <div class="screen" id="d1">
+    <div class="d-hdr"><div class="d-back" onclick="goScreen('intel')"><i data-lucide="arrow-left" class="lucide"></i></div><div class="d-hdr-t">HPG</div></div>
+    <div class="screen-scroll"><div class="d-body">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px"><span class="sig-dot crit"></span><span style="font-size:12px;color:var(--text-2)">3 nguồn · 9:32 hôm nay · Nghiêm trọng</span></div>
+      <div class="d-title">3 nguồn cùng chỉ về HPG: nghi vấn dumping từ EU, sentiment tiêu cực bùng trên Telegram, giá giảm 4.2%</div>
+      <div class="d-nums">Tiêu cực tăng <strong class="dn">340%</strong> trên 5 nhóm Telegram. Giá 26,400 → <strong class="dn">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> TB. KN bán ròng <strong>45 tỷ</strong>.</div>
+      <div class="d-sec"><i data-lucide="clock" class="lucide"></i> Lịch sử tương tự</div>
+      <div class="d-hist"><strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 1.5%, hồi lại <strong class="up">+12%</strong> trong 3 tuần. Fundamentals không thay đổi.</div>
+      <div class="d-sec"><i data-lucide="user" class="lucide"></i> Danh mục của bạn</div>
+      <div class="d-box">Đang cầm <strong>2,000 HPG</strong> (35% danh mục). Giảm thêm 8% → DM <strong class="dn">–2.8%</strong>.<br><br>Bạn đã 3 lần bán vội khi có tin xấu. Cả 3 lần giá hồi lại trong 2-3 tuần.</div>
+      <div class="d-sec"><i data-lucide="layers" class="lucide"></i> Chi tiết nguồn</div>
+      <div class="d-src"><div class="d-src-h"><i data-lucide="newspaper" class="lucide"></i> Tin tức</div><div class="d-src-p">UBCKNN yêu cầu giải trình BCTC Q4/2025 — nghi vấn khấu hao Dung Quất. Deadline: 25/03.</div></div>
+      <div class="d-src"><div class="d-src-h"><i data-lucide="message-circle" class="lucide"></i> Cảm xúc MXH</div><div class="d-src-p">Tiêu cực +340% trên 5 nhóm Telegram. AI phân loại: lo ngại thật.</div></div>
+      <div class="d-src"><div class="d-src-h"><i data-lucide="trending-down" class="lucide"></i> Giá</div><div class="d-src-p">–4.2% phiên sáng. Vol 2.8x. KN bán ròng 45 tỷ. Hỗ trợ: 25,000 (MA200).</div></div>
+      <div style="margin-top:20px"><button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI thêm về HPG</button></div>
+      <div style="height:30px"></div>
+    </div></div>
   </div>
 
-  <!-- ═══ DETAIL: Adjacent DXG→VCB ═══ -->
-  <div class="screen" id="detail2">
-    <div class="detail-hdr">
-      <div class="detail-back" onclick="goScreen('intel')"><i data-lucide="arrow-left" class="lucide"></i></div>
-      <div class="detail-hdr-title">DXG → VCB · Adjacent</div>
-    </div>
-    <div class="screen-scroll">
-      <div class="detail-body">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><div class="item-ico yellow"><i data-lucide="git-branch" class="lucide"></i></div><span style="font-size:12px;color:var(--text-2)">Liên quan · 8:45 hôm nay · Mức độ: <strong style="color:var(--text-yellow)">Cao</strong></span></div>
-
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:13px">
-          <span class="chain-pill" style="color:var(--text-red);font-size:13px;padding:6px 12px">DXG –12%</span>
-          <span class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span>
-          <span style="color:var(--text-2);font-size:12px">nợ xấu BĐS tăng</span>
-          <span class="chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span>
-          <span class="chain-pill hl" style="font-size:13px;padding:6px 12px">VCB</span>
-        </div>
-
-        <div class="d-title">DXG giảm sàn sau tin chủ tịch bị tạm giữ — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
-        <div class="d-num">DXG dư bán sàn <strong>14.7 triệu CP</strong>. Dư nợ BĐS tại VCB chiếm <strong>26%</strong> tổng cho vay. DXG vay <strong>1,200 tỷ</strong> tại VCB.</div>
-
-        <div class="d-section"><i data-lucide="clock" class="lucide"></i> Lịch sử tương tự</div>
-        <div class="d-hist"><strong>11/2022:</strong> FLC sụp đổ → VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù thực tế exposure VCB với FLC rất thấp. Thị trường phản ứng theo cảm xúc hơn fundamentals.</div>
-
-        <div class="d-section"><i data-lucide="user" class="lucide"></i> Danh mục của bạn</div>
-        <div class="d-ctx">Bạn <strong>không cầm DXG</strong>, nhưng đang cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục.<br><br>📌 <strong>Gợi ý:</strong> Theo dõi phản ứng VCB chiều nay. Nếu giảm >2% với volume cao → cân nhắc giảm tỷ trọng tạm thời.</div>
-
-        <div style="margin-top:20px">
-          <button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI thêm về VCB & BĐS</button>
-        </div>
-        <div style="height:30px"></div>
-      </div>
-    </div>
+  <!-- ═══ DETAIL: Adjacent ═══ -->
+  <div class="screen" id="d2">
+    <div class="d-hdr"><div class="d-back" onclick="goScreen('intel')"><i data-lucide="arrow-left" class="lucide"></i></div><div class="d-hdr-t">DXG → VCB</div></div>
+    <div class="screen-scroll"><div class="d-body">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px"><span class="sig-dot high"></span><span style="font-size:12px;color:var(--text-2)">Liên quan · 8:45 hôm nay · Cao</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px"><span class="sig-chain-pill" style="color:var(--text-red);padding:6px 12px">DXG –12%</span><span class="sig-chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span><span style="color:var(--text-2);font-size:12px">nợ xấu BĐS</span><span class="sig-chain-arr"><i data-lucide="chevron-right" class="lucide"></i></span><span class="sig-chain-pill hl" style="padding:6px 12px">VCB</span></div>
+      <div class="d-title">DXG giảm sàn sau tin chủ tịch bị tạm giữ — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
+      <div class="d-nums">DXG dư bán sàn <strong>14.7 triệu CP</strong>. Nợ BĐS tại VCB chiếm <strong>26%</strong> tổng cho vay. DXG vay <strong>1,200 tỷ</strong> tại VCB.</div>
+      <div class="d-sec"><i data-lucide="clock" class="lucide"></i> Lịch sử tương tự</div>
+      <div class="d-hist"><strong>11/2022:</strong> FLC sụp → VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</div>
+      <div class="d-sec"><i data-lucide="user" class="lucide"></i> Danh mục của bạn</div>
+      <div class="d-box">Không cầm DXG, nhưng cầm <strong>1,500 VCB</strong> (42% danh mục).<br><br>Theo dõi phản ứng VCB chiều nay. Giảm >2% với vol cao → cân nhắc giảm tỷ trọng.</div>
+      <div style="margin-top:20px"><button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI về VCB & BĐS</button></div>
+      <div style="height:30px"></div>
+    </div></div>
   </div>
 
   <!-- ═══ DETAIL: Briefing ═══ -->
-  <div class="screen" id="detail-briefing">
-    <div class="detail-hdr">
-      <div class="detail-back" onclick="goScreen('intel')"><i data-lucide="arrow-left" class="lucide"></i></div>
-      <div class="detail-hdr-title">Bản tin sáng 18/03</div>
-    </div>
-    <div class="screen-scroll">
-      <div class="detail-body">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px"><i data-lucide="sun" class="lucide" style="color:var(--bg-yellow)"></i><span style="font-size:12px;color:var(--text-2)">7:00 AM · Cá nhân hóa cho bạn</span></div>
-
-        <div class="d-section"><i data-lucide="briefcase" class="lucide"></i> Tổng quan danh mục</div>
-        <div class="d-ctx">Danh mục hôm qua: <strong class="up">+1.2%</strong> · HPG <span class="dn">–0.8%</span> · VCB <span class="up">+2.1%</span><br>Tổng: <strong>3 mã</strong> · HPG (35%) · VCB (42%) · FPT watchlist</div>
-
-        <div class="d-section"><i data-lucide="alert-triangle" class="lucide"></i> Cần chú ý hôm nay</div>
-        <div class="d-hist"><strong>HPG:</strong> Đang bị cơ quan quản lý yêu cầu giải trình BCTC. Tin này có thể tạo áp lực bán ngắn hạn.<br><br>⚠️ <strong>Nhắc nhở cá nhân:</strong> Bạn đã 3 lần vội bán khi có tin xấu tương tự. Cả 3 lần giá quay lại trong 2-3 tuần. Không bán trước khi đọc số liệu cụ thể.</div>
-
-        <div class="d-section"><i data-lucide="globe" class="lucide"></i> Bối cảnh vĩ mô</div>
-        <div class="d-ctx">DXY tăng mạnh → KN dự kiến tiếp tục bán ròng. Fed chưa có tín hiệu giảm lãi suất. USD/VND 25,180 — áp lực lên dòng tiền ngoại.</div>
-
-        <div class="d-section"><i data-lucide="target" class="lucide"></i> Gợi ý hành động</div>
-        <div class="d-ctx">
-          • <strong>HPG:</strong> Giữ. Chờ thông tin giải trình (deadline 25/03)<br>
-          • <strong>VCB:</strong> Giữ. BCTC Q4 tích cực, nhưng theo dõi rủi ro BĐS<br>
-          • <strong>FPT:</strong> Đang breakout — cân nhắc mua nếu giữ trên 128,000
-        </div>
-
-        <div style="margin-top:20px">
-          <button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI về bản tin</button>
-        </div>
-        <div style="height:30px"></div>
-      </div>
-    </div>
+  <div class="screen" id="d-brief">
+    <div class="d-hdr"><div class="d-back" onclick="goScreen('intel')"><i data-lucide="arrow-left" class="lucide"></i></div><div class="d-hdr-t">Bản tin sáng 18/03</div></div>
+    <div class="screen-scroll"><div class="d-body">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px"><i data-lucide="sun" class="lucide" style="color:var(--bg-yellow);width:15px;height:15px"></i><span style="font-size:12px;color:var(--text-2)">7:00 · Cá nhân hóa cho bạn</span></div>
+      <div class="d-sec"><i data-lucide="briefcase" class="lucide"></i> Danh mục</div>
+      <div class="d-box">Hôm qua: <strong class="up">+1.2%</strong> · HPG <span class="dn">–0.8%</span> · VCB <span class="up">+2.1%</span><br>3 mã · HPG (35%) · VCB (42%) · FPT watchlist</div>
+      <div class="d-sec"><i data-lucide="alert-triangle" class="lucide"></i> Chú ý hôm nay</div>
+      <div class="d-hist"><strong>HPG:</strong> Bị yêu cầu giải trình BCTC. Có thể tạo áp lực bán ngắn hạn.<br><br>Bạn đã 3 lần vội bán khi có tin xấu tương tự. Cả 3 lần giá quay lại.</div>
+      <div class="d-sec"><i data-lucide="globe" class="lucide"></i> Vĩ mô</div>
+      <div class="d-box">DXY tăng mạnh → KN tiếp tục bán ròng. USD/VND 25,180.</div>
+      <div class="d-sec"><i data-lucide="target" class="lucide"></i> Gợi ý</div>
+      <div class="d-box"><strong>HPG:</strong> Giữ. Chờ giải trình (25/03)<br><strong>VCB:</strong> Giữ. BCTC Q4 tích cực, theo dõi BĐS<br><strong>FPT:</strong> Đang breakout — cân nhắc mua nếu giữ trên 128,000</div>
+      <div style="margin-top:20px"><button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI về bản tin</button></div>
+      <div style="height:30px"></div>
+    </div></div>
   </div>
-
 </div>
 
 <script>
-function goScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  lucide.createIcons();
-}
-function selectOpt(el,parentId){
-  document.querySelectorAll('#'+parentId+' .ob-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-}
-function selectStyle(el,parentId){
-  document.querySelectorAll('#'+parentId+' .ob-style').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-}
+function goScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');lucide.createIcons()}
+function selectOpt(el,pid){document.querySelectorAll('#'+pid+' .ob-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
+function selectStyle(el,pid){document.querySelectorAll('#'+pid+' .ob-style').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
 lucide.createIcons();
 </script>
 </body>
