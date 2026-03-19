@@ -188,6 +188,7 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
 .chat-input{flex:1;height:40px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--rr);padding:0 16px;font-size:14px;font-family:var(--font-b);font-weight:500;color:var(--text-1);outline:none}
 .chat-input:focus{border-color:var(--bg-accent)}.chat-input::placeholder{color:var(--text-3)}
 .chat-send{width:40px;height:40px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-followup{display:none;flex-wrap:wrap;gap:6px;padding:4px 0 8px 36px}
 .d-back{color:var(--text-2);display:flex;cursor:pointer}.d-back .ph{font-size:22px}
 </style>
 </head>
@@ -464,10 +465,10 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
       <div class="d-back" onclick="go('intel')"><i class="ph ph-caret-left ico"></i></div>
       <div class="chat-hdr-info">
         <div class="chat-avatar">AI</div>
-        <div><div class="chat-hdr-t">Finpath AI</div><div class="chat-hdr-sub">Đang phân tích HPG...</div></div>
+        <div><div class="chat-hdr-t">Finpath AI</div><div class="chat-hdr-sub" id="chatStatus">Chọn câu hỏi hoặc tự nhập</div></div>
       </div>
     </div>
-    <div class="screen-scroll chat-body">
+    <div class="screen-scroll chat-body" id="chatSignalBody">
       <!-- Context card gốc -->
       <div class="chat-ctx">
         <div class="chat-ctx-card">
@@ -477,52 +478,72 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
         </div>
       </div>
 
-      <!-- AI trả lời đầu tiên -->
+      <!-- AI chào + gợi ý chọn câu hỏi -->
       <div class="msg msg-ai">
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
-          <p>Anh đang cầm <strong>2,000 HPG (35% danh mục)</strong>. Phân tích nhanh:</p>
-          <p style="margin-top:10px"><strong>Tin xấu thực sự không?</strong><br>UBCKNN yêu cầu giải trình ≠ xử phạt. Đây là quy trình kiểm tra thường niên. 70% trường hợp tương tự không dẫn đến xử phạt.</p>
-          <p style="margin-top:10px"><strong>Lịch sử của anh:</strong><br>Anh đã 3 lần bán vội khi có tin xấu HPG. Cả 3 lần giá hồi +10–15% trong 2–3 tuần. Lần này LNST Q4 vẫn <strong class="up">+18% YoY</strong>.</p>
-          <p style="margin-top:10px"><strong>Mốc cần theo dõi:</strong></p>
-          <ul style="margin:6px 0 0 16px;font-size:14px;line-height:22px">
-            <li>Dưới <strong class="dn">25,000</strong> → giảm 1/3 vị thế</li>
-            <li>Giữ trên <strong class="up">26,000</strong> → giữ nguyên</li>
-            <li>Volume 2.8x TB — cao nhưng chưa panic</li>
-          </ul>
+          <p>Anh muốn hỏi gì về tín hiệu HPG này?</p>
         </div>
       </div>
 
-      <!-- User hỏi -->
-      <div class="msg msg-user">
-        <div class="msg-bubble">Nếu HPG giảm thêm 5% nữa thì danh mục bị ảnh hưởng bao nhiêu?</div>
-      </div>
-
-      <!-- AI trả lời với data table -->
-      <div class="msg msg-ai">
-        <div class="msg-avatar">AI</div>
-        <div class="msg-bubble">
-          <p>Nếu HPG giảm thêm 5% (25,300 → <strong class="dn">24,035</strong>):</p>
-          <div class="msg-data">
-            <div class="msg-data-row"><span style="color:var(--text-2)">HPG (35%)</span><strong class="dn">–1.75%</strong></div>
-            <div class="msg-data-row"><span style="color:var(--text-2)">VCB (42%)</span><span>không đổi</span></div>
-            <div class="msg-data-row"><span style="color:var(--text-2)">Tiền mặt (23%)</span><span>không đổi</span></div>
-            <div class="msg-data-row total"><strong>Tổng danh mục</strong><strong class="dn">–1.75%</strong></div>
+      <!-- Phần conversation — ẩn ban đầu -->
+      <div id="chatConvo" style="display:none">
+        <div class="msg msg-user">
+          <div class="msg-bubble" id="chatUserQ"></div>
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">
+            <p>Anh đang cầm <strong>2,000 HPG (35% danh mục)</strong>. Phân tích nhanh:</p>
+            <p style="margin-top:10px"><strong>Tin xấu thực sự không?</strong><br>UBCKNN yêu cầu giải trình ≠ xử phạt. Đây là quy trình kiểm tra thường niên. 70% trường hợp tương tự không dẫn đến xử phạt.</p>
+            <p style="margin-top:10px"><strong>Lịch sử của anh:</strong><br>Anh đã 3 lần bán vội khi có tin xấu HPG. Cả 3 lần giá hồi +10–15% trong 2–3 tuần. Lần này LNST Q4 vẫn <strong class="up">+18% YoY</strong>.</p>
+            <p style="margin-top:10px"><strong>Mốc cần theo dõi:</strong></p>
+            <ul style="margin:6px 0 0 16px;font-size:14px;line-height:22px">
+              <li>Dưới <strong class="dn">25,000</strong> → giảm 1/3 vị thế</li>
+              <li>Giữ trên <strong class="up">26,000</strong> → giữ nguyên</li>
+              <li>Volume 2.8x TB — cao nhưng chưa panic</li>
+            </ul>
           </div>
-          <p>Tức mất khoảng <strong class="dn">–2.5 triệu</strong> trên vị thế HPG hiện tại.</p>
-          <div class="msg-tip">💡 Anh có 23% tiền mặt. Nếu HPG về 24,000 và tin giải trình không nghiêm trọng → có thể là cơ hội như 3 lần trước.</div>
+        </div>
+
+        <!-- Follow-up suggestions -->
+        <div class="chat-followup" id="chatFollowup">
+          <div class="chat-chip" onclick="askFollowup('Nếu giảm thêm 5% thì danh mục ảnh hưởng bao nhiêu?')">Ảnh hưởng danh mục nếu giảm thêm?</div>
+          <div class="chat-chip" onclick="askFollowup('So sánh với 3 lần trước')">So sánh với lần trước</div>
+          <div class="chat-chip" onclick="askFollowup('BCTC HPG Q4 có gì bất thường?')">BCTC HPG chi tiết</div>
+        </div>
+
+        <!-- Follow-up conversation — ẩn ban đầu -->
+        <div id="chatFollowConvo" style="display:none">
+          <div class="msg msg-user">
+            <div class="msg-bubble" id="chatFollowQ"></div>
+          </div>
+          <div class="msg msg-ai">
+            <div class="msg-avatar">AI</div>
+            <div class="msg-bubble">
+              <p>Nếu HPG giảm thêm 5% (25,300 → <strong class="dn">24,035</strong>):</p>
+              <div class="msg-data">
+                <div class="msg-data-row"><span style="color:var(--text-2)">HPG (35%)</span><strong class="dn">–1.75%</strong></div>
+                <div class="msg-data-row"><span style="color:var(--text-2)">VCB (42%)</span><span>không đổi</span></div>
+                <div class="msg-data-row"><span style="color:var(--text-2)">Tiền mặt (23%)</span><span>không đổi</span></div>
+                <div class="msg-data-row total"><strong>Tổng danh mục</strong><strong class="dn">–1.75%</strong></div>
+              </div>
+              <p>Tức mất khoảng <strong class="dn">–2.5 triệu</strong> trên vị thế HPG hiện tại.</p>
+              <div class="msg-tip">💡 Anh có 23% tiền mặt. Nếu HPG về 24,000 và tin giải trình không nghiêm trọng → có thể là cơ hội như 3 lần trước.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="chat-input-area">
-      <div class="chat-suggestions">
-        <div class="chat-chip">So sánh với lần trước</div>
-        <div class="chat-chip">Nên cắt lỗ không?</div>
-        <div class="chat-chip">BCTC HPG chi tiết</div>
+      <div class="chat-suggestions" id="chatInitSuggestions">
+        <div class="chat-chip" onclick="askQuestion('Tin này có nghiêm trọng không?')">Tin này nghiêm trọng không?</div>
+        <div class="chat-chip" onclick="askQuestion('Nên bán hay giữ HPG?')">Nên bán hay giữ?</div>
+        <div class="chat-chip" onclick="askQuestion('Ảnh hưởng danh mục thế nào?')">Ảnh hưởng danh mục?</div>
       </div>
       <div class="chat-input-row">
-        <input class="chat-input" placeholder="Hỏi thêm về HPG...">
-        <button class="chat-send"><i class="ph ph-paper-plane-right ico"></i></button>
+        <input class="chat-input" placeholder="Hỏi thêm về HPG..." id="chatInputField" onkeydown="if(event.key==='Enter')askQuestion(this.value)">
+        <button class="chat-send" onclick="askQuestion(document.getElementById('chatInputField').value)"><i class="ph ph-paper-plane-right ico"></i></button>
       </div>
     </div>
   </div>
@@ -605,6 +626,32 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
 function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  // Reset chat when navigating to it
+  if(id==='chat-signal'){
+    document.getElementById('chatConvo').style.display='none';
+    document.getElementById('chatFollowConvo').style.display='none';
+    var fu=document.getElementById('chatFollowup');if(fu)fu.style.display='none';
+    document.getElementById('chatInitSuggestions').style.display='flex';
+    document.getElementById('chatStatus').textContent='Chọn câu hỏi hoặc tự nhập';
+    document.getElementById('chatInputField').value='';
+  }
+}
+function askQuestion(q){
+  if(!q||!q.trim())return;
+  document.getElementById('chatUserQ').textContent=q;
+  document.getElementById('chatConvo').style.display='block';
+  document.getElementById('chatInitSuggestions').style.display='none';
+  document.getElementById('chatStatus').textContent='Đang phân tích HPG...';
+  var fu=document.getElementById('chatFollowup');if(fu)fu.style.display='flex';
+  document.getElementById('chatInputField').value='';
+  document.getElementById('chatSignalBody').scrollTop=99999;
+  setTimeout(function(){document.getElementById('chatStatus').textContent='Online'},800);
+}
+function askFollowup(q){
+  document.getElementById('chatFollowQ').textContent=q;
+  document.getElementById('chatFollowConvo').style.display='block';
+  var fu=document.getElementById('chatFollowup');if(fu)fu.style.display='none';
+  document.getElementById('chatSignalBody').scrollTop=99999;
 }
 function toggleBrief(el){
   var full=el.querySelector('.brief-full');
