@@ -188,6 +188,8 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
 .chat-input{flex:1;height:40px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--rr);padding:0 16px;font-size:14px;font-family:var(--font-b);font-weight:500;color:var(--text-1);outline:none}
 .chat-input:focus{border-color:var(--bg-accent)}.chat-input::placeholder{color:var(--text-3)}
 .chat-send{width:40px;height:40px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-inline-chip{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--r2);font-size:13px;font-weight:500;color:var(--text-1);cursor:pointer}
+.chat-inline-chip:active{border-color:var(--bg-accent);background:var(--opacity-accent)}
 .chat-followup{display:none;flex-wrap:wrap;gap:6px;padding:4px 0 8px 36px}
 .d-back{color:var(--text-2);display:flex;cursor:pointer}.d-back .ph{font-size:22px}
 </style>
@@ -483,6 +485,11 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
           <p>Anh muốn hỏi gì về tín hiệu HPG này?</p>
+          <div class="chat-inline-suggestions" id="chatInlineSuggestions" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+            <div class="chat-inline-chip" onclick="askQuestion('Tin này có nghiêm trọng không?')"><i class="ph ph-chat-circle" style="font-size:14px;color:var(--text-accent)"></i> Tin này nghiêm trọng không?</div>
+            <div class="chat-inline-chip" onclick="askQuestion('Nên bán hay giữ HPG?')"><i class="ph ph-scales" style="font-size:14px;color:var(--text-accent)"></i> Nên bán hay giữ?</div>
+            <div class="chat-inline-chip" onclick="askQuestion('Ảnh hưởng danh mục thế nào?')"><i class="ph ph-chart-pie-slice" style="font-size:14px;color:var(--text-accent)"></i> Ảnh hưởng danh mục?</div>
+          </div>
         </div>
       </div>
 
@@ -536,11 +543,7 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
       </div>
     </div>
     <div class="chat-input-area">
-      <div class="chat-suggestions" id="chatInitSuggestions">
-        <div class="chat-chip" onclick="askQuestion('Tin này có nghiêm trọng không?')">Tin này nghiêm trọng không?</div>
-        <div class="chat-chip" onclick="askQuestion('Nên bán hay giữ HPG?')">Nên bán hay giữ?</div>
-        <div class="chat-chip" onclick="askQuestion('Ảnh hưởng danh mục thế nào?')">Ảnh hưởng danh mục?</div>
-      </div>
+
       <div class="chat-input-row">
         <input class="chat-input" placeholder="Hỏi thêm về HPG..." id="chatInputField" onkeydown="if(event.key==='Enter')askQuestion(this.value)">
         <button class="chat-send" onclick="askQuestion(document.getElementById('chatInputField').value)"><i class="ph ph-paper-plane-right ico"></i></button>
@@ -631,7 +634,7 @@ function go(id){
     document.getElementById('chatConvo').style.display='none';
     document.getElementById('chatFollowConvo').style.display='none';
     var fu=document.getElementById('chatFollowup');if(fu)fu.style.display='none';
-    document.getElementById('chatInitSuggestions').style.display='flex';
+    var is=document.getElementById('chatInlineSuggestions');if(is)is.style.display='flex';
     document.getElementById('chatStatus').textContent='Chọn câu hỏi hoặc tự nhập';
     document.getElementById('chatInputField').value='';
   }
@@ -640,7 +643,7 @@ function askQuestion(q){
   if(!q||!q.trim())return;
   document.getElementById('chatUserQ').textContent=q;
   document.getElementById('chatConvo').style.display='block';
-  document.getElementById('chatInitSuggestions').style.display='none';
+  var is=document.getElementById('chatInlineSuggestions');if(is)is.style.display='none';
   document.getElementById('chatStatus').textContent='Đang phân tích HPG...';
   var fu=document.getElementById('chatFollowup');if(fu)fu.style.display='flex';
   document.getElementById('chatInputField').value='';
