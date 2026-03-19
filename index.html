@@ -202,6 +202,11 @@ body{font-family:var(--font-b);background:#FFFFFF;color:var(--text-1);-webkit-fo
 .delay .ph{font-size:12px}
 
 
+
+/* FAB */
+.fab{position:absolute;bottom:68px;right:16px;width:52px;height:52px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,82,255,0.3);z-index:10}
+.fab:active{transform:scale(0.95)}
+
 /* ═══ CHAT ĐÀO SÂU ═══ */
 .chat-hdr{display:flex;align-items:center;gap:12px;padding:10px 16px 12px;border-bottom:1px solid var(--line);flex-shrink:0}
 .chat-hdr-info{display:flex;align-items:center;gap:10px}
@@ -364,6 +369,7 @@ body{font-family:var(--font-b);background:#FFFFFF;color:var(--text-1);-webkit-fo
 
       <div style="height:20px"></div>
     </div>
+      <div class="fab" onclick="go('chat-general')"><i class="ph ph-chat-circle-dots ico" style="font-size:24px"></i></div>
     <div class="bbar"><div class="btab active" style="position:relative"><i class="ph ph-brain ico"></i><span>Tình báo</span><div class="h-dot" style="position:absolute;top:4px;right:12px"></div></div><div class="btab" onclick="go('home')"><i class="ph ph-chart-bar ico"></i><span>Finpath</span></div><div class="btab"><i class="ph ph-list ico"></i><span>Bảng giá</span></div><div class="btab"><i class="ph ph-users-three ico"></i><span>Cộng đồng</span></div></div>
   </div>
 
@@ -443,6 +449,71 @@ body{font-family:var(--font-b);background:#FFFFFF;color:var(--text-1);-webkit-fo
       </div>
       <div class="chat-input-row">
         <input class="chat-input" placeholder="Hỏi thêm về HPG...">
+        <button class="chat-send"><i class="ph ph-paper-plane-right ico"></i></button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══ CHAT HỎI ĐÁP CHUNG ═══ -->
+  <div class="screen" id="chat-general">
+    <div class="chat-hdr">
+      <div class="d-back" onclick="go('intel')"><i class="ph ph-caret-left ico"></i></div>
+      <div class="chat-hdr-info">
+        <div class="chat-avatar">AI</div>
+        <div>
+          <div class="chat-hdr-t">Finpath AI</div>
+          <div class="chat-hdr-sub">Hỏi bất cứ điều gì về thị trường</div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-scroll chat-body">
+      <div class="msg msg-ai">
+        <div class="msg-avatar">AI</div>
+        <div class="msg-bubble">
+          <p>Chào anh! Mình có thể giúp gì hôm nay?</p>
+          <p style="margin-top:8px;color:var(--text-2);font-size:13px">Mình đã nắm danh mục của anh: HPG (35%), VCB (42%), tiền mặt (23%).</p>
+        </div>
+      </div>
+      <div class="msg msg-user">
+        <div class="msg-bubble">Hôm nay nên mua gì không?</div>
+      </div>
+      <div class="msg msg-ai">
+        <div class="msg-avatar">AI</div>
+        <div class="msg-bubble">
+          <p>Hôm nay <strong>không nên mua mới</strong>. Lý do:</p>
+          <p style="margin-top:10px">1. <strong>HPG đang bị yêu cầu giải trình</strong> — chờ kết quả, không nên tăng vị thế thép.</p>
+          <p style="margin-top:6px">2. <strong>Khối ngoại bán ròng 354 tỷ</strong> — dòng tiền chưa ủng hộ. DXY tăng đêm qua.</p>
+          <p style="margin-top:6px">3. <strong>Anh đã có 77% fully invested</strong> — tỷ trọng cổ phiếu khá cao rồi.</p>
+          <p style="margin-top:12px;padding:10px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px">💡 Giữ 23% tiền mặt làm đạn. Nếu VN-Index test 1,200 và HPG về 24,000 mà tin giải trình không nghiêm trọng → đó là lúc cân nhắc.</p>
+        </div>
+      </div>
+      <div class="msg msg-user">
+        <div class="msg-bubble">FPT thì sao? Đang trong watchlist</div>
+      </div>
+      <div class="msg msg-ai">
+        <div class="msg-avatar">AI</div>
+        <div class="msg-bubble">
+          <p>FPT vừa breakout <strong class="up">128,000</strong> — tín hiệu tốt:</p>
+          <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--text-2)">Giá hiện tại</span><strong class="up">128,500</strong></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--text-2)">Volume</span><strong>180% TB</strong></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--text-2)">RSI</span><span>62 — chưa quá mua</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-2)">P/E</span><span>22x vs ngành 18x</span></div>
+          </div>
+          <p><strong>Nhưng:</strong> anh đang có 77% cổ phiếu. Nếu mua FPT thì nên <strong>giảm 1 trong 2 mã cũ</strong> trước, không nên dùng hết tiền mặt.</p>
+          <p style="margin-top:8px">Gợi ý: Mua thử <strong>30-50 triệu FPT</strong> (từ tiền mặt), giữ stoploss dưới 125,000.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <div class="chat-suggestions">
+        <div class="chat-chip">Phân tích VCB</div>
+        <div class="chat-chip">Danh mục nên rebalance?</div>
+        <div class="chat-chip">Tin tức quan trọng hôm nay</div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" placeholder="Hỏi Finpath AI...">
         <button class="chat-send"><i class="ph ph-paper-plane-right ico"></i></button>
       </div>
     </div>
