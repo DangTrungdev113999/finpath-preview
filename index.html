@@ -3,441 +3,514 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Finpath Prototype</title>
+<title>Finpath Prototype — Full Flow</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Public+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
 <style>
 :root{
---bg-1:#FFFFFF;--bg-2:#F4F6F7;--bg-3:#E3E7EA;
---bg-accent:#0052FF;--bg-green:#098551;--bg-red:#E60815;
---bg-yellow:#D19A00;--bg-blue:#23CDED;--bg-purple:#9945FF;--bg-orange:#ED702F;
---text-1:#0A0B0D;--text-2:#5C6C7E;--text-3:#A4B0BC;
---text-accent:#0052FF;--text-green:#098551;--text-red:#E60815;
---text-yellow:#D19A00;--text-blue:#23CDED;--text-purple:#9945FF;
---text-inverted:#FFFFFF;
---line:#E3E7EA;--line-2:#E3E7EA;
---r1:16px;--r2:12px;--rr:9999px;
---font-t:'Public Sans',-apple-system,sans-serif;
---font-b:'Inter',-apple-system,sans-serif;
---opacity-blue:rgba(35,205,237,0.10);--opacity-accent:rgba(0,82,255,0.10);
+  --bg-1:#FFFFFF;--bg-2:#F4F6F7;--bg-3:#E3E7EA;
+  --bg-accent:#0052FF;--bg-green:#098551;--bg-red:#E60815;
+  --bg-yellow:#D19A00;--bg-blue:#23CDED;--bg-purple:#9945FF;--bg-orange:#ED702F;
+  --text-1:#0A0B0D;--text-2:#5C6C7E;--text-3:#A4B0BC;
+  --text-accent:#0052FF;--text-green:#098551;--text-red:#E60815;
+  --text-yellow:#D19A00;--text-blue:#23CDED;--text-purple:#9945FF;--text-orange:#ED702F;
+  --text-inverted:#FFFFFF;--text-link:#1E88FF;
+  --line:#E3E7EA;
+  --r1:16px;--r2:12px;--rr:9999px;
+  --opacity-blue:rgba(35,205,237,0.10);--opacity-accent:rgba(0,82,255,0.10);
+  --opacity-green:rgba(9,133,81,0.10);--opacity-red:rgba(230,8,21,0.10);
+  --opacity-yellow:rgba(209,154,0,0.10);--opacity-purple:rgba(153,69,255,0.10);
+  --font-t:'Public Sans',sans-serif;--font-b:'Inter',sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--text-1);-webkit-font-smoothing:antialiased;overflow:hidden;margin:0;padding:0}
-.ico{font-size:18px;line-height:1;vertical-align:middle}.ico-s{font-size:14px;line-height:1;vertical-align:middle}.ico-xs{font-size:12px;line-height:1;vertical-align:middle}.ph{vertical-align:middle}
+.ph{vertical-align:middle}
+.ico{font-size:18px;line-height:1}.ico-s{font-size:14px;line-height:1}.ico-lg{font-size:24px;line-height:1}.ico-xl{font-size:36px;line-height:1}
 
+/* === SHELL === */
 .phone{width:100%;max-width:430px;height:100vh;height:100dvh;margin:0 auto;background:var(--bg-1);overflow:hidden;display:flex;flex-direction:column;position:relative}
-.sbar{display:none}
-.sbar-r{display:flex;gap:5px;align-items:center}.sbar-r .ph{font-size:15px}
-.screen{display:none;flex-direction:column;flex:1;overflow:hidden;animation:fadeIn .2s ease}.screen.active{display:flex}
+.screen{display:none;flex-direction:column;flex:1;overflow:hidden;animation:fadeIn .25s ease}.screen.active{display:flex}
 .screen-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}.screen-scroll::-webkit-scrollbar{display:none}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.btn{width:100%;height:50px;border-radius:var(--r2);font-size:15px;font-weight:600;font-family:var(--font-b);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}.btn:active{opacity:.85}.btn-primary{background:var(--bg-accent);color:#fff}.btn-sm{height:40px;font-size:13px;border-radius:10px}
-.up{color:var(--text-green);font-weight:700}.dn{color:var(--text-red);font-weight:700}.ref{color:var(--text-yellow);font-weight:700}
-.bbar{display:flex;justify-content:space-around;align-items:center;height:56px;background:var(--bg-2);border-top:1px solid var(--line);flex-shrink:0}
-.btab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:500;color:var(--text-3);cursor:pointer}.btab.active{color:var(--text-accent)}.btab .ph{font-size:20px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
-/* ═══ ONBOARDING ═══ */
+/* === BOTTOM BAR === */
+.bbar{display:flex;justify-content:space-around;align-items:center;height:56px;background:var(--bg-2);border-top:1px solid var(--line);flex-shrink:0}
+.btab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:500;color:var(--text-3);cursor:pointer;padding:6px 0}.btab.active{color:var(--text-accent)}.btab .ph{font-size:20px}
+
+/* === BUTTONS === */
+.btn{width:100%;height:48px;border-radius:var(--r2);font-size:14px;font-weight:600;font-family:var(--font-b);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}.btn:active{opacity:.85}
+.btn-primary{background:var(--bg-accent);color:var(--text-inverted)}
+.btn-secondary{background:transparent;color:var(--text-accent);border:1px solid var(--bg-accent)}
+.btn-sm{height:40px;font-size:13px}
+
+/* === UTILS === */
+.up{color:var(--text-green);font-weight:700}.dn{color:var(--text-red);font-weight:700}.ref{color:var(--text-yellow);font-weight:700}
+.h-btn{color:var(--text-2);display:flex;position:relative;cursor:pointer}.h-dot{position:absolute;top:-1px;right:-2px;width:6px;height:6px;background:var(--bg-red);border-radius:50%}
+
+/* ════════════════════════════════
+   ONBOARDING
+   ════════════════════════════════ */
 .ob{padding:0 24px;display:flex;flex-direction:column;justify-content:space-between;height:100%}
 .ob-top{flex:1;display:flex;flex-direction:column;justify-content:center}
 .ob-logo{font-family:var(--font-t);font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-0.5px}.ob-logo b{color:var(--text-accent)}
-.ob-sub{font-size:15px;color:var(--text-2);line-height:22px;margin-bottom:32px}
+.ob-sub{font-size:15px;color:var(--text-2);line-height:22px;margin-bottom:32px;font-weight:500}
 .ob-title{font-family:var(--font-t);font-size:20px;font-weight:700;margin-bottom:20px;line-height:28px}
+.ob-bottom{padding-bottom:40px}
+.ob-skip{text-align:center;margin-top:12px;font-size:13px;color:var(--text-2);cursor:pointer;font-weight:500}
+.ob-progress{display:flex;gap:4px;margin-bottom:16px}.ob-dot{flex:1;height:3px;border-radius:2px;background:var(--bg-3)}.ob-dot.done{background:var(--bg-accent)}.ob-dot.current{background:var(--text-accent)}
+
+/* Onboarding: Options */
 .ob-opts{display:flex;flex-direction:column;gap:10px}
-.ob-opt{display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-2);border-radius:var(--r1);border:1.5px solid transparent;cursor:pointer;transition:all .2s}
+.ob-opt{display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-2);border-radius:var(--r1);border:1.5px solid transparent;cursor:pointer;transition:all .15s}
 .ob-opt:hover,.ob-opt.selected{border-color:var(--bg-accent);background:var(--opacity-accent)}
 .ob-opt-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ob-opt-text{flex:1}.ob-opt-label{font-size:15px;font-weight:600;margin-bottom:2px}.ob-opt-desc{font-size:12px;color:var(--text-2)}
+.ob-opt-text{flex:1}.ob-opt-label{font-size:15px;font-weight:600;margin-bottom:2px}.ob-opt-desc{font-size:12px;color:var(--text-2);font-weight:500}
 .ob-opt .check{width:22px;height:22px;border-radius:50%;border:2px solid var(--text-3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ob-opt.selected .check{border-color:var(--bg-accent);background:var(--bg-accent)}.ob-opt.selected .check .ph{color:#fff;font-size:14px}
+
+/* Onboarding: Style cards */
 .ob-styles{display:flex;gap:10px}
-.ob-style{flex:1;padding:20px 14px;background:var(--bg-2);border-radius:var(--r1);border:1.5px solid transparent;cursor:pointer;text-align:center;transition:all .2s}
+.ob-style{flex:1;padding:20px 14px;background:var(--bg-2);border-radius:var(--r1);border:1.5px solid transparent;cursor:pointer;text-align:center;transition:all .15s}
 .ob-style:hover,.ob-style.selected{border-color:var(--bg-accent);background:var(--opacity-accent)}
-.ob-style-label{font-size:14px;font-weight:600;margin:8px 0 4px}.ob-style-desc{font-size:11px;color:var(--text-2);line-height:15px}
-.ob-input{width:100%;height:48px;background:var(--bg-2);border:1.5px solid var(--line-2);border-radius:var(--r2);padding:0 16px;font-size:15px;font-family:var(--font-b);color:var(--text-1);outline:none}.ob-input:focus{border-color:var(--bg-accent)}.ob-input::placeholder{color:var(--text-3)}
+.ob-style-label{font-size:14px;font-weight:600;margin:8px 0 4px}.ob-style-desc{font-size:11px;color:var(--text-2);line-height:15px;font-weight:500}
+
+/* Onboarding: Chips */
+.ob-input{width:100%;height:48px;background:var(--bg-2);border:1.5px solid var(--line);border-radius:var(--r2);padding:0 16px;font-size:15px;font-family:var(--font-b);font-weight:500;color:var(--text-1);outline:none}.ob-input:focus{border-color:var(--bg-accent)}.ob-input::placeholder{color:var(--text-3)}
 .ob-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .ob-chip{padding:8px 14px;background:var(--bg-2);border-radius:var(--rr);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer;border:1px solid transparent}
 .ob-chip.selected{background:var(--opacity-accent);color:var(--text-accent);border-color:var(--bg-accent)}
+
+/* Onboarding: Notification */
 .ob-notif{text-align:center;padding:40px 0}
 .ob-notif-ico{width:72px;height:72px;border-radius:20px;background:var(--opacity-accent);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}.ob-notif-ico .ph{font-size:36px;color:var(--text-accent)}
 .ob-notif-title{font-family:var(--font-t);font-size:20px;font-weight:700;margin-bottom:8px}
-.ob-notif-desc{font-size:14px;color:var(--text-2);line-height:20px;max-width:280px;margin:0 auto}
-.ob-progress{display:flex;gap:4px;margin-bottom:16px}.ob-dot{flex:1;height:3px;border-radius:2px;background:var(--bg-3)}.ob-dot.done{background:var(--bg-accent)}.ob-dot.current{background:var(--text-accent)}
-.ob-bottom{padding-bottom:40px}
-.ob-skip{text-align:center;margin-top:12px;font-size:13px;color:var(--text-2);cursor:pointer}
+.ob-notif-desc{font-size:14px;color:var(--text-2);line-height:20px;max-width:280px;margin:0 auto;font-weight:500}
 
-/* ═══ HOME ═══ */
-.h-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 8px;flex-shrink:0}
-.h-logo{font-family:var(--font-t);font-size:22px;font-weight:700;letter-spacing:-.3px}.h-logo b{color:var(--text-accent)}
-.h-hdr-r{display:flex;gap:16px;align-items:center}
-.h-btn{color:var(--text-2);display:flex;position:relative}.h-dot{position:absolute;top:-1px;right:-2px;width:6px;height:6px;background:var(--bg-red);border-radius:50%}
-.seg{display:flex;gap:6px;padding:6px 20px 10px;flex-shrink:0}
-.seg-i{padding:6px 14px;border-radius:var(--rr);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer}.seg-i.active{background:var(--bg-accent);color:#fff;font-weight:600}
-.idx-row{display:flex;padding:4px 20px 12px;gap:2px}
-.idx-item{flex:1;text-align:center;padding:10px 4px;cursor:pointer}.idx-item.active{background:var(--bg-2);border-radius:10px}
-.idx-name{font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:4px}.idx-val{font-size:17px;font-weight:700;font-family:var(--font-t);margin-bottom:2px}.idx-chg{font-size:12px;font-weight:600}
-.breadth{display:flex;justify-content:center;gap:16px;padding:0 20px 12px;font-size:12px;font-weight:600}
-.breadth-item{display:flex;align-items:center;gap:4px}.breadth-dot{width:8px;height:8px;border-radius:2px}
-.analysis-cta{margin:0 20px 12px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:var(--opacity-accent);border-radius:10px;font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0 20px 0;background:var(--bg-2);border-radius:var(--r1);overflow:hidden}
-.stats+.stats{margin-top:2px;border-radius:0 0 var(--r1) var(--r1)}
-.stats:first-of-type{border-radius:var(--r1) var(--r1) 0 0}
-.stat{padding:12px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}.stat:nth-child(even){border-right:none}.stat:nth-last-child(-n+2){border-bottom:none}
-.stat-label{font-size:11px;color:var(--text-2);margin-bottom:3px}.stat-val{font-size:14px;font-weight:600}
-.news{margin:12px 20px;padding:12px 14px;background:var(--bg-2);border-radius:var(--r2);cursor:pointer}
-.news-label{font-size:10px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:4px}.news-label .ph{font-size:12px}
-.news-text{font-size:13px;line-height:18px;color:var(--text-1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.sub-tabs{display:flex;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto;flex-shrink:0}.sub-tabs::-webkit-scrollbar{display:none}
-.sub-tab{font-size:13px;font-weight:500;color:var(--text-2);padding:10px 14px;border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer}.sub-tab.active{color:var(--text-1);font-weight:600;border-bottom-color:var(--text-accent)}
-.heat{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:12px 20px}
-.heat-cell{padding:8px 4px;background:var(--bg-2);border-radius:8px;text-align:center}
-.heat-name{font-size:10px;color:var(--text-2);margin-bottom:3px}.heat-tk{font-size:12px;font-weight:700;margin-bottom:2px}.heat-chg{font-size:11px;font-weight:600}
-.liq-section{margin:4px 20px 12px;padding:14px;background:var(--bg-2);border-radius:var(--r1)}
-.liq-title{font-size:13px;font-weight:600;margin-bottom:8px}.liq-big{font-size:22px;font-weight:700;font-family:var(--font-t);margin-bottom:4px}
-.liq-meta{display:flex;gap:16px;font-size:12px;color:var(--text-2);margin-bottom:10px}
-.liq-bar-bg{height:6px;background:var(--bg-3);border-radius:3px;overflow:hidden}.liq-bar-fill{height:100%;border-radius:3px}
-.foreign-section{margin:0 20px 12px;padding:14px;background:var(--bg-2);border-radius:var(--r1)}
-.foreign-title{font-size:13px;font-weight:600;margin-bottom:8px}.foreign-big{font-size:20px;font-weight:700;font-family:var(--font-t);margin-bottom:8px}
-.foreign-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.foreign-col{font-size:12px;color:var(--text-2)}.foreign-col strong{display:block;font-size:14px;font-weight:600;margin-top:2px}
-
-/* ═══ INTELLIGENCE ═══ */
-.intel-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 14px;flex-shrink:0}
+/* ════════════════════════════════
+   INTELLIGENCE FEED
+   ════════════════════════════════ */
+.intel-hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 14px;flex-shrink:0}
 .intel-title{font-family:var(--font-t);font-size:20px;font-weight:700}
-.sticky{position:sticky;top:0;z-index:10;margin:4px 20px 6px;background:var(--opacity-accent);backdrop-filter:blur(16px);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
-.dot-pulse{width:6px;height:6px;background:var(--bg-red);border-radius:50%;animation:p 1.5s infinite}@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
-.sec-label{font-size:11px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;padding:16px 20px 8px}
+.intel-hdr-r{display:flex;gap:16px;align-items:center}
 
-/* Briefing */
-.brief{margin:4px 16px 8px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r1);cursor:pointer}
+/* Briefing card */
+.brief{margin:0 16px 12px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r1);cursor:pointer}
 .brief-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .brief-t{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px}.brief-t .ph{font-size:15px;color:var(--bg-yellow)}
 .brief-new{font-size:9px;font-weight:700;color:var(--text-accent);background:var(--opacity-accent);padding:2px 6px;border-radius:99px;text-transform:uppercase}
-.brief-p{font-size:13px;line-height:19px;color:var(--text-1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.brief-p strong{font-weight:600}
+.brief-p{font-size:13px;line-height:19px;color:var(--text-1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:500}.brief-p strong{font-weight:600}
 .brief-f{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
-.brief-f .time{font-size:11px;color:var(--text-2)}.brief-f .cta{font-size:12px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;gap:3px}
+.brief-f .time{font-size:11px;color:var(--text-2);font-weight:500}.brief-f .cta{font-size:12px;font-weight:600;color:var(--text-accent);display:flex;align-items:center;gap:3px}
 
-/* ═══════════════════════════════
-   SIGNAL CARD — match reference screenshots
-   Card bg, tags, full text, history callout, CTA pill
-   ═══════════════════════════════ */
+/* Signal cards */
 .card{margin:0 16px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r1);padding:16px;cursor:pointer}
 .card:active{opacity:.97}
-
-/* Top row: dot + tags + time */
-.card-top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .card-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.card-dot.crit{background:var(--bg-red);box-shadow:0 0 4px rgba(255,93,102,0.4)}
+.card-dot.crit{background:var(--bg-red);box-shadow:0 0 4px rgba(230,8,21,0.25)}
 .card-dot.high{background:var(--bg-yellow)}
 .card-dot.med{background:var(--bg-blue)}
 .card-dot.low{background:var(--bg-3)}
-.card-tags{display:flex;gap:6px;flex-wrap:wrap}
-.card-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:4px}
-.tag-news{background:rgba(35,205,237,0.1);color:var(--text-blue)}
-.tag-adj{background:rgba(35,205,237,0.1);color:var(--text-blue)}
-.tag-compound{background:rgba(255,210,0,0.1);color:var(--text-yellow)}
-.tag-tech{background:rgba(237,112,47,0.1);color:var(--text-orange)}
-.tag-analysis{background:rgba(153,69,255,0.1);color:var(--text-purple)}
-.tag-vip{background:rgba(153,69,255,0.1);color:var(--text-purple)}
-.card-time{font-size:12px;color:var(--text-2);margin-left:auto;white-space:nowrap}
-
-/* Title */
+.card-ticker{font-size:13px;font-weight:700;color:var(--text-1)}
+.card-time{font-size:12px;color:var(--text-3);margin-left:auto;white-space:nowrap;font-weight:500}
 .card-title{font-size:16px;line-height:23px;font-weight:700;font-family:var(--font-t);margin-bottom:10px}
-
-/* Body — full sentences, readable */
-.card-body{font-size:14px;line-height:21px;color:var(--text-1);margin-bottom:12px}
+.card-body{font-size:14px;line-height:21px;color:var(--text-1);margin-bottom:12px;font-weight:500}
 .card-body strong{font-weight:700}
-
-/* History callout — dark bg, circle bullet */
 .card-hist{background:var(--opacity-blue);border-left:3px solid var(--text-blue);border-radius:0 12px 12px 0;padding:10px 12px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
 .card-hist-dot{width:8px;height:8px;border-radius:50%;background:var(--text-2);flex-shrink:0;margin-top:5px}
-.card-hist p{font-size:13px;line-height:19px;color:var(--text-2)}
+.card-hist p{font-size:13px;line-height:19px;color:var(--text-2);font-weight:500}
 .card-hist strong{color:var(--text-1);font-weight:600}
-
-/* Context — plain text */
-.card-ctx{font-size:14px;line-height:21px;color:var(--text-1);margin-bottom:14px}
-.card-ctx strong{font-weight:700}
-
-/* CTA pill */
+.card-ctx{font-size:14px;line-height:21px;color:var(--text-2);margin-bottom:14px;font-weight:500}
+.card-ctx strong{font-weight:700;color:var(--text-1)}
 .card-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--opacity-accent);border-radius:var(--rr);font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer}
 .card-cta .ph{font-size:15px}
+.card-cta:active{opacity:.85}
 
-/* Expand toggle */
-.card-expand{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer;margin-bottom:12px}
-.card-expand .ph{font-size:14px}
-
-/* Chain diagram */
+/* Chain diagram (Adjacent) */
 .chain{display:flex;align-items:center;gap:6px;margin-bottom:14px}
 .chain-box{background:var(--bg-3);border-radius:8px;padding:8px 14px;text-align:center}
-.chain-box.hl{background:rgba(75,146,255,0.08)}
+.chain-box.hl{background:var(--opacity-accent)}
 .chain-box .tk{font-size:13px;font-weight:700}
-.chain-box .sub{font-size:11px;color:var(--text-2);margin-top:1px}
-.chain-box .sub-a{font-size:11px;color:var(--text-accent);margin-top:1px}
+.chain-box .sub{font-size:11px;color:var(--text-2);margin-top:1px;font-weight:500}
+.chain-box .sub-a{font-size:11px;color:var(--text-accent);margin-top:1px;font-weight:600}
 .chain-arr{color:var(--text-3);display:flex}.chain-arr .ph{font-size:14px}
 
-/* Pro card */
+/* Pro blur */
 .pro-blur{position:relative;margin-bottom:14px}
 .pro-blur-inner{filter:blur(6px);opacity:.5;pointer-events:none;user-select:none;padding:8px 0}
 .pro-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.pro-over .ph{color:var(--text-2)}
+.pro-over .ph{color:var(--text-2);font-size:20px}
 .pro-lbl{font-size:13px;font-weight:600;color:var(--text-1)}
-.pro-sub{font-size:12px;color:var(--text-2);display:flex;align-items:center;gap:4px}
+.pro-sub{font-size:12px;color:var(--text-2);display:flex;align-items:center;gap:4px;font-weight:500}
 .pro-sub .ph{font-size:12px}
-.pro-btn{margin-top:6px;background:var(--bg-accent);color:#fff;font-size:13px;font-weight:600;padding:10px 24px;border-radius:10px;border:none;cursor:pointer;font-family:var(--font-b);display:flex;align-items:center;gap:6px}
+.pro-btn{margin-top:6px;background:var(--bg-accent);color:var(--text-inverted);font-size:13px;font-weight:600;padding:10px 24px;border-radius:var(--r2);border:none;cursor:pointer;font-family:var(--font-b);display:flex;align-items:center;gap:6px}
 
-/* VIP result box */
-.vip-box{background:var(--bg-3);border-radius:10px;padding:12px;margin-bottom:10px}
-.vip-box p{font-size:13px;line-height:19px;color:var(--text-1)}
+/* VIP delayed */
+.delay{font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:500}.delay .ph{font-size:12px}
+.vip-box{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r2);padding:12px;margin-bottom:10px}
+.vip-box p{font-size:13px;line-height:19px;font-weight:500}
 .vip-box .ph{font-size:14px;color:var(--text-green)}
-.vip-note{font-size:12px;color:var(--text-2);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.vip-note{font-size:12px;color:var(--text-2);margin-bottom:12px;display:flex;align-items:center;gap:6px;font-weight:500}
 .vip-note .ph{font-size:12px;color:var(--text-accent)}
 
-/* Sources (expandable) */
-.card-sources{display:none;margin-bottom:12px}
-.card.expanded .card-sources{display:block}
-.src{background:var(--bg-3);border-radius:8px;padding:10px 12px;margin-bottom:4px}
-.src-h{font-size:10px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;display:flex;align-items:center;gap:4px}.src-h .ph{font-size:12px;opacity:.6}
-.src-p{font-size:12px;line-height:17px;color:var(--text-1)}
-
-/* Delay */
-.delay{font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:4px;margin-bottom:8px}
-.delay .ph{font-size:12px}
-
-
-
 /* FAB */
-.fab{position:absolute;bottom:68px;right:16px;width:52px;height:52px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,82,255,0.3);z-index:10}
-.fab:active{transform:scale(0.95)}
+.fab{position:absolute;bottom:68px;right:16px;width:52px;height:52px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(0,82,255,0.25);z-index:10}
+.fab:active{transform:scale(0.95)}.fab .ph{font-size:24px}
 
-/* ═══ CHAT ĐÀO SÂU ═══ */
+/* ════════════════════════════════
+   CHAT ĐÀO SÂU
+   ════════════════════════════════ */
 .chat-hdr{display:flex;align-items:center;gap:12px;padding:10px 16px 12px;border-bottom:1px solid var(--line);flex-shrink:0}
 .chat-hdr-info{display:flex;align-items:center;gap:10px}
 .chat-avatar{width:32px;height:32px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .chat-hdr-t{font-size:15px;font-weight:600}
-.chat-hdr-sub{font-size:12px;color:var(--text-2)}
+.chat-hdr-sub{font-size:12px;color:var(--text-2);font-weight:500}
 .chat-body{padding:16px;display:flex;flex-direction:column;gap:16px}
 .chat-ctx{margin-bottom:4px}
-.chat-ctx-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r2);padding:12px;font-size:13px;line-height:19px}
+.chat-ctx-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r2);padding:12px;font-size:13px;line-height:19px;font-weight:500}
 .msg{display:flex;gap:8px;align-items:flex-start}
 .msg-avatar{width:28px;height:28px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.msg-bubble{font-size:14px;line-height:22px;max-width:92%}
+.msg-bubble{font-size:14px;line-height:22px;max-width:92%;font-weight:500}
 .msg-bubble p{margin:0}
+.msg-bubble strong{font-weight:700}
 .msg-user{flex-direction:row-reverse}
 .msg-user .msg-bubble{background:var(--bg-accent);color:var(--text-inverted);padding:10px 14px;border-radius:16px 16px 4px 16px}
+.msg-data{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r2);padding:12px;margin:10px 0}
+.msg-data-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px}.msg-data-row:last-child{margin:0}
+.msg-data-row.total{border-top:1px solid var(--line);padding-top:8px;margin-top:2px}
+.msg-tip{margin-top:8px;padding:10px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r2);font-size:13px;color:var(--text-2);line-height:19px}
 .chat-input-area{border-top:1px solid var(--line);padding:8px 16px 12px;flex-shrink:0;background:var(--bg-1)}
 .chat-suggestions{display:flex;gap:6px;overflow-x:auto;margin-bottom:8px;padding-bottom:2px}.chat-suggestions::-webkit-scrollbar{display:none}
 .chat-chip{padding:6px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--rr);font-size:12px;font-weight:500;color:var(--text-2);white-space:nowrap;cursor:pointer}
-.chat-chip:hover{border-color:var(--bg-accent);color:var(--text-accent)}
+.chat-chip:active{border-color:var(--bg-accent);color:var(--text-accent)}
 .chat-input-row{display:flex;gap:8px;align-items:center}
-.chat-input{flex:1;height:40px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--rr);padding:0 16px;font-size:14px;font-family:var(--font-b);color:var(--text-1);outline:none}
-.chat-input:focus{border-color:var(--bg-accent)}
-.chat-input::placeholder{color:var(--text-3)}
+.chat-input{flex:1;height:40px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--rr);padding:0 16px;font-size:14px;font-family:var(--font-b);font-weight:500;color:var(--text-1);outline:none}
+.chat-input:focus{border-color:var(--bg-accent)}.chat-input::placeholder{color:var(--text-3)}
 .chat-send{width:40px;height:40px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
-/* ═══ DETAIL ═══ */
-.d-hdr{display:flex;align-items:center;gap:12px;padding:10px 20px 14px;flex-shrink:0}
-.d-back{color:var(--text-2);display:flex;cursor:pointer}.d-hdr-t{font-family:var(--font-t);font-size:18px;font-weight:700}
-.d-body{padding:0 20px 20px}
-.d-title{font-size:18px;line-height:26px;font-weight:700;font-family:var(--font-t);margin-bottom:12px}
-.d-nums{font-size:14px;line-height:21px;color:var(--text-1);margin-bottom:16px}
-.d-sec{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin:16px 0 8px;display:flex;align-items:center;gap:6px}.d-sec .ph{font-size:14px;opacity:.5}
-.d-box{padding:12px;background:var(--bg-2);border-radius:10px;font-size:13px;line-height:19px;color:var(--text-1);margin-bottom:8px}
-.d-hist{padding:12px;background:var(--opacity-blue);border-left:3px solid var(--text-blue);border-radius:0 12px 12px 0;font-size:13px;line-height:19px;color:var(--text-1);margin-bottom:12px}
-.d-src{padding:12px;background:var(--bg-2);border-radius:10px;margin-bottom:6px}
-.d-src-h{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:4px}.d-src-h .ph{font-size:13px;opacity:.5}
-.d-src-p{font-size:13px;line-height:19px;color:var(--text-1)}
+.d-back{color:var(--text-2);display:flex;cursor:pointer}.d-back .ph{font-size:22px}
 </style>
 </head>
 <body>
-
 <div class="phone">
-  <div class="sbar"><span>9:41</span><div class="sbar-r"><i class="ph ph-cell-signal-full ico"></i><i class="ph ph-wifi-high ico"></i><i class="ph ph-battery-full ico"></i></div></div>
 
-  <!-- ═══ ONBOARDING 1-5 ═══ -->
-  <div class="screen" id="ob1"><div class="ob"><div class="ob-top"><div class="ob-logo">Fin<b>path</b></div><div class="ob-sub">Tình báo viên AI cho nhà đầu tư</div><div class="ob-title">Bạn quan tâm thị trường nào?</div><div class="ob-opts" id="mo"><div class="ob-opt" onclick="selOpt(this,'mo')"><div class="ob-opt-ico" style="background:rgba(16,215,130,0.1)"><i class="ph ph-trend-up ico" style="color:var(--text-green)"></i></div><div class="ob-opt-text"><div class="ob-opt-label">Chứng khoán</div><div class="ob-opt-desc">Cổ phiếu Việt Nam, VN-Index, HNX</div></div><div class="check"><i class="ph ph-check ico"></i></div></div><div class="ob-opt" onclick="selOpt(this,'mo')"><div class="ob-opt-ico" style="background:rgba(255,210,0,0.1)"><i class="ph ph-currency-circle-dollar ico" style="color:var(--text-yellow)"></i></div><div class="ob-opt-text"><div class="ob-opt-label">Vàng</div><div class="ob-opt-desc">Vàng SJC, vàng thế giới, XAU/USD</div></div><div class="check"><i class="ph ph-check ico"></i></div></div><div class="ob-opt" onclick="selOpt(this,'mo')"><div class="ob-opt-ico" style="background:rgba(237,112,47,0.1)"><i class="ph ph-currency-btc ico" style="color:var(--bg-orange)"></i></div><div class="ob-opt-text"><div class="ob-opt-label">Crypto</div><div class="ob-opt-desc">Bitcoin, Ethereum, Altcoins</div></div><div class="check"><i class="ph ph-check ico"></i></div></div></div></div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="go('ob2')">Tiếp tục</button></div></div></div>
 
-  <div class="screen" id="ob2"><div class="ob"><div class="ob-top"><div class="ob-title" style="margin-top:20px">Phong cách đầu tư của bạn?</div><div class="ob-styles" id="so"><div class="ob-style" onclick="selSty(this,'so')"><i class="ph ph-plant ico" style="width:28px;height:28px;color:var(--text-green)"></i><div class="ob-style-label">Mới bắt đầu</div><div class="ob-style-desc">Tôi muốn học đầu tư an toàn</div></div><div class="ob-style" onclick="selSty(this,'so')"><i class="ph ph-lightning ico" style="width:28px;height:28px;color:var(--text-yellow)"></i><div class="ob-style-label">Có kinh nghiệm</div><div class="ob-style-desc">Tôi cần dữ liệu nhanh, gọn, bén</div></div></div></div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="go('ob3')">Tiếp tục</button></div></div></div>
-
-  <div class="screen" id="ob3"><div class="ob"><div class="ob-top"><div class="ob-title" style="margin-top:20px">Bạn đang theo dõi mã nào?</div><div class="ob-sub" style="margin-bottom:20px">Chọn hoặc nhập mã để AI theo dõi</div><input class="ob-input" placeholder="Tìm mã: VCB, HPG, FPT..."><div class="ob-chips"><div class="ob-chip selected" onclick="this.classList.toggle('selected')">HPG</div><div class="ob-chip selected" onclick="this.classList.toggle('selected')">VCB</div><div class="ob-chip" onclick="this.classList.toggle('selected')">FPT</div><div class="ob-chip" onclick="this.classList.toggle('selected')">SSI</div><div class="ob-chip" onclick="this.classList.toggle('selected')">VNM</div><div class="ob-chip" onclick="this.classList.toggle('selected')">MWG</div><div class="ob-chip" onclick="this.classList.toggle('selected')">TCB</div><div class="ob-chip" onclick="this.classList.toggle('selected')">VHM</div></div></div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="go('ob4')">Tiếp tục</button><div class="ob-skip" onclick="go('ob4')">Bỏ qua, thêm sau</div></div></div></div>
-
-  <div class="screen" id="ob4"><div class="ob"><div class="ob-top"><div class="ob-notif"><div class="ob-notif-ico"><i class="ph ph-bell-ringing ico"></i></div><div class="ob-notif-title">Bật thông báo</div><div class="ob-notif-desc">Nhận tín hiệu quan trọng ngay khi xảy ra. AI chỉ gửi khi thực sự cần.</div></div></div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div></div><button class="btn btn-primary" onclick="go('ob5')"><i class="ph ph-bell ico-s"></i> Bật thông báo</button><div class="ob-skip" onclick="go('ob5')">Để sau</div></div></div></div>
-
-  <div class="screen" id="ob5"><div class="ob"><div class="ob-top"><div class="ob-title" style="margin-top:20px">Đây là tín hiệu đầu tiên</div><div class="ob-sub" style="margin-bottom:16px">AI sẽ gửi tín hiệu như thế này mỗi ngày</div><div class="card" style="margin:0;cursor:default"><div class="card-top"><span class="card-dot high"></span><span class="card-time">Vừa xong</span></div><div class="card-title">HPG vượt kháng cự 26,500 — volume xác nhận breakout</div><div class="card-body">Volume phiên sáng <strong class="up">200%</strong> TB. RSI 61 — chưa overbought.</div><div class="card-hist"><div class="card-hist-dot"></div><p>2 lần tương tự 12 tháng qua: HPG tăng TB <strong class="up">+14%</strong> trong 20 phiên.</p></div></div></div><div class="ob-bottom"><div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div></div><button class="btn btn-primary" onclick="go('home')">Bắt đầu sử dụng</button></div></div></div>
-
-  <!-- ═══ HOME ═══ -->
-  <div class="screen" id="home">
-    <div class="h-hdr"><div class="h-logo">Fin<b>path</b></div><div class="h-hdr-r"><div class="h-btn"><i class="ph ph-magnifying-glass ico"></i></div><div class="h-btn"><i class="ph ph-bell ico"></i><div class="h-dot"></div></div></div></div>
-    <div class="seg"><div class="seg-i active">Chứng khoán</div><div class="seg-i">Vàng</div><div class="seg-i">Crypto</div></div>
-    <div class="screen-scroll">
-      <div class="idx-row"><div class="idx-item active"><div class="idx-name">VNINDEX</div><div class="idx-val">1,625.97</div><div class="idx-chg up">+32.4 (+2.03%)</div></div><div class="idx-item"><div class="idx-name">VN30</div><div class="idx-val">1,165.02</div><div class="idx-chg up">+18.7 (+1.63%)</div></div><div class="idx-item"><div class="idx-name">HNX</div><div class="idx-val">266.47</div><div class="idx-chg dn">-3.2 (-1.19%)</div></div></div>
-      <div class="breadth"><div class="breadth-item"><div class="breadth-dot" style="background:var(--bg-green)"></div><span class="up">148</span></div><div class="breadth-item"><div class="breadth-dot" style="background:var(--bg-yellow)"></div><span class="ref">42</span></div><div class="breadth-item"><div class="breadth-dot" style="background:var(--bg-red)"></div><span class="dn">131</span></div><div class="breadth-item" style="color:var(--text-2)">5,432 tỷ</div></div>
-      <div class="analysis-cta"><i class="ph ph-sparkle ico-s"></i> Phân tích VNINDEX</div>
-      <div class="stats"><div class="stat"><div class="stat-label">Tham chiếu</div><div class="stat-val ref">1,593.57</div></div><div class="stat"><div class="stat-label">Mở cửa</div><div class="stat-val">1,608.06</div></div><div class="stat"><div class="stat-label">Cao nhất</div><div class="stat-val up">1,631.96</div></div><div class="stat"><div class="stat-label">Thấp nhất</div><div class="stat-val dn">1,585.05</div></div></div>
-      <div class="stats"><div class="stat"><div class="stat-label">Khối lượng</div><div class="stat-val">699 triệu</div></div><div class="stat"><div class="stat-label">Giá trị GD</div><div class="stat-val">12.64k tỷ</div></div><div class="stat"><div class="stat-label">GTGD dự kiến</div><div class="stat-val">16.3k tỷ</div></div><div class="stat"><div class="stat-label">NN Ròng</div><div class="stat-val dn">-354.5 tỷ</div></div></div>
-      <div class="news" onclick="go('intel')"><div class="news-label"><i class="ph ph-lightning ico"></i> Điểm tin nóng</div><div class="news-text">HPG bị yêu cầu giải trình BCTC — 3 nguồn cùng báo tín hiệu tiêu cực. Xem phân tích AI →</div></div>
-      <div class="sub-tabs"><div class="sub-tab active">Tổng quan</div><div class="sub-tab">Cổ phiếu</div><div class="sub-tab">Ngành</div><div class="sub-tab">Tác động</div></div>
-      <div class="heat"><div class="heat-cell"><div class="heat-name">Chứng khoán</div><div class="heat-tk">SSI</div><div class="heat-chg up">+1.8%</div></div><div class="heat-cell"><div class="heat-name">Bất động sản</div><div class="heat-tk">VHM</div><div class="heat-chg dn">-2.1%</div></div><div class="heat-cell"><div class="heat-name">Ngân hàng</div><div class="heat-tk">VCB</div><div class="heat-chg up">+0.9%</div></div><div class="heat-cell"><div class="heat-name">Thép</div><div class="heat-tk">HPG</div><div class="heat-chg dn">-4.2%</div></div><div class="heat-cell"><div class="heat-name">Công nghệ</div><div class="heat-tk">FPT</div><div class="heat-chg up">+3.9%</div></div><div class="heat-cell"><div class="heat-name">Dầu khí</div><div class="heat-tk">GAS</div><div class="heat-chg up">+0.4%</div></div><div class="heat-cell"><div class="heat-name">Tiêu dùng</div><div class="heat-tk">MWG</div><div class="heat-chg dn">-0.7%</div></div><div class="heat-cell"><div class="heat-name">Logistic</div><div class="heat-tk">GMD</div><div class="heat-chg up">+1.2%</div></div></div>
-      <div class="liq-section"><div class="liq-title">Thanh khoản hôm nay</div><div class="liq-big">16,354 <span style="font-size:14px;font-weight:500;color:var(--text-2)">Tỷ</span></div><div class="liq-meta"><span>So TB 5 phiên: <span class="up">+12.8%</span></span><span>So hôm qua: <span class="dn">-2.8%</span></span></div><div class="liq-bar-bg"><div class="liq-bar-fill" style="width:72%;background:var(--bg-accent)"></div></div></div>
-      <div class="foreign-section"><div class="foreign-title">Nước ngoài hôm nay</div><div class="foreign-big dn">-354.53 Tỷ</div><div class="foreign-grid"><div class="foreign-col">Tổng mua<strong class="up">+545.18 Tỷ</strong></div><div class="foreign-col">Tổng bán<strong class="dn">-899.71 Tỷ</strong></div></div></div>
-      <div style="height:20px"></div>
+  <!-- ═══════════════════════════════
+       ONBOARDING 1/5: Thị trường
+       ═══════════════════════════════ -->
+  <div class="screen active" id="ob1">
+    <div class="ob">
+      <div class="ob-top">
+        <div class="ob-logo">Fin<b>path</b></div>
+        <div class="ob-sub">Tình báo viên AI cho nhà đầu tư Việt Nam</div>
+        <div class="ob-title">Bạn quan tâm thị trường nào?</div>
+        <div class="ob-opts" id="mo">
+          <div class="ob-opt" onclick="selOpt(this,'mo')">
+            <div class="ob-opt-ico" style="background:var(--opacity-green)"><i class="ph ph-trend-up ico" style="color:var(--text-green)"></i></div>
+            <div class="ob-opt-text"><div class="ob-opt-label">Chứng khoán</div><div class="ob-opt-desc">Cổ phiếu Việt Nam, VN-Index, HNX</div></div>
+            <div class="check"><i class="ph ph-check ico-s"></i></div>
+          </div>
+          <div class="ob-opt" onclick="selOpt(this,'mo')">
+            <div class="ob-opt-ico" style="background:var(--opacity-yellow)"><i class="ph ph-coins ico" style="color:var(--text-yellow)"></i></div>
+            <div class="ob-opt-text"><div class="ob-opt-label">Vàng</div><div class="ob-opt-desc">Vàng SJC, vàng thế giới, XAU/USD</div></div>
+            <div class="check"><i class="ph ph-check ico-s"></i></div>
+          </div>
+          <div class="ob-opt" onclick="selOpt(this,'mo')">
+            <div class="ob-opt-ico" style="background:var(--opacity-orange)"><i class="ph ph-currency-btc ico" style="color:var(--text-orange)"></i></div>
+            <div class="ob-opt-text"><div class="ob-opt-label">Crypto</div><div class="ob-opt-desc">Bitcoin, Ethereum, Altcoins</div></div>
+            <div class="check"><i class="ph ph-check ico-s"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <div class="ob-progress"><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+        <button class="btn btn-primary" onclick="go('ob2')">Tiếp tục</button>
+      </div>
     </div>
-    <div class="bbar"><div class="btab" onclick="go('intel')" style="position:relative"><i class="ph ph-brain ico"></i><span>Tình báo</span><div class="h-dot" style="position:absolute;top:4px;right:12px"></div></div><div class="btab active" onclick="go('home')"><i class="ph ph-chart-bar ico"></i><span>Finpath</span></div><div class="btab"><i class="ph ph-list ico"></i><span>Bảng giá</span></div><div class="btab"><i class="ph ph-users-three ico"></i><span>Cộng đồng</span></div></div>
   </div>
 
-  <!-- ═══ INTELLIGENCE ═══ -->
-  <div class="screen active" id="intel">
-    <div class="intel-hdr"><div class="intel-title">Tình báo</div><div class="h-hdr-r"><div class="h-btn"><i class="ph ph-gear ico"></i></div><div class="h-btn"><i class="ph ph-bell ico"></i><div class="h-dot"></div></div></div></div>
+  <!-- ═══════════════════════════════
+       ONBOARDING 2/5: Phong cách
+       ═══════════════════════════════ -->
+  <div class="screen" id="ob2">
+    <div class="ob">
+      <div class="ob-top">
+        <div class="ob-title" style="margin-top:20px">Phong cách đầu tư của bạn?</div>
+        <div class="ob-styles" id="so">
+          <div class="ob-style" onclick="selSty(this,'so')">
+            <i class="ph ph-plant ico-lg" style="color:var(--text-green)"></i>
+            <div class="ob-style-label">Mới bắt đầu</div>
+            <div class="ob-style-desc">Tôi muốn học đầu tư an toàn</div>
+          </div>
+          <div class="ob-style" onclick="selSty(this,'so')">
+            <i class="ph ph-lightning ico-lg" style="color:var(--text-yellow)"></i>
+            <div class="ob-style-label">Có kinh nghiệm</div>
+            <div class="ob-style-desc">Tôi cần dữ liệu nhanh, gọn, bén</div>
+          </div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+        <button class="btn btn-primary" onclick="go('ob3')">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       ONBOARDING 3/5: Chọn mã
+       ═══════════════════════════════ -->
+  <div class="screen" id="ob3">
+    <div class="ob">
+      <div class="ob-top">
+        <div class="ob-title" style="margin-top:20px">Bạn đang theo dõi mã nào?</div>
+        <div class="ob-sub" style="margin-bottom:20px">Chọn hoặc nhập mã để AI theo dõi</div>
+        <input class="ob-input" placeholder="Tìm mã: VCB, HPG, FPT...">
+        <div class="ob-chips">
+          <div class="ob-chip selected" onclick="this.classList.toggle('selected')">HPG</div>
+          <div class="ob-chip selected" onclick="this.classList.toggle('selected')">VCB</div>
+          <div class="ob-chip" onclick="this.classList.toggle('selected')">FPT</div>
+          <div class="ob-chip" onclick="this.classList.toggle('selected')">SSI</div>
+          <div class="ob-chip" onclick="this.classList.toggle('selected')">VNM</div>
+          <div class="ob-chip" onclick="this.classList.toggle('selected')">MWG</div>
+          <div class="ob-chip" onclick="this.classList.toggle('selected')">TCB</div>
+          <div class="ob-chip" onclick="this.classList.toggle('selected')">VHM</div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+        <button class="btn btn-primary" onclick="go('ob4')">Tiếp tục</button>
+        <div class="ob-skip" onclick="go('ob4')">Bỏ qua, thêm sau</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       ONBOARDING 4/5: Thông báo
+       ═══════════════════════════════ -->
+  <div class="screen" id="ob4">
+    <div class="ob">
+      <div class="ob-top">
+        <div class="ob-notif">
+          <div class="ob-notif-ico"><i class="ph ph-bell-ringing ico-xl"></i></div>
+          <div class="ob-notif-title">Bật thông báo</div>
+          <div class="ob-notif-desc">Nhận tín hiệu quan trọng ngay khi xảy ra. AI chỉ gửi khi thực sự cần thiết.</div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div><div class="ob-dot"></div></div>
+        <button class="btn btn-primary" onclick="go('ob5')"><i class="ph ph-bell ico-s"></i> Bật thông báo</button>
+        <div class="ob-skip" onclick="go('ob5')">Để sau</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       ONBOARDING 5/5: Tín hiệu mẫu
+       ═══════════════════════════════ -->
+  <div class="screen" id="ob5">
+    <div class="ob">
+      <div class="ob-top">
+        <div class="ob-title" style="margin-top:20px">Đây là tín hiệu đầu tiên của bạn</div>
+        <div class="ob-sub" style="margin-bottom:16px">AI sẽ gửi tín hiệu như thế này khi có chuyện quan trọng</div>
+        <div class="card" style="margin:0;cursor:default">
+          <div class="card-top"><span class="card-dot high"></span><span class="card-ticker">HPG</span><span class="card-time">Vừa xong</span></div>
+          <div class="card-title">HPG vượt kháng cự 26,500 — volume gấp đôi xác nhận xu hướng</div>
+          <div class="card-body">Volume phiên sáng <strong class="up">200%</strong> trung bình. RSI 61 — chưa quá mua.</div>
+          <div class="card-hist"><div class="card-hist-dot"></div><p>2 lần tương tự 12 tháng qua: HPG tăng TB <strong class="up">+14%</strong> trong 20 phiên.</p></div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot current"></div></div>
+        <button class="btn btn-primary" onclick="go('intel')">Bắt đầu sử dụng</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════
+       INTELLIGENCE FEED (HOME)
+       ═══════════════════════════════ -->
+  <div class="screen" id="intel">
+    <div class="intel-hdr">
+      <div class="intel-title">Tình báo</div>
+      <div class="intel-hdr-r">
+        <div class="h-btn"><i class="ph ph-gear ico"></i></div>
+        <div class="h-btn"><i class="ph ph-bell ico"></i><div class="h-dot"></div></div>
+      </div>
+    </div>
     <div class="screen-scroll">
 
+      <!-- Bản tin sáng — accordion -->
       <div class="brief" onclick="toggleBrief(this)">
-        <div class="brief-row"><div class="brief-t"><i class="ph ph-sun ico"></i> Bản tin sáng 18/03</div><span class="brief-new">Mới</span></div>
-        <div class="brief-p"><strong>HPG:</strong> Đang bị yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại.</div>
-        <div class="brief-f brief-f-collapsed"><span class="time">7:00</span><span class="cta">Đọc đầy đủ <i class="ph ph-caret-right ico-s"></i></span></div>
+        <div class="brief-row">
+          <div class="brief-t"><i class="ph ph-sun"></i> Bản tin sáng 19/03</div>
+          <span class="brief-new">Mới</span>
+        </div>
+        <div class="brief-preview">
+          <div class="brief-p"><strong>HPG:</strong> Đang bị yêu cầu giải trình BCTC. Bạn đã 3 lần vội bán khi có tin xấu — cả 3 lần giá quay lại.</div>
+          <div class="brief-f"><span class="time">7:00</span><span class="cta">Đọc đầy đủ <i class="ph ph-caret-right ico-s"></i></span></div>
+        </div>
         <div class="brief-full" style="display:none">
-          <div style="font-size:14px;line-height:22px;margin-top:12px">
+          <div style="font-size:14px;line-height:22px;margin-top:12px;font-weight:500">
             <p style="margin-bottom:12px"><strong>HPG:</strong> Đang bị cơ quan quản lý yêu cầu giải trình. Có thể tạo áp lực bán ngắn hạn. Bạn đã 3 lần vội bán khi có tin xấu tương tự. Cả 3 lần giá quay lại. Không bán trước khi đọc số liệu.<br>Mốc: dưới 25,000 thì giảm 1/3, trên 26,000 thì giữ.</p>
-            <p style="margin-bottom:12px"><strong>FPT:</strong> Ổn định, giữ. Nếu chạm 132,000 thì chốt lời.</p>
-            <div style="border-left:2px solid var(--bg-accent);padding-left:12px;margin:14px 0">
+            <p style="margin-bottom:12px"><strong>FPT:</strong> Ổn định, giữ nguyên. Nếu chạm 132,000 thì chốt lời.</p>
+            <div style="border-left:3px solid var(--bg-accent);padding-left:12px;margin:14px 0">
               <div style="font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Hôm nay cần biết</div>
               <p>Đồng đô la Mỹ mạnh lên đêm qua. Tiền nước ngoài có thể rút ra → HPG, VCB dễ bị bán. Không mua mới.</p>
             </div>
-            <div style="border-left:2px solid var(--bg-accent);padding-left:12px;margin:14px 0">
+            <div style="border-left:3px solid var(--bg-accent);padding-left:12px;margin:14px 0">
               <div style="font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Tổng quan</div>
-              <p>Danh mục: <span class="up">+0.8%</span> | Tiền mặt: 15%<br>→ Chờ kết quả HPG, giữ nguyên, không mua mới.</p>
+              <p>Danh mục: <span class="dn">–1.2%</span> | Tiền mặt: 120tr (23%)<br>→ Chờ kết quả HPG, giữ nguyên, không mua mới.</p>
             </div>
           </div>
           <div style="text-align:right;font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer;margin-top:4px">▲ Thu gọn</div>
         </div>
       </div>
 
-      <!-- Card 1: Tin tức HPG -->
+      <!-- Card 1: Tin tức HPG — Nghiêm trọng -->
       <div class="card">
-        <div class="card-top"><span class="card-dot crit"></span><span class="card-time">10:23 AM</span></div>
-        <div class="card-title">UBCKNN yêu cầu HPG giải trình số liệu BCTC Q4/2025, nghi vấn hạch toán chi phí khấu hao Dung Quất</div>
+        <div class="card-top"><span class="card-dot crit"></span><span class="card-ticker">HPG</span><span class="card-time">10:23</span></div>
+        <div class="card-title">UBCKNN yêu cầu giải trình số liệu BCTC Q4/2025, nghi vấn khấu hao Dung Quất</div>
         <div class="card-body">Giá HPG từ 26,400 → <strong class="dn">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> trung bình 20 phiên. Khối ngoại bán ròng <strong>45 tỷ</strong>.</div>
         <div class="card-hist"><div class="card-hist-dot"></div><p><strong>15/08/2025:</strong> Tin tương tự, bạn bán ngay, HPG hồi <strong class="up">+15%</strong> sau 2 tuần khi tin bị bác bỏ.</p></div>
-        <div class="card-ctx">Bạn cầm <strong>2,000 HPG</strong> — chiếm <strong>35%</strong> danh mục. Nếu giảm thêm 8%, danh mục giảm ước tính <strong class="dn">–2.8%</strong>.</div>
-        <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Hỏi thêm về HPG</div>
+        <div class="card-ctx">Bạn cầm <strong>2,000 HPG</strong> — chiếm <strong>35%</strong> danh mục.</div>
+        <div class="card-cta" onclick="go('chat-signal')"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
       </div>
 
-      <!-- Card 2: Adjacent DXG→VCB -->
+      <!-- Card 2: Adjacent DXG→VCB — Cao -->
       <div class="card">
-        <div class="card-top"><span class="card-dot high"></span><span class="card-time">8:45 AM</span></div>
-        <div class="chain"><div class="chain-box"><div class="tk" style="color:var(--text-red)">DXG</div><div class="sub">↓12%</div></div><div class="chain-arr"><i class="ph ph-arrow-right ico"></i></div><div class="chain-box"><div class="sub">Nợ xấu BĐS</div><div class="sub">tăng</div></div><div class="chain-arr"><i class="ph ph-arrow-right ico"></i></div><div class="chain-box hl"><div class="tk" style="color:var(--text-accent)">VCB</div><div class="sub-a">bạn đang cầm</div></div></div>
+        <div class="card-top"><span class="card-dot high"></span><span class="card-ticker">DXG → VCB</span><span class="card-time">8:45</span></div>
+        <div class="chain">
+          <div class="chain-box"><div class="tk" style="color:var(--text-red)">DXG</div><div class="sub">↓12%</div></div>
+          <div class="chain-arr"><i class="ph ph-arrow-right"></i></div>
+          <div class="chain-box"><div class="sub">Nợ xấu BĐS</div><div class="sub">tăng</div></div>
+          <div class="chain-arr"><i class="ph ph-arrow-right"></i></div>
+          <div class="chain-box hl"><div class="tk" style="color:var(--text-accent)">VCB</div><div class="sub-a">bạn đang cầm</div></div>
+        </div>
         <div class="card-title">DXG giảm sàn sau tin chủ tịch bị tạm giữ — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
-        <div class="card-body">DXG dư bán sàn <strong>14.7 triệu CP</strong>. Dư nợ BĐS tại VCB chiếm <strong>26%</strong> tổng cho vay. DXG vay <strong>1,200 tỷ</strong> tại VCB.</div>
-        <div class="card-hist"><div class="card-hist-dot"></div><p><strong>11/2022</strong> FLC sụp — VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</p></div>
-        <div class="card-ctx">Bạn không cầm DXG, nhưng cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục. Theo dõi phản ứng VCB chiều nay.</div>
-        <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Hỏi thêm về VCB & BĐS</div>
+        <div class="card-body">DXG dư bán sàn <strong>14.7 triệu CP</strong>. Dư nợ BĐS tại VCB chiếm <strong>26%</strong>. DXG vay <strong>1,200 tỷ</strong> tại VCB.</div>
+        <div class="card-hist"><div class="card-hist-dot"></div><p><strong>11/2022:</strong> FLC sụp → VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS.</p></div>
+        <div class="card-ctx">Bạn cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục. Theo dõi phản ứng VCB chiều nay.</div>
+        <div class="card-cta" onclick="go('chat-signal')"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
       </div>
 
-      <!-- Card 3: Compound HPG (no source toggle on card) -->
+      <!-- Card 3: Compound HPG — Nghiêm trọng -->
       <div class="card">
-        <div class="card-top"><span class="card-dot crit"></span><span class="card-time">9:32 AM</span></div>
+        <div class="card-top"><span class="card-dot crit"></span><span class="card-ticker">HPG</span><span class="card-time">9:32</span></div>
         <div class="card-title">3 nguồn cùng chỉ về HPG: nghi vấn dumping từ EU, sentiment tiêu cực bùng trên Telegram, giá giảm 4.2%</div>
         <div class="card-body">Tiêu cực tăng <strong class="dn">340%</strong> trên 5 nhóm Telegram. Giá 26,400 → <strong class="dn">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> TB 20 phiên.</div>
         <div class="card-hist"><div class="card-hist-dot"></div><p><strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 8% trong 3 phiên, hồi 60% khi tin bị bác bỏ.</p></div>
-        <div class="card-ctx">Bạn cầm <strong>2,000 HPG</strong> (35% danh mục). Nếu giảm thêm 8% như lần trước, danh mục giảm <strong class="dn">–2.8%</strong>.</div>
-        <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Hỏi thêm về HPG</div>
+        <div class="card-ctx">Bạn cầm <strong>2,000 HPG</strong> (35% danh mục).</div>
+        <div class="card-cta" onclick="go('chat-signal')"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
       </div>
 
-      <!-- Card 4: Pro Analysis -->
+      <!-- Card 4: Pro Analysis — Blur -->
       <div class="card">
-        <div class="card-top"><span class="card-dot high"></span><span class="card-time">14:30</span></div>
+        <div class="card-top"><span class="card-dot high"></span><span class="card-ticker">HPG</span><span class="card-time">14:30</span></div>
         <div class="card-title">Phân tích chuyên sâu HPG sau tin điều tra: cơ hội hay rủi ro?</div>
-        <div class="pro-blur"><div class="pro-blur-inner"><div class="card-body">RSI 28 vùng quá bán. Hỗ trợ 25,000 (MA200). 3 lần tương tự → hồi TB +12%. P/E 8.5x vs ngành 10.2x — hấp dẫn nếu BCTC ổn.</div></div><div class="pro-over"><i class="ph ph-lock ico"></i><span class="pro-lbl">Nội dung Pro — 549,000đ/tháng</span><span class="pro-sub"><i class="ph ph-timer ico"></i> Unlock miễn phí sau 18 giờ nữa</span><button class="pro-btn"><i class="ph ph-lock-open ico-s"></i> Mở khóa Pro</button></div></div>
+        <div class="pro-blur">
+          <div class="pro-blur-inner"><div class="card-body">RSI 28 vùng quá bán. Hỗ trợ 25,000 (MA200). 3 lần tương tự → hồi TB +12%. P/E 8.5x vs ngành 10.2x — hấp dẫn nếu BCTC ổn.</div></div>
+          <div class="pro-over">
+            <i class="ph ph-lock"></i>
+            <span class="pro-lbl">Nội dung Pro — 549,000đ/tháng</span>
+            <span class="pro-sub"><i class="ph ph-timer"></i> Mở miễn phí sau 18 giờ</span>
+            <button class="pro-btn"><i class="ph ph-lock-open ico-s"></i> Mở khóa Pro</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Card 5: Kỹ thuật FPT -->
+      <!-- Card 5: FPT — Trung bình -->
       <div class="card">
-        <div class="card-top"><span class="card-dot med"></span><span class="card-time">8:12 AM</span></div>
-        <div class="card-title">FPT vừa breakout khỏi vùng tích lũy 4 tuần, volume xác nhận</div>
-        <div class="card-body">FPT vượt kháng cự <strong class="up">128,000</strong> lần đầu từ tháng 1. Volume phiên sáng <strong class="up">180%</strong> TB. RSI 62 — chưa overbought.</div>
-        <div class="card-hist"><div class="card-hist-dot"></div><p>2 lần breakout tương tự 12 tháng qua: FPT tăng TB <strong class="up">+14%</strong> trong 20 phiên sau.</p></div>
+        <div class="card-top"><span class="card-dot med"></span><span class="card-ticker">FPT</span><span class="card-time">8:12</span></div>
+        <div class="card-title">FPT vượt vùng tích lũy 4 tuần, volume xác nhận xu hướng</div>
+        <div class="card-body">FPT vượt <strong class="up">128,000</strong> lần đầu từ tháng 1. Volume phiên sáng <strong class="up">180%</strong> TB. RSI 62 — chưa quá mua.</div>
+        <div class="card-hist"><div class="card-hist-dot"></div><p>2 lần tương tự 12 tháng qua: FPT tăng TB <strong class="up">+14%</strong> trong 20 phiên.</p></div>
         <div class="card-ctx">FPT trong <em>watchlist</em> từ 02/03. Chưa có trong danh mục.</div>
-        <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Phân tích FPT chi tiết</div>
+        <div class="card-cta" onclick="go('chat-signal')"><i class="ph ph-chat-circle"></i> Phân tích FPT</div>
       </div>
 
-      <!-- Card 6: VIP Unlocked -->
+      <!-- Card 6: VIP Delayed & Unlocked -->
       <div class="card">
-        <div class="card-top"><span class="card-dot low"></span><span class="card-time">14:30 hôm qua</span></div>
-        <div class="delay"><i class="ph ph-timer ico"></i> Signal này đã delay 24h</div>
-        <div class="card-title">Phân tích dòng tiền tổ chức vào HPG — Smart Money đang tích lũy?</div>
+        <div class="card-top"><span class="card-dot low"></span><span class="card-ticker">HPG</span><span class="card-time">14:30 hôm qua</span></div>
+        <div class="delay"><i class="ph ph-timer"></i> Tín hiệu này đã delay 24 giờ cho Free</div>
+        <div class="card-title">Dòng tiền tổ chức vào HPG — Smart Money đang tích lũy?</div>
         <div class="card-body">Tự doanh mua ròng <strong>85 tỷ</strong> phiên 16/03. Khối ngoại chuyển từ bán sang trung lập. Room ngoại còn <strong class="up">12%</strong>.</div>
-        <div class="vip-box"><p><i class="ph ph-check-square ico" style="display:inline;vertical-align:middle;margin-right:4px"></i> Từ khi Pro nhận signal này:<br>HPG đã tăng <strong class="up">+3.2%</strong> (26,500 → 27,350)</p></div>
-        <div class="vip-note"><i class="ph ph-map-pin ico"></i> Pro users đã biết sớm hơn bạn 1 ngày.</div>
+        <div class="vip-box"><p><i class="ph ph-check-square" style="display:inline;vertical-align:middle;margin-right:4px;color:var(--text-green)"></i> Từ khi Pro nhận tín hiệu này:<br>HPG đã tăng <strong class="up">+3.2%</strong> (26,500 → 27,350)</p></div>
+        <div class="vip-note"><i class="ph ph-map-pin"></i> Pro users đã biết sớm hơn bạn 1 ngày.</div>
         <div style="text-align:center"><button class="pro-btn" style="margin:0 auto"><i class="ph ph-lock-open ico-s"></i> Nâng cấp Pro</button></div>
       </div>
 
       <div style="height:20px"></div>
     </div>
-      <div class="fab" onclick="go('chat-general')"><i class="ph ph-chat-circle-dots ico" style="font-size:24px"></i></div>
-    <div class="bbar"><div class="btab active" style="position:relative"><i class="ph ph-brain ico"></i><span>Tình báo</span><div class="h-dot" style="position:absolute;top:4px;right:12px"></div></div><div class="btab" onclick="go('home')"><i class="ph ph-chart-bar ico"></i><span>Finpath</span></div><div class="btab"><i class="ph ph-list ico"></i><span>Bảng giá</span></div><div class="btab"><i class="ph ph-users-three ico"></i><span>Cộng đồng</span></div></div>
+
+    <!-- FAB Chat -->
+    <div class="fab" onclick="go('chat-general')"><i class="ph ph-chat-circle-dots"></i></div>
+
+    <!-- Bottom Bar -->
+    <div class="bbar">
+      <div class="btab active" style="position:relative"><i class="ph ph-brain"></i><span>Tình báo</span><div class="h-dot" style="position:absolute;top:4px;right:12px"></div></div>
+      <div class="btab"><i class="ph ph-chart-bar"></i><span>Finpath</span></div>
+      <div class="btab"><i class="ph ph-list-bullets"></i><span>Bảng giá</span></div>
+      <div class="btab"><i class="ph ph-users-three"></i><span>Cộng đồng</span></div>
+    </div>
   </div>
 
 
-  </div>
-
-
-      <div class="d-title">DXG giảm sàn sau tin chủ tịch bị tạm giữ — rủi ro nợ xấu BĐS lan sang ngân hàng</div>
-      <div class="d-nums">DXG dư bán sàn <strong>14.7 triệu CP</strong>. Dư nợ BĐS tại VCB chiếm <strong>26%</strong> tổng cho vay. DXG vay <strong>1,200 tỷ</strong> tại VCB.</div>
-      <div class="d-sec"><i class="ph ph-clock ico"></i> Lịch sử tương tự</div>
-      <div class="d-hist"><strong>11/2022:</strong> FLC sụp → VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</div>
-      <div class="d-sec"><i class="ph ph-user ico"></i> Danh mục của bạn</div>
-      <div class="d-box">Không cầm DXG, nhưng cầm <strong>1,500 VCB</strong> — chiếm <strong>42%</strong> danh mục. Theo dõi phản ứng VCB chiều nay. Giảm >2% với vol cao → cân nhắc giảm tỷ trọng.</div>
-      <div style="margin-top:20px"><button class="btn btn-primary btn-sm"><i class="ph ph-sparkle ico-s"></i> Hỏi AI về VCB & BĐS</button></div>
-      <div style="height:30px"></div>
-    </div></div>
-  </div>
-
-
-  <!-- ═══ CHAT ĐÀO SÂU ═══ -->
-  <div class="screen" id="chat">
+  <!-- ═══════════════════════════════
+       CHAT ĐÀO SÂU — Từ tín hiệu
+       ═══════════════════════════════ -->
+  <div class="screen" id="chat-signal">
     <div class="chat-hdr">
       <div class="d-back" onclick="go('intel')"><i class="ph ph-caret-left ico"></i></div>
       <div class="chat-hdr-info">
         <div class="chat-avatar">AI</div>
-        <div>
-          <div class="chat-hdr-t">Finpath AI</div>
-          <div class="chat-hdr-sub">Đang phân tích HPG...</div>
-        </div>
+        <div><div class="chat-hdr-t">Finpath AI</div><div class="chat-hdr-sub">Đang phân tích HPG...</div></div>
       </div>
     </div>
-    <div class="screen-scroll chat-body" id="chatBody">
+    <div class="screen-scroll chat-body">
+      <!-- Context card gốc -->
       <div class="chat-ctx">
         <div class="chat-ctx-card">
           <span class="card-dot crit" style="display:inline-block;margin-right:6px"></span>
           <strong>HPG</strong> — UBCKNN yêu cầu giải trình BCTC Q4/2025
-          <div style="font-size:11px;color:var(--text-3);margin-top:4px">10:23 AM · Tín hiệu gốc</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:4px">10:23 · Tín hiệu gốc</div>
         </div>
       </div>
+
+      <!-- AI trả lời đầu tiên -->
       <div class="msg msg-ai">
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
-          <p>Anh đang cầm <strong>2,000 HPG (35% danh mục)</strong>. Mình phân tích nhanh tình huống:</p>
+          <p>Anh đang cầm <strong>2,000 HPG (35% danh mục)</strong>. Phân tích nhanh:</p>
           <p style="margin-top:10px"><strong>Tin xấu thực sự không?</strong><br>UBCKNN yêu cầu giải trình ≠ xử phạt. Đây là quy trình kiểm tra thường niên. 70% trường hợp tương tự không dẫn đến xử phạt.</p>
-          <p style="margin-top:10px"><strong>Lịch sử của anh:</strong><br>Anh đã 3 lần bán vội khi có tin xấu HPG. Cả 3 lần giá hồi +10-15% trong 2-3 tuần. Lần này fundamentals HPG vẫn ổn: LNST Q4 +18% YoY.</p>
+          <p style="margin-top:10px"><strong>Lịch sử của anh:</strong><br>Anh đã 3 lần bán vội khi có tin xấu HPG. Cả 3 lần giá hồi +10–15% trong 2–3 tuần. Lần này LNST Q4 vẫn <strong class="up">+18% YoY</strong>.</p>
           <p style="margin-top:10px"><strong>Mốc cần theo dõi:</strong></p>
           <ul style="margin:6px 0 0 16px;font-size:14px;line-height:22px">
-            <li>Dưới <strong style="color:var(--text-red)">25,000</strong> → giảm 1/3 vị thế</li>
-            <li>Giữ trên <strong style="color:var(--text-green)">26,000</strong> → giữ nguyên</li>
-            <li>Vol hôm nay 2.8x TB — đang cao nhưng chưa panic</li>
+            <li>Dưới <strong class="dn">25,000</strong> → giảm 1/3 vị thế</li>
+            <li>Giữ trên <strong class="up">26,000</strong> → giữ nguyên</li>
+            <li>Volume 2.8x TB — cao nhưng chưa panic</li>
           </ul>
         </div>
       </div>
+
+      <!-- User hỏi -->
       <div class="msg msg-user">
-        <div class="msg-bubble">Nếu HPG giảm thêm 5% nữa thì danh mục mình bị ảnh hưởng bao nhiêu?</div>
+        <div class="msg-bubble">Nếu HPG giảm thêm 5% nữa thì danh mục bị ảnh hưởng bao nhiêu?</div>
       </div>
+
+      <!-- AI trả lời với data table -->
       <div class="msg msg-ai">
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
           <p>Nếu HPG giảm thêm 5% (25,300 → <strong class="dn">24,035</strong>):</p>
-          <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--text-2)">HPG (35%)</span><strong class="dn">–1.75%</strong></div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--text-2)">VCB (42%)</span><span>0%</span></div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--text-2)">Tiền mặt (23%)</span><span>0%</span></div>
-            <div style="border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between"><strong>Tổng danh mục</strong><strong class="dn">–1.75%</strong></div>
+          <div class="msg-data">
+            <div class="msg-data-row"><span style="color:var(--text-2)">HPG (35%)</span><strong class="dn">–1.75%</strong></div>
+            <div class="msg-data-row"><span style="color:var(--text-2)">VCB (42%)</span><span>không đổi</span></div>
+            <div class="msg-data-row"><span style="color:var(--text-2)">Tiền mặt (23%)</span><span>không đổi</span></div>
+            <div class="msg-data-row total"><strong>Tổng danh mục</strong><strong class="dn">–1.75%</strong></div>
           </div>
           <p>Tức mất khoảng <strong class="dn">–2.5 triệu</strong> trên vị thế HPG hiện tại.</p>
-          <p style="margin-top:8px;color:var(--text-2)">💡 Anh có 23% tiền mặt — nếu HPG về 24,000 và tin giải trình không nghiêm trọng, đó có thể là cơ hội mua thêm như 3 lần trước.</p>
+          <div class="msg-tip">💡 Anh có 23% tiền mặt. Nếu HPG về 24,000 và tin giải trình không nghiêm trọng → có thể là cơ hội như 3 lần trước.</div>
         </div>
       </div>
     </div>
@@ -445,7 +518,7 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
       <div class="chat-suggestions">
         <div class="chat-chip">So sánh với lần trước</div>
         <div class="chat-chip">Nên cắt lỗ không?</div>
-        <div class="chat-chip">Phân tích BCTC HPG</div>
+        <div class="chat-chip">BCTC HPG chi tiết</div>
       </div>
       <div class="chat-input-row">
         <input class="chat-input" placeholder="Hỏi thêm về HPG...">
@@ -454,63 +527,70 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
     </div>
   </div>
 
-
-  <!-- ═══ CHAT HỎI ĐÁP CHUNG ═══ -->
+  <!-- ═══════════════════════════════
+       CHAT HỎI ĐÁP CHUNG (FAB)
+       ═══════════════════════════════ -->
   <div class="screen" id="chat-general">
     <div class="chat-hdr">
       <div class="d-back" onclick="go('intel')"><i class="ph ph-caret-left ico"></i></div>
       <div class="chat-hdr-info">
         <div class="chat-avatar">AI</div>
-        <div>
-          <div class="chat-hdr-t">Finpath AI</div>
-          <div class="chat-hdr-sub">Hỏi bất cứ điều gì về thị trường</div>
-        </div>
+        <div><div class="chat-hdr-t">Finpath AI</div><div class="chat-hdr-sub">Hỏi bất cứ điều gì</div></div>
       </div>
     </div>
     <div class="screen-scroll chat-body">
+      <!-- AI chào -->
       <div class="msg msg-ai">
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
           <p>Chào anh! Mình có thể giúp gì hôm nay?</p>
-          <p style="margin-top:8px;color:var(--text-2);font-size:13px">Mình đã nắm danh mục của anh: HPG (35%), VCB (42%), tiền mặt (23%).</p>
+          <p style="margin-top:8px;color:var(--text-2);font-size:13px">Mình đã nắm danh mục: HPG (35%), VCB (42%), tiền mặt (23%).</p>
         </div>
       </div>
+
+      <!-- User hỏi -->
       <div class="msg msg-user">
         <div class="msg-bubble">Hôm nay nên mua gì không?</div>
       </div>
+
+      <!-- AI trả lời -->
       <div class="msg msg-ai">
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
           <p>Hôm nay <strong>không nên mua mới</strong>. Lý do:</p>
-          <p style="margin-top:10px">1. <strong>HPG đang bị yêu cầu giải trình</strong> — chờ kết quả, không nên tăng vị thế thép.</p>
-          <p style="margin-top:6px">2. <strong>Khối ngoại bán ròng 354 tỷ</strong> — dòng tiền chưa ủng hộ. DXY tăng đêm qua.</p>
-          <p style="margin-top:6px">3. <strong>Anh đã có 77% fully invested</strong> — tỷ trọng cổ phiếu khá cao rồi.</p>
-          <p style="margin-top:12px;padding:10px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px">💡 Giữ 23% tiền mặt làm đạn. Nếu VN-Index test 1,200 và HPG về 24,000 mà tin giải trình không nghiêm trọng → đó là lúc cân nhắc.</p>
+          <p style="margin-top:10px"><strong>1.</strong> HPG đang bị yêu cầu giải trình — chờ kết quả, không tăng vị thế thép.</p>
+          <p style="margin-top:6px"><strong>2.</strong> Khối ngoại bán ròng <strong class="dn">354 tỷ</strong> — dòng tiền chưa ủng hộ. DXY tăng đêm qua.</p>
+          <p style="margin-top:6px"><strong>3.</strong> Anh đã có <strong>77% fully invested</strong> — tỷ trọng cổ phiếu khá cao rồi.</p>
+          <div class="msg-tip">💡 Giữ 23% tiền mặt làm đạn. Nếu VN-Index test 1,200 và HPG về 24,000 mà tin giải trình không nghiêm trọng → đó là lúc cân nhắc.</div>
         </div>
       </div>
+
+      <!-- User hỏi tiếp -->
       <div class="msg msg-user">
         <div class="msg-bubble">FPT thì sao? Đang trong watchlist</div>
       </div>
+
+      <!-- AI trả lời -->
       <div class="msg msg-ai">
         <div class="msg-avatar">AI</div>
         <div class="msg-bubble">
-          <p>FPT vừa breakout <strong class="up">128,000</strong> — tín hiệu tốt:</p>
-          <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--text-2)">Giá hiện tại</span><strong class="up">128,500</strong></div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--text-2)">Volume</span><strong>180% TB</strong></div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--text-2)">RSI</span><span>62 — chưa quá mua</span></div>
-            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-2)">P/E</span><span>22x vs ngành 18x</span></div>
+          <p>FPT vừa vượt <strong class="up">128,000</strong> — tín hiệu tốt:</p>
+          <div class="msg-data">
+            <div class="msg-data-row"><span style="color:var(--text-2)">Giá hiện tại</span><strong class="up">128,500</strong></div>
+            <div class="msg-data-row"><span style="color:var(--text-2)">Volume</span><strong>180% TB</strong></div>
+            <div class="msg-data-row"><span style="color:var(--text-2)">RSI</span><span>62 — chưa quá mua</span></div>
+            <div class="msg-data-row"><span style="color:var(--text-2)">P/E</span><span>22x vs ngành 18x</span></div>
           </div>
-          <p><strong>Nhưng:</strong> anh đang có 77% cổ phiếu. Nếu mua FPT thì nên <strong>giảm 1 trong 2 mã cũ</strong> trước, không nên dùng hết tiền mặt.</p>
-          <p style="margin-top:8px">Gợi ý: Mua thử <strong>30-50 triệu FPT</strong> (từ tiền mặt), giữ stoploss dưới 125,000.</p>
+          <p><strong>Nhưng:</strong> anh đang có 77% cổ phiếu. Nếu mua FPT thì nên giảm 1 mã cũ trước.</p>
+          <p style="margin-top:8px">Gợi ý: Mua thử <strong>30–50 triệu FPT</strong> (từ tiền mặt), stoploss dưới 125,000.</p>
         </div>
       </div>
     </div>
     <div class="chat-input-area">
       <div class="chat-suggestions">
         <div class="chat-chip">Phân tích VCB</div>
-        <div class="chat-chip">Danh mục nên rebalance?</div>
-        <div class="chat-chip">Tin tức quan trọng hôm nay</div>
+        <div class="chat-chip">Nên rebalance danh mục?</div>
+        <div class="chat-chip">Tin quan trọng hôm nay</div>
       </div>
       <div class="chat-input-row">
         <input class="chat-input" placeholder="Hỏi Finpath AI...">
@@ -519,16 +599,21 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
     </div>
   </div>
 
-  <!-- Briefing detail removed — accordion in-place -->
-  </div>
-</div>
+</div><!-- end .phone -->
 
 <script>
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function toggleBrief(el){var full=el.querySelector('.brief-full');var preview=el.querySelector('.brief-p');var footer=el.querySelector('.brief-f-collapsed');if(full.style.display==='none'){full.style.display='block';preview.style.display='none';footer.style.display='none'}else{full.style.display='none';preview.style.display='block';footer.style.display='flex'}}
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function toggleBrief(el){
+  var full=el.querySelector('.brief-full');
+  var preview=el.querySelector('.brief-preview');
+  if(full.style.display==='none'){full.style.display='block';preview.style.display='none'}
+  else{full.style.display='none';preview.style.display='block'}
+}
 function selOpt(el,pid){document.querySelectorAll('#'+pid+' .ob-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
 function selSty(el,pid){document.querySelectorAll('#'+pid+' .ob-style').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
-
 </script>
 </body>
 </html>
