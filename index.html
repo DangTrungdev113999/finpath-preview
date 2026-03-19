@@ -254,9 +254,26 @@ body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-fo
     <div class="intel-hdr"><div class="intel-title">Tình báo</div><div class="h-hdr-r"><div class="h-btn"><i data-lucide="settings" class="lucide"></i></div><div class="h-btn"><i data-lucide="bell" class="lucide"></i><div class="h-dot"></div></div></div></div>
     <div class="screen-scroll">
       <div class="sticky"><span class="dot-pulse"></span>1 tín hiệu mới</div>
-      <div class="brief" onclick="go('d-brief')"><div class="brief-row"><div class="brief-t"><i data-lucide="sun" class="lucide"></i> Bản tin sáng 18/03</div><span class="brief-new">Mới</span></div><div class="brief-p"><strong>HPG:</strong> Đang bị yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại.</div><div class="brief-f"><span class="time">7:00</span><span class="cta">Đọc đầy đủ <i data-lucide="chevron-right" class="ico-s"></i></span></div></div>
-
-      <div class="sec-label">Hôm nay</div>
+      <div class="brief" onclick="toggleBrief(this)">
+        <div class="brief-row"><div class="brief-t"><i data-lucide="sun" class="lucide"></i> Bản tin sáng 18/03</div><span class="brief-new">Mới</span></div>
+        <div class="brief-p"><strong>HPG:</strong> Đang bị yêu cầu giải trình. Bạn đã 3 lần vội bán khi có tin xấu, cả 3 lần giá quay lại.</div>
+        <div class="brief-f brief-f-collapsed"><span class="time">7:00</span><span class="cta">Đọc đầy đủ <i data-lucide="chevron-right" class="ico-s"></i></span></div>
+        <div class="brief-full" style="display:none">
+          <div style="font-size:14px;line-height:22px;margin-top:12px">
+            <p style="margin-bottom:12px"><strong>HPG:</strong> Đang bị cơ quan quản lý yêu cầu giải trình. Có thể tạo áp lực bán ngắn hạn. Bạn đã 3 lần vội bán khi có tin xấu tương tự. Cả 3 lần giá quay lại. Không bán trước khi đọc số liệu.<br>Mốc: dưới 25,000 thì giảm 1/3, trên 26,000 thì giữ.</p>
+            <p style="margin-bottom:12px"><strong>FPT:</strong> Ổn định, giữ. Nếu chạm 132,000 thì chốt lời.</p>
+            <div style="border-left:2px solid var(--bg-accent);padding-left:12px;margin:14px 0">
+              <div style="font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Hôm nay cần biết</div>
+              <p>Đồng đô la Mỹ mạnh lên đêm qua. Tiền nước ngoài có thể rút ra → HPG, VCB dễ bị bán. Không mua mới.</p>
+            </div>
+            <div style="border-left:2px solid var(--bg-accent);padding-left:12px;margin:14px 0">
+              <div style="font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Tổng quan</div>
+              <p>Danh mục: <span class="up">+0.8%</span> | Tiền mặt: 15%<br>→ Chờ kết quả HPG, giữ nguyên, không mua mới.</p>
+            </div>
+          </div>
+          <div style="text-align:right;font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer;margin-top:4px">▲ Thu gọn</div>
+        </div>
+      </div>
 
       <!-- Card 1: Tin tức HPG -->
       <div class="card" onclick="go('d1')">
@@ -279,19 +296,13 @@ body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-fo
         <div class="card-cta"><i data-lucide="message-circle" class="lucide"></i> Hỏi thêm về VCB & BĐS</div>
       </div>
 
-      <!-- Card 3: Compound HPG -->
-      <div class="card" onclick="this.classList.toggle('expanded')">
+      <!-- Card 3: Compound HPG (no source toggle on card) -->
+      <div class="card" onclick="go('d1')">
         <div class="card-top"><span class="card-dot crit"></span><span class="card-time">9:32 AM</span></div>
         <div class="card-title">3 nguồn cùng chỉ về HPG: nghi vấn dumping từ EU, sentiment tiêu cực bùng trên Telegram, giá giảm 4.2%</div>
         <div class="card-body">Tiêu cực tăng <strong class="dn">340%</strong> trên 5 nhóm Telegram. Giá 26,400 → <strong class="dn">25,300</strong> (–4.2%). Volume gấp <strong>2.8 lần</strong> TB 20 phiên.</div>
         <div class="card-hist"><div class="card-hist-dot"></div><p><strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 8% trong 3 phiên, hồi 60% khi tin bị bác bỏ.</p></div>
         <div class="card-ctx">Bạn cầm <strong>2,000 HPG</strong> (35% danh mục). Nếu giảm thêm 8% như lần trước, danh mục giảm <strong class="dn">–2.8%</strong>.</div>
-        <div class="card-expand" onclick="event.stopPropagation()"><i data-lucide="chevron-down" class="lucide"></i> Xem chi tiết từng nguồn</div>
-        <div class="card-sources">
-          <div class="src"><div class="src-h"><i data-lucide="newspaper" class="lucide"></i> Tin tức</div><div class="src-p">UBCKNN yêu cầu giải trình BCTC Q4/2025 — nghi vấn khấu hao Dung Quất</div></div>
-          <div class="src"><div class="src-h"><i data-lucide="message-circle" class="lucide"></i> Cảm xúc</div><div class="src-p">Tiêu cực +340% trên 5 nhóm Telegram. Phân loại: lo ngại thật.</div></div>
-          <div class="src"><div class="src-h"><i data-lucide="trending-down" class="lucide"></i> Giá</div><div class="src-p">–4.2% phiên sáng, vol 2.8x avg. KN bán ròng 45 tỷ.</div></div>
-        </div>
         <div class="card-cta"><i data-lucide="message-circle" class="lucide"></i> Hỏi thêm về HPG</div>
       </div>
 
@@ -311,8 +322,6 @@ body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-fo
         <div class="card-ctx">FPT trong <em>watchlist</em> từ 02/03. Chưa có trong danh mục.</div>
         <div class="card-cta"><i data-lucide="message-circle" class="lucide"></i> Phân tích FPT chi tiết</div>
       </div>
-
-      <div class="sec-label">Hôm qua — đã unlock</div>
 
       <!-- Card 6: VIP Unlocked -->
       <div class="card">
@@ -363,27 +372,13 @@ body{font-family:var(--font-b);background:#080809;color:var(--text-1);-webkit-fo
     </div></div>
   </div>
 
-  <!-- ═══ DETAIL: Briefing ═══ -->
-  <div class="screen" id="d-brief">
-    <div class="d-hdr"><div class="d-back" onclick="go('intel')"><i data-lucide="arrow-left" class="lucide"></i></div><div class="d-hdr-t">Bản tin sáng 18/03</div></div>
-    <div class="screen-scroll"><div class="d-body">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px"><i data-lucide="sun" class="lucide" style="color:var(--bg-yellow);width:15px;height:15px"></i><span style="font-size:12px;color:var(--text-2)">7:00 · Cá nhân hóa cho bạn</span></div>
-      <div class="d-sec"><i data-lucide="briefcase" class="lucide"></i> Danh mục</div>
-      <div class="d-box">Hôm qua: <strong class="up">+1.2%</strong> · HPG <span class="dn">–0.8%</span> · VCB <span class="up">+2.1%</span><br>3 mã · HPG (35%) · VCB (42%) · FPT watchlist</div>
-      <div class="d-sec"><i data-lucide="alert-triangle" class="lucide"></i> Chú ý hôm nay</div>
-      <div class="d-hist"><strong>HPG:</strong> Bị yêu cầu giải trình BCTC. Có thể tạo áp lực bán ngắn hạn.<br><br>Bạn đã 3 lần vội bán khi có tin xấu tương tự. Cả 3 lần giá quay lại.</div>
-      <div class="d-sec"><i data-lucide="globe" class="lucide"></i> Vĩ mô</div>
-      <div class="d-box">DXY tăng mạnh → KN tiếp tục bán ròng. USD/VND 25,180.</div>
-      <div class="d-sec"><i data-lucide="target" class="lucide"></i> Gợi ý</div>
-      <div class="d-box"><strong>HPG:</strong> Giữ. Chờ giải trình (25/03)<br><strong>VCB:</strong> Giữ. BCTC Q4 tích cực, theo dõi BĐS<br><strong>FPT:</strong> Breakout — cân nhắc mua nếu giữ trên 128,000</div>
-      <div style="margin-top:20px"><button class="btn btn-primary btn-sm"><i data-lucide="sparkles" class="ico-s"></i> Hỏi AI về bản tin</button></div>
-      <div style="height:30px"></div>
-    </div></div>
+  <!-- Briefing detail removed — accordion in-place -->
   </div>
 </div>
 
 <script>
 function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');lucide.createIcons()}
+function toggleBrief(el){var full=el.querySelector('.brief-full');var preview=el.querySelector('.brief-p');var footer=el.querySelector('.brief-f-collapsed');if(full.style.display==='none'){full.style.display='block';preview.style.display='none';footer.style.display='none'}else{full.style.display='none';preview.style.display='block';footer.style.display='flex'}}
 function selOpt(el,pid){document.querySelectorAll('#'+pid+' .ob-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
 function selSty(el,pid){document.querySelectorAll('#'+pid+' .ob-style').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
 lucide.createIcons();
