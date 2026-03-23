@@ -216,6 +216,12 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
 .goc-input input{flex:1;background:var(--bg-2);border:1px solid var(--bg-accent);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--text-1);font-family:var(--font-b);outline:none}
 .goc-input button{background:var(--bg-accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:var(--font-b)}
 .goc-saved{font-size:12px;color:var(--text-green);display:flex;align-items:center;gap:4px;margin-top:8px}
+.goc-retail,.goc-pro{margin:0;font-size:13px;line-height:19px;color:var(--text-1)}
+
+/* Voice toggle */
+.voice-toggle{display:flex;gap:6px;padding:10px 16px 0;justify-content:flex-end}
+.voice-btn{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid var(--line);background:var(--bg-2);color:var(--text-2);cursor:pointer}
+.voice-btn.active{background:var(--bg-accent);border-color:var(--bg-accent);color:#fff}
 
 /* FAB */
 .fab{position:absolute;bottom:68px;right:16px;width:52px;height:52px;border-radius:var(--rr);background:var(--bg-accent);color:var(--text-inverted);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,82,255,0.3);z-index:10}
@@ -330,9 +336,8 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
         <div class="card-hist"><div class="card-hist-dot"></div><p><strong>15/08/2025:</strong> Tin tương tự, bạn bán ngay, HPG hồi <strong class="up">+15%</strong> sau 2 tuần khi tin bị bác bỏ.</p></div>
         <div class="card-goc">
           <div class="card-goc-label">Góc nhìn</div>
-          <p>Bạn cầm <strong>2,000 HPG</strong> (35% DM), đang <strong class="dn">−10%</strong>.<br>
-          Stop loss bạn đặt: <strong>25,500đ</strong> — còn <strong class="dn">5%</strong> nữa.<br>
-          Catalyst: FTSE công bố <strong>07/04</strong> — còn 15 ngày.</p>
+          <p class="goc-retail">Ngưỡng cắt lỗ bạn đặt còn <strong class="dn">5%</strong> nữa — cần theo dõi sát.<br>3 lần trước bạn bán sớm, cả 3 lần giá hồi lại.</p>
+          <p class="goc-pro" style="display:none">Cắt lỗ còn <strong class="dn">5%</strong>. 3/3 bán sớm → hồi.<br>Theo dõi sát, chưa cần hành động vội.</p>
         </div>
         <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Hỏi thêm về HPG</div>
       </div>
@@ -346,9 +351,8 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
         <div class="card-hist"><div class="card-hist-dot"></div><p><strong>11/2022</strong> FLC sụp — VCB giảm 12% trong 1 tháng do lo ngại nợ xấu BĐS, dù exposure thấp.</p></div>
         <div class="card-goc">
           <div class="card-goc-label">Góc nhìn</div>
-          <p>Bạn cầm <strong>1,500 VCB</strong> (42% DM), đang <strong class="dn">−3.5%</strong>.<br>
-          Chưa đặt stop loss — DXG sụp là trigger cần theo dõi VCB hôm nay.<br>
-          Smart money: Tự doanh chưa có động thái bất thường với VCB.</p>
+          <p class="goc-retail">VCB chiếm <strong>42%</strong> danh mục — tỷ trọng cao.<br>Cân nhắc đặt ngưỡng cắt lỗ trước khi rủi ro lan rộng.</p>
+          <p class="goc-pro" style="display:none">VCB 42% danh mục, chưa có ngưỡng cắt lỗ.<br>Cân nhắc giảm tỷ trọng nếu DXG tiếp tục xấu.</p>
         </div>
         <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Hỏi thêm về VCB & BĐS</div>
       </div>
@@ -361,9 +365,8 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
         <div class="card-hist"><div class="card-hist-dot"></div><p><strong>15/08/2025:</strong> Tín hiệu tương tự — HPG giảm thêm 8% trong 3 phiên, hồi 60% khi tin bị bác bỏ.</p></div>
         <div class="card-goc">
           <div class="card-goc-label">Góc nhìn</div>
-          <p>Bạn cầm <strong>2,000 HPG</strong> (35% DM), đang <strong class="dn">−10%</strong>.<br>
-          Stop loss bạn đặt: <strong>25,500đ</strong> — còn <strong class="dn">5%</strong> nữa.<br>
-          3 nguồn cùng tiêu cực — mức độ áp lực cao hơn bình thường.</p>
+          <p class="goc-retail">Áp lực từ 3 hướng cùng lúc — không nên tăng thêm HPG.<br>Cần theo dõi sát phiên chiều hôm nay.</p>
+          <p class="goc-pro" style="display:none">3 tín hiệu tổng hợp cùng tiêu cực.<br>Không tăng thêm tỷ trọng HPG — chờ tín hiệu rõ hơn.</p>
         </div>
         <div class="card-cta" onclick="event.stopPropagation();go('chat')"><i class="ph ph-chat-circle ico"></i> Hỏi thêm về HPG</div>
       </div>
@@ -383,9 +386,8 @@ body{font-family:var(--font-b);font-weight:500;background:#FFFFFF;color:var(--te
         <div class="card-hist"><div class="card-hist-dot"></div><p>2 lần breakout tương tự 12 tháng qua: FPT tăng TB <strong class="up">+14%</strong> trong 20 phiên sau.</p></div>
         <div class="card-goc" id="goc-fpt">
           <div class="card-goc-label">Góc nhìn</div>
-          <p>FPT <strong class="up">+6.2%</strong> từ đáy T2 (120K → 128K).<br>
-          Vào ngay → bắt momentum, nhưng đã tăng 6%.<br>
-          Chờ pullback → ít rủi ro hơn, có thể bỏ lỡ sóng.</p>
+          <p class="goc-retail">FPT vượt mốc giá quan trọng đúng vùng bạn đang theo dõi.<br>Nếu tính vào — đây là thời điểm cân nhắc.</p>
+          <p class="goc-pro" style="display:none">FPT vượt kháng cự. Nếu muốn vào — thời điểm đang phù hợp.</p>
           <div class="card-goc-btns" id="fpt-btns">
             <div class="goc-btn primary" onclick="event.stopPropagation();showGocInput('fpt')">Có, tôi đang cầm</div>
             <div class="goc-btn" onclick="event.stopPropagation();watchlistOnly('fpt')">Không, đang xem</div>
@@ -587,6 +589,12 @@ function watchlistOnly(id) {
   btns.style.pointerEvents = 'none';
   var p = btns.previousElementSibling;
   if(p) { var note = document.createElement('div'); note.className='goc-saved'; note.innerHTML='<i class="ph ph-check-circle ico"></i> Đã thêm vào watchlist'; btns.after(note); }
+}
+function setVoice(v) {
+  document.querySelectorAll('.goc-retail').forEach(el => el.style.display = v==='retail' ? '' : 'none');
+  document.querySelectorAll('.goc-pro').forEach(el => el.style.display = v==='pro' ? '' : 'none');
+  document.getElementById('btn-retail').classList.toggle('active', v==='retail');
+  document.getElementById('btn-pro').classList.toggle('active', v==='pro');
 }
 function savePrice(id) {
   var price = document.getElementById(id + '-price').value;
