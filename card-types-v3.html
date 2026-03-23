@@ -51,6 +51,11 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
 .seg-btn.active{background:var(--bg-accent);color:#fff}
 .icon-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer}
 .icon-btn i{font-size:22px}
+.impact-row-full{display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:var(--r2);margin-bottom:10px;font-size:13px;font-weight:600}
+.impact-pos{background:var(--op-green);color:var(--text-green)}
+.impact-neg{background:var(--op-red);color:var(--text-red)}
+.impact-med{background:var(--op-yellow);color:var(--text-yellow)}
+.impact-row-full i{font-size:14px}
 
 /* Sub-tabs */
 .tabs{display:flex;overflow-x:auto;scrollbar-width:none}
@@ -59,13 +64,13 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
 .tab.active{font-weight:700;color:var(--text-accent);border-bottom-color:var(--bg-accent)}
 
 /* Feed — white bg (swapped) */
-.feed{padding:12px 16px 80px;display:flex;flex-direction:column;gap:10px;background:var(--bg-2)}
+.feed{padding:12px 16px 80px;display:flex;flex-direction:column;gap:10px;background:var(--bg-3)}
 
 /* Section label */
 .section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-placeholder);padding:6px 2px 2px}
 
 /* Card — gray surface (swapped from white) */
-.card{background:var(--bg-1);border:1px solid var(--line-card);border-radius:var(--r1);padding:14px 14px 12px;cursor:pointer}
+.card{background:var(--bg-2);border:1px solid var(--line-card);border-radius:var(--r1);padding:14px 14px 12px;cursor:pointer}
 
 /* Card header */
 .card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -90,7 +95,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
 .yw{color:var(--text-yellow);font-weight:600}
 
 /* Data section — slightly darker bg */
-.data-section{margin-bottom:10px;padding:10px 12px;background:var(--bg-2);border-radius:var(--r2);border:1px solid var(--line-divider)}
+.data-section{margin-bottom:10px;padding:10px 12px;background:var(--bg-3);border-radius:var(--r2);border:1px solid var(--line-divider)}
 .data-row{font-size:13px;line-height:20px;color:var(--text-secondary)}
 .data-row+.data-row{margin-top:3px}
 .lbl{font-size:11px;font-weight:600;color:var(--text-placeholder);margin-right:5px;text-transform:uppercase;letter-spacing:.04em}
@@ -100,8 +105,8 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
 .card-hist{border-left:2px solid var(--bg-accent);padding:6px 0 6px 10px;margin-bottom:10px;font-size:12px;color:var(--text-secondary);line-height:18px}
 
 /* Góc nhìn — white to pop out from gray card */
-.goc-nhin{background:var(--bg-2);border-radius:var(--r2);padding:10px 12px;margin-bottom:10px;border:1px solid var(--line-divider)}
-.goc-label{font-size:10px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.goc-nhin{margin-bottom:10px;padding-top:2px}
+.goc-label{font-size:13px;font-weight:700;color:var(--text-primary);display:inline}
 .goc-text{font-size:13px;line-height:19px;color:var(--text-secondary)}
 .goc-retail{}
 .goc-pro{display:none}
@@ -209,9 +214,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
       <div class="card-body">HPG thủng vùng hỗ trợ <strong>26,000đ</strong>, xác nhận xu hướng giảm ngắn hạn. Cổ phiếu đang tiến về vùng hỗ trợ tiếp theo tại <strong>24,500đ</strong>.</div>
       <div class="card-hist">4 lần thủng 26K trong 2 năm qua — 3/4 lần giá hồi lại trong 5 phiên. Lần không hồi (T8/2023): tin xấu ngành kéo dài.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa — cần theo dõi sát. 3 lần trước bạn bán sớm, cả 3 lần giá hồi lại.</div>
-        <div class="goc-text goc-pro">Cắt lỗ còn <span class="dn">5%</span>. 3/3 bán sớm → hồi. Theo dõi sát, chưa cần hành động vội.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa — cần theo dõi sát. 3 lần trước bạn bán sớm, cả 3 lần giá hồi lại.</span><span class="goc-text goc-pro" style="display:none">Cắt lỗ còn <span class="dn">5%</span>. 3/3 bán sớm → hồi. Theo dõi sát, chưa cần hành động vội.</span>
       </div>
       <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
     </div>
@@ -237,14 +240,10 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
         <span class="card-time">09:45</span>
       </div>
       <div class="card-title">Bộ Công Thương mở điều tra bán phá giá thép HRC nhập khẩu từ Trung Quốc</div>
-      <div class="data-section">
-        <div class="data-row"><span class="lbl">Tác động</span><span class="val">Cao</span> · <span class="up">Tích cực dài hạn</span> nếu áp thuế Q2/2026</div>
-      </div>
+      <div class="impact-row-full impact-pos"><i class="ph ph-arrow-up-right"></i> Tác động: Cao — tích cực trung/dài hạn</div>
       <div class="card-hist">Điều tra tương tự T3/2021 → HPG tăng 18% trong 3 tháng sau khi thuế được ban hành.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">Tin tốt nhưng chưa chắc chắn — catalyst thực sự là ngày ban hành thuế Q2/2026. Cần theo dõi sát tiến trình điều tra.</div>
-        <div class="goc-text goc-pro">Tin tốt chưa confirm. Catalyst: thuế Q2/26. Theo dõi tiến trình, chưa vào vội.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">Tin tốt nhưng chưa chắc chắn — catalyst thực sự là ngày ban hành thuế Q2/2026. Cần theo dõi sát tiến trình điều tra.</span><span class="goc-text goc-pro" style="display:none">Tin tốt chưa confirm. Catalyst: thuế Q2/26. Theo dõi tiến trình, chưa vào vội.</span>
       </div>
       <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
     </div>
@@ -263,9 +262,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
       </div>
       <div class="card-hist">5 lần khối ngoại mua ròng VCB liên tiếp → giá tăng bình quân 12% sau 1 tháng.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">VCB chiếm <span class="val">42%</span> danh mục của bạn. Dòng tiền đang hỗ trợ — cân nhắc giữ nguyên tỷ trọng.</div>
-        <div class="goc-text goc-pro">VCB 42% danh mục. Ngoại ×3.2 TB 20 phiên. Dòng tiền hỗ trợ — cân nhắc giữ.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">VCB chiếm <span class="val">42%</span> danh mục của bạn. Dòng tiền đang hỗ trợ — cân nhắc giữ nguyên tỷ trọng.</span><span class="goc-text goc-pro" style="display:none">VCB 42% danh mục. Ngoại ×3.2 TB 20 phiên. Dòng tiền hỗ trợ — cân nhắc giữ.</span>
       </div>
       <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
     </div>
@@ -284,9 +281,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
       </div>
       <div class="card-hist">Fed cắt lãi suất T9/2024 → VN-Index tăng 8% trong 1 tháng. Ngân hàng dẫn đầu đà tăng.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">Bạn đang cầm <span class="val">VCB</span> (42% danh mục) — nằm trong nhóm hưởng lợi trực tiếp. Cân nhắc giữ nguyên tỷ trọng ngân hàng.</div>
-        <div class="goc-text goc-pro">VCB 42% danh mục — trong nhóm hưởng lợi. Cân nhắc giữ nguyên tỷ trọng ngân hàng.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">Bạn đang cầm <span class="val">VCB</span> (42% danh mục) — nằm trong nhóm hưởng lợi trực tiếp. Cân nhắc giữ nguyên tỷ trọng ngân hàng.</span><span class="goc-text goc-pro" style="display:none">VCB 42% danh mục — trong nhóm hưởng lợi. Cân nhắc giữ nguyên tỷ trọng ngân hàng.</span>
       </div>
       <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về tác động Fed</div>
     </div>
@@ -306,9 +301,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
       </div>
       <div class="card-hist">Lần trước HSC nâng khuyến nghị FPT (T6/2024) → giá tăng 15% sau 2 tháng.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">FPT vượt mốc giá quan trọng đúng vùng bạn đang theo dõi. Nếu tính vào — đây là thời điểm cân nhắc.</div>
-        <div class="goc-text goc-pro">FPT vượt kháng cự. HSC 4/5 đúng. Nếu muốn vào — thời điểm đang phù hợp.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">FPT vượt mốc giá quan trọng đúng vùng bạn đang theo dõi. Nếu tính vào — đây là thời điểm cân nhắc.</span><span class="goc-text goc-pro" style="display:none">FPT vượt kháng cự. HSC 4/5 đúng. Nếu muốn vào — thời điểm đang phù hợp.</span>
         <div class="goc-btns">
           <div class="goc-btn primary"><i class="ph ph-check-circle"></i> Có, tôi đang cầm</div>
           <div class="goc-btn">Không, đang xem</div>
@@ -354,9 +347,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
       </div>
       <div class="card-hist">2 lần HPG có 3+ tín hiệu tiêu cực đồng thời → cả 2 lần giảm thêm 8–12% trước khi hồi phục.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa. Không tăng thêm tỷ trọng HPG lúc này — theo dõi sát phiên chiều.</div>
-        <div class="goc-text goc-pro">Cắt lỗ còn 5%. 3 tín hiệu tổng hợp cùng tiêu cực. Không tăng thêm tỷ trọng HPG.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa. Không tăng thêm tỷ trọng HPG lúc này — theo dõi sát phiên chiều.</span><span class="goc-text goc-pro" style="display:none">Cắt lỗ còn 5%. 3 tín hiệu tổng hợp cùng tiêu cực. Không tăng thêm tỷ trọng HPG.</span>
       </div>
       <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
     </div>
@@ -385,9 +376,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
       </div>
       <div class="card-hist">T8/2023 khi Novaland sụp → VCB giảm 6% nhưng hồi hoàn toàn sau 3 tuần.</div>
       <div class="goc-nhin">
-        <div class="goc-label">Góc nhìn</div>
-        <div class="goc-text goc-retail">VCB chiếm <span class="val">42%</span> danh mục — tỷ trọng cao. Cân nhắc đặt ngưỡng cắt lỗ trước khi rủi ro lan rộng.</div>
-        <div class="goc-text goc-pro">VCB 42% danh mục, chưa có ngưỡng cắt lỗ. Cân nhắc giảm tỷ trọng nếu DXG tiếp tục xấu.</div>
+        <span class="goc-label">Góc nhìn: </span><span class="goc-text goc-retail">VCB chiếm <span class="val">42%</span> danh mục — tỷ trọng cao. Cân nhắc đặt ngưỡng cắt lỗ trước khi rủi ro lan rộng.</span><span class="goc-text goc-pro" style="display:none">VCB 42% danh mục, chưa có ngưỡng cắt lỗ. Cân nhắc giảm tỷ trọng nếu DXG tiếp tục xấu.</span>
       </div>
       <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
     </div>
