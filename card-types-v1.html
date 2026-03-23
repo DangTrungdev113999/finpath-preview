@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Finpath — 6 Loại Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg-1:#FFFFFF;--bg-2:#F4F6F7;--bg-3:#E3E7EA;
+  --bg-accent:#0052FF;--bg-popup:#FFFFFF;--bg-disabled:#C9D0D8;
+  --text-primary:#0A0B0D;--text-secondary:#5C6C7E;
+  --text-placeholder:#A4B0BC;--text-accent:#0052FF;--text-inverted:#FFFFFF;
+  --text-green:#098551;--text-red:#E60815;--text-yellow:#D19A00;
+  --text-blue:#23CDED;--text-orange:#ED702F;
+  --line-divider:#E3E7EA;--line-accent:#0052FF;
+  --op-green:rgba(9,133,81,.10);--op-red:rgba(230,8,21,.10);
+  --op-yellow:rgba(209,154,0,.10);--op-blue:rgba(35,205,237,.10);
+  --op-accent:rgba(0,82,255,.10);
+  --r1:16px;--r2:12px;--rf:9999px;
+  --ft:'Public Sans',sans-serif;--fb:'Inter',sans-serif;
+}
+body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;font-family:var(--fb);min-height:100vh}
+.phone{width:390px;background:var(--bg-1);border-radius:40px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.18);position:relative}
+
+/* Status bar */
+.statusbar{height:44px;background:var(--bg-1);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.statusbar-time{font-family:var(--ft);font-size:15px;font-weight:600;color:var(--text-primary)}
+.statusbar-icons{display:flex;gap:6px;align-items:center;color:var(--text-primary)}
+
+/* Header */
+.header{padding:8px 16px 12px;background:var(--bg-1);border-bottom:1px solid var(--line-divider);position:sticky;top:0;z-index:10}
+.header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.header-title{font-family:var(--ft);font-size:20px;font-weight:700;color:var(--text-primary)}
+.header-icons{display:flex;gap:12px;align-items:center;color:var(--text-secondary)}
+.header-icons i{font-size:24px;cursor:pointer}
+
+/* Segment (Retail/Pro toggle) */
+.segment{display:flex;gap:6px;background:var(--bg-3);padding:3px;border-radius:var(--rf);width:fit-content}
+.seg-btn{height:30px;padding:0 16px;border-radius:var(--rf);font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);transition:all .2s}
+.seg-btn.active{background:var(--bg-accent);color:var(--text-inverted)}
+
+/* Sub-filter tabs */
+.tabs{display:flex;gap:16px;overflow-x:auto;padding:0 16px;border-bottom:1px solid var(--line-divider);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:14px;font-weight:500;color:var(--text-secondary);padding:10px 0;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0}
+.tab.active{font-weight:600;color:var(--text-accent);border-bottom-color:var(--line-accent)}
+
+/* Feed */
+.feed{padding:12px 16px 80px;display:flex;flex-direction:column;gap:12px;background:var(--bg-2)}
+
+/* Card base */
+.card{background:var(--bg-1);border:1px solid var(--line-divider);border-radius:var(--r1);padding:16px;cursor:pointer}
+
+/* Card header */
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card-hd-left{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-red{background:var(--text-red);box-shadow:0 0 0 3px var(--op-red)}
+.dot-yellow{background:var(--text-yellow);box-shadow:0 0 0 3px var(--op-yellow)}
+.dot-blue{background:var(--bg-accent);box-shadow:0 0 0 3px var(--op-accent)}
+.dot-green{background:var(--text-green);box-shadow:0 0 0 3px var(--op-green)}
+.ticker{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--text-primary)}
+.card-time{font-size:11px;color:var(--text-placeholder);font-weight:500}
+
+/* Title */
+.card-title{font-size:15px;font-weight:600;color:var(--text-primary);line-height:21px;margin-bottom:10px;font-family:var(--ft)}
+
+/* Body text */
+.card-body{font-size:13px;line-height:19px;color:var(--text-secondary);margin-bottom:12px}
+.card-body strong{font-weight:700;color:var(--text-primary)}
+.up{color:var(--text-green);font-weight:700}
+.dn{color:var(--text-red);font-weight:700}
+.yw{color:var(--text-yellow);font-weight:700}
+
+/* ── TYPE-SPECIFIC SECTIONS ── */
+
+/* Kỹ thuật: metric chips */
+.tech-metrics{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.metric-chip{background:var(--bg-2);border:1px solid var(--line-divider);border-radius:var(--r2);padding:5px 10px;font-size:12px;font-weight:600;color:var(--text-secondary)}
+.metric-chip span{color:var(--text-primary)}
+.metric-chip.red{background:var(--op-red);border-color:rgba(230,8,21,.2);color:var(--text-red)}
+.metric-chip.green{background:var(--op-green);border-color:rgba(9,133,81,.2);color:var(--text-green)}
+
+/* Tin tức: impact badge row */
+.impact-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.impact-badge{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--rf);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.impact-high-neg{background:var(--op-red);color:var(--text-red)}
+.impact-high-pos{background:var(--op-green);color:var(--text-green)}
+.impact-med{background:var(--op-yellow);color:var(--text-yellow)}
+.company-res{font-size:12px;color:var(--text-secondary);background:var(--bg-2);border-radius:var(--r2);padding:8px 10px;margin-bottom:12px;border-left:3px solid var(--line-divider)}
+
+/* Dòng tiền: flow table */
+.flow-table{margin-bottom:12px;border:1px solid var(--line-divider);border-radius:var(--r2);overflow:hidden}
+.flow-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line-divider)}
+.flow-row:last-child{border-bottom:none}
+.flow-who{font-size:12px;font-weight:600;color:var(--text-secondary)}
+.flow-val{font-size:13px;font-weight:700}
+.flow-unusual{background:var(--op-blue);border-radius:var(--r2);padding:7px 10px;margin-bottom:12px;font-size:12px;color:var(--text-secondary)}
+.flow-unusual strong{color:var(--text-primary)}
+
+/* Vĩ mô: sector map */
+.sector-map{margin-bottom:12px}
+.sector-group{margin-bottom:8px}
+.sector-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.sector-label.pos{color:var(--text-green)}
+.sector-label.neg{color:var(--text-yellow)}
+.sector-chips{display:flex;flex-wrap:wrap;gap:5px}
+.sector-chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--rf)}
+.sector-chip.pos{background:var(--op-green);color:var(--text-green)}
+.sector-chip.neg{background:var(--op-yellow);color:var(--text-yellow)}
+
+/* Phân tích & KN */
+.rec-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rec-badge{padding:5px 14px;border-radius:var(--rf);font-size:13px;font-weight:700;text-transform:uppercase}
+.rec-buy{background:var(--op-green);color:var(--text-green)}
+.rec-sell{background:var(--op-red);color:var(--text-red)}
+.rec-hold{background:var(--op-yellow);color:var(--text-yellow)}
+.rec-target{font-size:15px;font-weight:700;color:var(--text-primary)}
+.rec-upside{font-size:12px;font-weight:600;padding:3px 8px;background:var(--op-green);color:var(--text-green);border-radius:var(--rf)}
+.thesis-list{margin-bottom:10px;display:flex;flex-direction:column;gap:6px}
+.thesis-item{font-size:12px;color:var(--text-secondary);line-height:17px;display:flex;gap:6px}
+.thesis-num{font-weight:700;color:var(--text-accent);flex-shrink:0}
+.track-record{background:var(--bg-2);border-radius:var(--r2);padding:7px 10px;font-size:12px;color:var(--text-secondary);margin-bottom:12px}
+.track-record strong{color:var(--text-green)}
+
+/* Compound: signal list */
+.compound-signals{margin-bottom:10px;display:flex;flex-direction:column;gap:5px}
+.compound-item{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;background:var(--bg-2);border-radius:var(--r2);border-left:3px solid var(--text-red)}
+.compound-item.pos{border-left-color:var(--text-green)}
+.compound-type{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-red);flex-shrink:0;padding-top:1px}
+.compound-type.pos{color:var(--text-green)}
+.compound-desc{font-size:12px;color:var(--text-secondary);line-height:16px}
+.compound-count{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.compound-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--rf);background:var(--op-red);color:var(--text-red)}
+
+/* Adjacent linkage chain */
+.linkage{margin-bottom:12px;display:flex;flex-direction:column;gap:0}
+.link-item{display:flex;align-items:flex-start;gap:8px;position:relative}
+.link-item::before{content:'';position:absolute;left:11px;top:22px;bottom:-8px;width:2px;background:var(--line-divider)}
+.link-item:last-child::before{display:none}
+.link-dot{width:22px;height:22px;border-radius:50%;background:var(--bg-3);border:2px solid var(--line-divider);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.link-dot i{font-size:11px;color:var(--text-secondary)}
+.link-content{font-size:12px;color:var(--text-secondary);line-height:16px;padding-bottom:14px}
+.link-content strong{color:var(--text-primary);font-weight:600}
+
+/* History callout */
+.card-hist{background:var(--op-blue);border-left:3px solid var(--text-blue);border-radius:0 var(--r2) var(--r2) 0;padding:9px 12px;margin-bottom:12px;font-size:12px;color:var(--text-secondary);line-height:17px}
+.card-hist::before{content:'📊 ';font-size:11px}
+
+/* Góc nhìn */
+.goc-nhin{background:var(--bg-2);border:1px solid var(--line-divider);border-radius:var(--r2);padding:10px 12px;margin-bottom:12px}
+.goc-label{font-size:10px;font-weight:700;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.goc-text{font-size:13px;line-height:18px;color:var(--text-secondary)}
+.goc-text strong{color:var(--text-primary);font-weight:600}
+.goc-text .dn{color:var(--text-red)}
+.goc-text .up{color:var(--text-green)}
+.goc-retail{}
+.goc-pro{display:none}
+
+/* Inline buttons */
+.goc-btns{display:flex;gap:8px;margin-top:8px}
+.goc-btn{flex:1;padding:7px 10px;border-radius:var(--r2);font-size:12px;font-weight:600;text-align:center;cursor:pointer;border:1px solid var(--line-divider);background:var(--bg-1);color:var(--text-secondary)}
+.goc-btn.primary{background:var(--op-accent);border-color:var(--line-accent);color:var(--text-accent)}
+
+/* CTA */
+.card-cta{display:flex;align-items:center;justify-content:center;gap:6px;padding-top:12px;border-top:1px solid var(--line-divider);font-size:13px;font-weight:600;color:var(--text-accent);cursor:pointer}
+.card-cta i{font-size:16px}
+
+/* Section label */
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-placeholder);margin:4px 0 8px;padding:0 2px}
+
+/* Bottom nav */
+.bottomnav{position:sticky;bottom:0;background:var(--bg-1);border-top:1px solid var(--line-divider);display:flex;height:56px;z-index:20}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.nav-item i{font-size:20px;color:var(--text-placeholder)}
+.nav-item span{font-size:10px;font-weight:500;color:var(--text-placeholder)}
+.nav-item.active i{color:var(--text-accent)}
+.nav-item.active span{color:var(--text-accent);font-weight:600}
+
+/* Compact macro note */
+.note{font-size:11px;color:var(--text-placeholder);font-style:italic;margin-bottom:10px}
+
+/* Pro blur */
+.pro-blur{position:relative;overflow:hidden;border-radius:var(--r2);margin-bottom:12px}
+.pro-blur-content{filter:blur(5px);pointer-events:none;user-select:none}
+.pro-blur-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.pro-btn{background:var(--bg-accent);color:#fff;border:none;border-radius:var(--r2);padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fb);display:flex;align-items:center;gap:6px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span class="statusbar-time">9:41</span>
+    <div class="statusbar-icons">
+      <i class="ph ph-wifi-high"></i>
+      <i class="ph ph-battery-full"></i>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-row">
+      <span class="header-title">Tình báo</span>
+      <div class="header-icons">
+        <div class="segment">
+          <button class="seg-btn active" id="btn-retail" onclick="setVoice('retail')">Retail</button>
+          <button class="seg-btn" id="btn-pro" onclick="setVoice('pro')">Pro</button>
+        </div>
+        <i class="ph ph-funnel-simple"></i>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Tất cả</div>
+      <div class="tab">Danh mục</div>
+      <div class="tab">Kỹ thuật</div>
+      <div class="tab">Tin tức</div>
+      <div class="tab">Dòng tiền</div>
+      <div class="tab">Vĩ mô</div>
+      <div class="tab">Phân tích</div>
+    </div>
+  </div>
+
+  <!-- Feed -->
+  <div class="feed">
+
+    <!-- ① KỸ THUẬT -->
+    <div class="section-label">Kỹ thuật</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-red"></div>
+          <span class="ticker">HPG</span>
+        </div>
+        <span class="card-time">10:23</span>
+      </div>
+      <div class="card-title">HPG thủng vùng hỗ trợ 26,000đ với khối lượng gấp 2.3 lần trung bình</div>
+      <div class="card-body">Giá rơi xuyên qua vùng hỗ trợ 26K — vùng đã giữ vững 3 lần trong 6 tháng qua. Áp lực bán tiếp tục gia tăng từ đầu phiên chiều.</div>
+
+      <!-- Bối cảnh kỹ thuật -->
+      <div class="tech-metrics">
+        <div class="metric-chip red">RSI <span>28 — quá bán</span></div>
+        <div class="metric-chip">MA20 <span>27,200đ</span></div>
+        <div class="metric-chip">MA50 <span>28,500đ</span></div>
+        <div class="metric-chip">Hỗ trợ tiếp theo <span>24,500đ</span></div>
+        <div class="metric-chip">KL <span>×2.3 TB</span></div>
+      </div>
+
+      <div class="card-body" style="margin-top:-4px"><strong>Nguyên nhân:</strong> Kết hợp tin điều tra bán phá giá + áp lực xả hàng từ khối ngoại phiên sáng.</div>
+
+      <div class="card-hist">4 lần thủng 26K trong 2 năm qua — 3/4 lần giá hồi lại trong 5 phiên. Lần không hồi (T8/2023): tin xấu ngành kéo dài.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <strong class="dn">5%</strong> nữa — cần theo dõi sát.<br>3 lần trước bạn bán sớm, cả 3 lần giá hồi lại.</div>
+        <div class="goc-text goc-pro">Cắt lỗ còn <strong class="dn">5%</strong>. 3/3 bán sớm → hồi.<br>Theo dõi sát, chưa cần hành động vội.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- ② TIN TỨC DN -->
+    <div class="section-label">Tin tức doanh nghiệp</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-yellow"></div>
+          <span class="ticker">HPG</span>
+        </div>
+        <span class="card-time">09:45</span>
+      </div>
+      <div class="card-title">Bộ Công Thương mở điều tra bán phá giá thép HRC nhập khẩu từ Trung Quốc</div>
+
+      <!-- Impact badge -->
+      <div class="impact-row">
+        <div class="impact-badge impact-high-pos"><i class="ph ph-arrow-up-right"></i> Tích cực dài hạn</div>
+        <div class="impact-badge impact-med">Mức độ cao</div>
+      </div>
+
+      <div class="card-body">Nếu áp thuế Q2/2026, HPG hưởng lợi trực tiếp từ mảng HRC 16 triệu tấn/năm. Ngắn hạn: thị trường đang chờ kết quả điều tra.</div>
+
+      <!-- Phản ứng DN -->
+      <div class="company-res"><strong>Phản ứng doanh nghiệp:</strong> HPG chưa có thông cáo chính thức. Ban lãnh đạo dự kiến họp báo cuối tuần.</div>
+
+      <div class="card-hist">Điều tra tương tự T3/2021 → HPG tăng 18% trong 3 tháng sau khi thuế được ban hành.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">Tin tốt nhưng chưa chắc chắn — catalyst thực sự là ngày ban hành thuế Q2/2026.<br>Cần theo dõi sát tiến trình điều tra.</div>
+        <div class="goc-text goc-pro">Tin tốt chưa confirm. Catalyst: thuế Q2/26.<br>Theo dõi tiến trình, chưa vào vội.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- ③ DÒNG TIỀN -->
+    <div class="section-label">Dòng tiền</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-blue"></div>
+          <span class="ticker">VCB</span>
+        </div>
+        <span class="card-time">14:15</span>
+      </div>
+      <div class="card-title">Khối ngoại mua ròng VCB 3 phiên liên tiếp, tổng giá trị 287 tỷ đồng</div>
+      <div class="card-body">Dòng tiền ngoại đang tích lũy VCB liên tục bất chấp nhịp điều chỉnh thị trường chung.</div>
+
+      <!-- Flow table -->
+      <div class="flow-table">
+        <div class="flow-row">
+          <span class="flow-who">Khối ngoại</span>
+          <span class="flow-val up">+287 tỷ ↑</span>
+        </div>
+        <div class="flow-row">
+          <span class="flow-who">Tự doanh CTCK</span>
+          <span class="flow-val dn">−45 tỷ ↓</span>
+        </div>
+        <div class="flow-row">
+          <span class="flow-who">Cá nhân trong nước</span>
+          <span class="flow-val dn">−242 tỷ ↓</span>
+        </div>
+      </div>
+
+      <!-- Đánh giá bất thường -->
+      <div class="flow-unusual"><strong>Bất thường:</strong> Khối lượng mua ngoại cao gấp <strong>3.2 lần</strong> trung bình 20 phiên — tín hiệu tích lũy rõ ràng.</div>
+
+      <div class="card-hist">5 lần khối ngoại mua ròng VCB liên tiếp → giá tăng bình quân 12% sau 1 tháng.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">VCB chiếm <strong>42%</strong> danh mục của bạn — tỷ trọng cao.<br>Dòng tiền đang hỗ trợ — cân nhắc giữ nguyên tỷ trọng.</div>
+        <div class="goc-text goc-pro">VCB 42% danh mục. Ngoại mua × 3.2 TB 20 phiên.<br>Dòng tiền hỗ trợ — cân nhắc giữ.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
+    </div>
+
+    <!-- ④ VĨ MÔ -->
+    <div class="section-label">Vĩ mô</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-blue"></div>
+          <span class="ticker">VĨ MÔ</span>
+        </div>
+        <span class="card-time">22:30</span>
+      </div>
+      <div class="card-title">Fed giữ nguyên lãi suất, phát tín hiệu cắt giảm 2 lần trong 2025</div>
+      <div class="card-body">Quyết định giữ nguyên đúng kỳ vọng thị trường. Tín hiệu cắt 2 lần là điểm tích cực cho các thị trường mới nổi, trong đó có Việt Nam.</div>
+
+      <!-- Sector map -->
+      <div class="sector-map">
+        <div class="sector-group">
+          <div class="sector-label pos">↑ Hưởng lợi</div>
+          <div class="sector-chips">
+            <div class="sector-chip pos">Ngân hàng</div>
+            <div class="sector-chip pos">Bất động sản</div>
+            <div class="sector-chip pos">Chứng khoán</div>
+          </div>
+        </div>
+        <div class="sector-group" style="margin-top:8px">
+          <div class="sector-label neg">⚠ Cần theo dõi</div>
+          <div class="sector-chips">
+            <div class="sector-chip neg">Xuất khẩu</div>
+            <div class="sector-chip neg">Dệt may</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-hist">Fed cắt lãi suất T9/2024 → VN-Index tăng 8% trong 1 tháng. Ngân hàng dẫn đầu đà tăng.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">Bạn đang cầm <strong>VCB</strong> (42% danh mục) — nằm trong nhóm hưởng lợi trực tiếp.<br>Cân nhắc giữ nguyên tỷ trọng ngân hàng.</div>
+        <div class="goc-text goc-pro">VCB 42% danh mục — trong nhóm hưởng lợi.<br>Cân nhắc giữ nguyên tỷ trọng ngân hàng.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về tác động Fed</div>
+    </div>
+
+    <!-- ⑤ PHÂN TÍCH & KHUYẾN NGHỊ -->
+    <div class="section-label">Phân tích & Khuyến nghị</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-green"></div>
+          <span class="ticker">FPT</span>
+        </div>
+        <span class="card-time">08:30</span>
+      </div>
+      <div class="card-title">HSC nâng khuyến nghị FPT lên Mua — giá mục tiêu 145,000đ</div>
+
+      <!-- Recommendation row -->
+      <div class="rec-row">
+        <div class="rec-badge rec-buy">Mua</div>
+        <span class="rec-target">145,000đ</span>
+        <div class="rec-upside">+13% upside</div>
+      </div>
+
+      <!-- Thesis -->
+      <div class="thesis-list">
+        <div class="thesis-item"><span class="thesis-num">①</span><span>IT services xuất khẩu tăng 28% YoY — vượt kỳ vọng 3 quý liên tiếp</span></div>
+        <div class="thesis-item"><span class="thesis-num">②</span><span>AI/cloud chiếm 35% doanh thu mới ký — tăng trưởng nhanh hơn dự phóng</span></div>
+        <div class="thesis-item"><span class="thesis-num">③</span><span>Định giá P/E 18x — hấp dẫn so với các công ty tương đương khu vực</span></div>
+      </div>
+
+      <!-- Track record -->
+      <div class="track-record">Track record HSC với FPT: <strong>4/5 khuyến nghị gần nhất đạt target</strong> trong 6 tháng.</div>
+
+      <div class="card-hist">Lần trước HSC nâng khuyến nghị FPT (T6/2024) → giá tăng 15% sau 2 tháng.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">FPT vượt mốc giá quan trọng đúng vùng bạn đang theo dõi.<br>Nếu tính vào — đây là thời điểm cân nhắc.</div>
+        <div class="goc-text goc-pro">FPT vượt kháng cự. HSC 4/5 đúng.<br>Nếu muốn vào — thời điểm đang phù hợp.</div>
+        <div class="goc-btns">
+          <div class="goc-btn primary"><i class="ph ph-check"></i> Có, tôi đang cầm</div>
+          <div class="goc-btn">Không, đang xem</div>
+        </div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về FPT</div>
+    </div>
+
+    <!-- ⑥ COMPOUND A — cùng mã -->
+    <div class="section-label">Compound</div>
+    <div class="card" style="border-color:rgba(230,8,21,.3)">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-red"></div>
+          <span class="ticker">HPG</span>
+        </div>
+        <span class="card-time">11:05</span>
+      </div>
+      <div class="card-title">3 tín hiệu hội tụ tiêu cực trên HPG trong vòng 4 giờ</div>
+
+      <!-- Compound count badge -->
+      <div class="compound-count">
+        <div class="compound-badge">3 tín hiệu đồng thời</div>
+      </div>
+
+      <!-- Signal list -->
+      <div class="compound-signals">
+        <div class="compound-item">
+          <span class="compound-type">Kỹ thuật</span>
+          <span class="compound-desc">Thủng hỗ trợ 26K — RSI 28 vùng quá bán</span>
+        </div>
+        <div class="compound-item">
+          <span class="compound-type">Tin tức</span>
+          <span class="compound-desc">Bộ Công Thương mở điều tra bán phá giá thép HRC</span>
+        </div>
+        <div class="compound-item">
+          <span class="compound-type">Dòng tiền</span>
+          <span class="compound-desc">Khối ngoại bán ròng 145 tỷ — gấp 2.8 lần trung bình</span>
+        </div>
+      </div>
+
+      <div class="card-hist">2 lần HPG có 3+ tín hiệu tiêu cực đồng thời → cả 2 lần giảm thêm 8–12% trước khi hồi phục.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <strong class="dn">5%</strong> nữa.<br>Không tăng thêm tỷ trọng HPG lúc này — cần theo dõi sát.</div>
+        <div class="goc-text goc-pro">Cắt lỗ còn 5%. 3 tín hiệu tổng hợp cùng tiêu cực.<br>Không tăng thêm tỷ trọng HPG.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- ⑥ COMPOUND B — adjacent -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left">
+          <div class="dot dot-yellow"></div>
+          <span class="ticker">VCB</span>
+        </div>
+        <span class="card-time">14:30</span>
+      </div>
+      <div class="card-title">DXG sụt giảm mạnh có thể kéo theo VCB qua kênh tín dụng bất động sản</div>
+      <div class="note">Tín hiệu gián tiếp — chưa ảnh hưởng ngay</div>
+
+      <!-- Linkage chain -->
+      <div class="linkage">
+        <div class="link-item">
+          <div class="link-dot"><i class="ph ph-arrow-down-right"></i></div>
+          <div class="link-content"><strong>DXG giảm 8%</strong> phiên hôm nay — tin xấu về thanh khoản dự án</div>
+        </div>
+        <div class="link-item">
+          <div class="link-dot"><i class="ph ph-warning"></i></div>
+          <div class="link-content"><strong>Nợ xấu BĐS</strong> có nguy cơ tăng nếu DXG tiếp tục xấu</div>
+        </div>
+        <div class="link-item">
+          <div class="link-dot"><i class="ph ph-bank"></i></div>
+          <div class="link-content"><strong>VCB:</strong> tỷ lệ cho vay BĐS 18% tổng dư nợ — rủi ro trích lập dự phòng Q2/2026</div>
+        </div>
+      </div>
+
+      <div class="card-hist">T8/2023 khi Novaland sụp → VCB giảm 6% nhưng hồi hoàn toàn sau 3 tuần.</div>
+
+      <div class="goc-nhin">
+        <div class="goc-label">Góc nhìn</div>
+        <div class="goc-text goc-retail">VCB chiếm <strong>42%</strong> danh mục — tỷ trọng cao.<br>Cân nhắc đặt ngưỡng cắt lỗ trước khi rủi ro lan rộng.</div>
+        <div class="goc-text goc-pro">VCB 42% danh mục, chưa có ngưỡng cắt lỗ.<br>Cân nhắc giảm tỷ trọng nếu DXG tiếp tục xấu.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
+    </div>
+
+  </div><!-- /feed -->
+
+  <!-- Bottom nav -->
+  <div class="bottomnav">
+    <div class="nav-item">
+      <i class="ph ph-house"></i>
+      <span>Finpath</span>
+    </div>
+    <div class="nav-item">
+      <i class="ph ph-chart-line-up"></i>
+      <span>Bảng giá</span>
+    </div>
+    <div class="nav-item">
+      <i class="ph ph-users-three"></i>
+      <span>Cộng đồng</span>
+    </div>
+    <div class="nav-item active">
+      <i class="ph ph-lightning"></i>
+      <span>Tình báo</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function setVoice(v){
+  document.querySelectorAll('.goc-retail').forEach(el=>el.style.display=v==='retail'?'':'none');
+  document.querySelectorAll('.goc-pro').forEach(el=>el.style.display=v==='pro'?'':'none');
+  document.getElementById('btn-retail').classList.toggle('active',v==='retail');
+  document.getElementById('btn-pro').classList.toggle('active',v==='pro');
+}
+</script>
+</body>
+</html>
