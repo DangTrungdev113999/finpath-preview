@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Finpath — Card Types V6</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg-1:#FFFFFF;--bg-2:#F4F6F7;--bg-3:#E8EBED;
+  --text-primary:#0A0B0D;--text-secondary:#5C6C7E;--text-placeholder:#A4B0BC;
+  --text-accent:#0052FF;--text-green:#098551;--text-red:#E60815;--text-yellow:#C98A00;
+  --line-divider:#E3E7EA;--line-card:#D8DDE1;
+  --op-green:rgba(9,133,81,.08);--op-red:rgba(230,8,21,.08);
+  --op-yellow:rgba(201,138,0,.10);--op-accent:rgba(0,82,255,.07);
+  --r1:16px;--r2:10px;--rf:9999px;
+  --ft:'Public Sans',sans-serif;--fb:'Inter',sans-serif;
+}
+body{background:#D4D9DD;display:flex;justify-content:center;padding:24px 0 60px;font-family:var(--fb);min-height:100vh}
+.phone{width:390px;background:var(--bg-3);border-radius:40px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.22),0 8px 24px rgba(0,0,0,.1)}
+
+/* Status bar */
+.statusbar{height:44px;background:var(--bg-2);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.statusbar-time{font-family:var(--ft);font-size:15px;font-weight:600;color:var(--text-primary)}
+.statusbar-icons{display:flex;gap:6px;align-items:center;color:var(--text-primary);font-size:14px}
+
+/* Header */
+.header{padding:10px 16px 0;background:var(--bg-1);border-bottom:1px solid var(--line-divider);position:sticky;top:0;z-index:10;box-shadow:0 1px 0 var(--line-divider)}
+.header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.header-title{font-family:var(--ft);font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:-.3px}
+.segment{display:flex;gap:3px;background:var(--bg-3);padding:3px;border-radius:var(--rf)}
+.seg-btn{height:28px;padding:0 14px;border-radius:var(--rf);font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);font-family:var(--fb);transition:all .15s}
+.seg-btn.active{background:#0052FF;color:#fff}
+.icon-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:22px;cursor:pointer}
+.header-right{display:flex;align-items:center;gap:8px}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:13px;font-weight:500;color:var(--text-secondary);padding:10px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;transition:all .15s}
+.tab.active{font-weight:700;color:var(--text-accent);border-bottom-color:#0052FF}
+
+/* Feed */
+.feed{padding:12px 14px 80px;display:flex;flex-direction:column;gap:8px;background:var(--bg-3)}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-placeholder);padding:6px 2px 2px}
+
+/* ── Card ── */
+.card{background:var(--bg-2);border:1px solid var(--line-card);border-radius:var(--r1);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+
+/* Card header */
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 0}
+.card-hd-left{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-red{background:#E60815;box-shadow:0 0 0 3px rgba(230,8,21,.14)}
+.dot-yellow{background:#C98A00;box-shadow:0 0 0 3px rgba(201,138,0,.14)}
+.dot-blue{background:#0052FF;box-shadow:0 0 0 3px rgba(0,82,255,.12)}
+.dot-green{background:#098551;box-shadow:0 0 0 3px rgba(9,133,81,.12)}
+.ticker{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--text-primary);letter-spacing:.01em}
+.card-hd-right{display:flex;align-items:center;gap:6px}
+.card-mode{font-size:10px;font-weight:600;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em}
+.card-time{font-size:11px;color:var(--text-placeholder);font-weight:500}
+
+/* Card title */
+.card-title{font-family:var(--ft);font-size:15px;font-weight:700;color:var(--text-primary);line-height:22px;padding:8px 14px 0;letter-spacing:-.1px}
+
+/* Card body */
+.card-pad{padding:0 14px}
+
+/* Inline section with left border */
+.section-block{border-left:2px solid var(--line-divider);padding:0 0 0 10px;margin:10px 14px 0}
+.section-block+.section-block{margin-top:6px}
+.section-lbl{font-size:10px;font-weight:700;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.section-txt{font-size:13px;line-height:19px;color:var(--text-secondary)}
+.section-txt strong{color:var(--text-primary);font-weight:600}
+
+/* Highlight block for bất thường */
+.highlight-block{margin:10px 14px 0;padding:9px 11px;background:var(--op-accent);border-radius:var(--r2);border-left:3px solid #0052FF}
+.highlight-lbl{font-size:10px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.highlight-txt{font-size:13px;line-height:18px;color:var(--text-secondary)}
+.highlight-txt .val{color:var(--text-primary);font-weight:700}
+
+/* Impact row */
+.impact-row{display:flex;align-items:center;gap:6px;margin:10px 14px 0;padding:7px 10px;border-radius:var(--r2);font-size:13px;font-weight:600}
+.impact-row i{font-size:13px}
+.impact-pos{background:var(--op-green);color:var(--text-green)}
+.impact-neg{background:var(--op-red);color:var(--text-red)}
+.impact-med{background:var(--op-yellow);color:var(--text-yellow)}
+
+/* Body text (generic paragraph) */
+.card-body{margin:10px 14px 0;font-size:13px;line-height:19px;color:var(--text-secondary)}
+.card-body strong{color:var(--text-primary);font-weight:600}
+
+/* Ngành bị ảnh hưởng */
+.nganh-block{margin:10px 14px 0}
+.nganh-lbl{font-size:10px;font-weight:700;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.nganh-row{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;margin-bottom:3px}
+.nganh-row i{font-size:13px}
+.nganh-pos{color:var(--text-green)}
+.nganh-neu{color:var(--text-yellow)}
+
+/* Lịch sử */
+.lich-su{margin:12px 14px 0;padding:8px 10px;background:var(--bg-3);border-radius:var(--r2);font-size:12px;line-height:17px;color:var(--text-secondary);font-style:italic}
+
+/* Góc nhìn — standout */
+.goc-nhin{margin:12px 14px 0;padding:9px 11px;background:var(--op-accent);border-radius:var(--r2)}
+.goc-label{font-size:11px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.goc-label i{font-size:12px}
+.goc-text{font-size:13px;line-height:19px;color:var(--text-secondary)}
+.goc-text .val{color:var(--text-primary);font-weight:600}
+.goc-retail{}.goc-pro{display:none}
+
+/* CTA */
+.card-cta{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 14px 12px;padding-top:10px;border-top:1px solid var(--line-divider);font-size:13px;font-weight:600;color:var(--text-accent)}
+.card-cta i{font-size:15px}
+
+/* Chain steps */
+.chain-steps{margin:10px 14px 0;display:flex;flex-direction:column;gap:8px}
+.chain-step{display:flex;align-items:flex-start;gap:10px}
+.chain-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chain-icon i{font-size:14px}
+.chain-icon.red{background:var(--op-red)}
+.chain-icon.red i{color:var(--text-red)}
+.chain-icon.yellow{background:var(--op-yellow)}
+.chain-icon.yellow i{color:var(--text-yellow)}
+.chain-icon.blue{background:var(--op-accent)}
+.chain-icon.blue i{color:var(--text-accent)}
+.chain-txt{font-size:13px;line-height:19px;color:var(--text-secondary);padding-top:4px}
+.chain-txt strong{color:var(--text-primary);font-weight:600}
+
+/* Disclaimer */
+.disclaimer{margin:8px 14px 0;font-size:11px;color:var(--text-placeholder);font-style:italic}
+
+/* PRO blur card */
+.card-pro-wrap{position:relative;border-radius:var(--r1);overflow:hidden;border:1px solid var(--line-card);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card-pro-blur{filter:blur(5px);opacity:.35;pointer-events:none;user-select:none}
+.card-pro-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center}
+.pro-overlay-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.pro-overlay-sub{font-size:12px;color:var(--text-secondary)}
+.pro-unlock-note{font-size:11px;color:var(--text-placeholder)}
+.pro-cta-btn{height:36px;background:#0052FF;border:none;border-radius:var(--r2);padding:0 20px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--fb)}
+.pro-badge{font-size:10px;font-weight:700;color:#9945FF;background:rgba(153,69,255,.12);padding:2px 8px;border-radius:var(--rf);letter-spacing:.04em}
+
+/* Colors */
+.up{color:var(--text-green);font-weight:600}
+.dn{color:var(--text-red);font-weight:600}
+.yw{color:var(--text-yellow);font-weight:600}
+.val{color:var(--text-primary);font-weight:600}
+
+/* Bottom nav */
+.bottomnav{background:var(--bg-1);border-top:1px solid var(--line-divider);display:flex;height:56px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.nav-item i{font-size:22px;color:var(--text-placeholder)}
+.nav-item span{font-size:10px;font-weight:500;color:var(--text-placeholder)}
+.nav-item.active i,.nav-item.active span{color:#0052FF}
+.nav-item.active span{font-weight:700}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar">
+    <span class="statusbar-time">9:41</span>
+    <div class="statusbar-icons"><i class="ph ph-wifi-high"></i><i class="ph ph-battery-full"></i></div>
+  </div>
+  <div class="header">
+    <div class="header-row">
+      <span class="header-title">Tình báo</span>
+      <div class="header-right">
+        <div class="segment">
+          <button class="seg-btn active" id="btn-retail" onclick="setVoice('retail')">Retail</button>
+          <button class="seg-btn" id="btn-pro" onclick="setVoice('pro')">Pro</button>
+        </div>
+        <div class="icon-btn"><i class="ph ph-funnel-simple"></i></div>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Tất cả</div><div class="tab">Kỹ thuật</div><div class="tab">Tin tức</div>
+      <div class="tab">Dòng tiền</div><div class="tab">Vĩ mô</div><div class="tab">Phân tích</div><div class="tab">Thị trường</div>
+    </div>
+  </div>
+
+  <div class="feed">
+
+    <!-- NHẬN ĐỊNH PHIÊN — Generic -->
+    <div class="section-label">Thị trường chung</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VN-INDEX</span></div>
+        <div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">07:00</span></div>
+      </div>
+      <div class="card-title">VN-Index về vùng hỗ trợ 1,260 sau 3 phiên điều chỉnh nhẹ</div>
+      <div class="card-body">Điểm số VN-Index đang bị méo mó bởi nhóm Vingroup. Nếu loại trừ nhóm này, thị trường thực chất chỉ ở mức 1,300 điểm với vô số cổ phiếu tốt đang dưới giá trị thật.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">Thị trường đang điều chỉnh trong xu hướng tăng — đây là vùng nhà đầu tư kiên nhẫn thường tích lũy tốt.</div>
+        <div class="goc-text goc-pro" style="display:none">Điều chỉnh trong uptrend. 1,260 key support. Cơ hội tích lũy đang mở.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về thị trường</div>
+    </div>
+
+    <!-- KỸ THUẬT — Full -->
+    <div class="section-label">Kỹ thuật</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">10:23</span></div>
+      </div>
+      <div class="card-title">HPG thủng vùng hỗ trợ 26,000đ, xác nhận xu hướng giảm ngắn hạn</div>
+      <div class="section-block">
+        <div class="section-lbl">Tín hiệu</div>
+        <div class="section-txt">HPG thủng vùng hỗ trợ <strong>26,000đ</strong> — mốc đã giữ vững 3 lần trong 6 tháng qua, nay bị phá vỡ trong phiên sáng.</div>
+      </div>
+      <div class="section-block">
+        <div class="section-lbl">Nguyên nhân</div>
+        <div class="section-txt">Tin điều tra bán phá giá thép HRC kết hợp áp lực xả hàng từ khối ngoại tạo ra làn sóng bán cộng hưởng.</div>
+      </div>
+      <div class="section-block">
+        <div class="section-lbl">Bối cảnh kỹ thuật</div>
+        <div class="section-txt">Khối lượng <span class="dn">×2.3</span> TB · RSI <span class="dn">28</span> quá bán · Dưới MA20 & MA50 · Hỗ trợ tiếp theo <strong>24,500đ</strong></div>
+      </div>
+      <div class="lich-su">4 lần thủng 26K — 3/4 lần giá hồi trong 5 phiên. Lần không hồi (T8/2023): tin xấu ngành kéo dài.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa — cần theo dõi sát. 3 lần trước bạn bán sớm, cả 3 lần giá đều hồi lại.</div>
+        <div class="goc-text goc-pro" style="display:none">Cắt lỗ còn 5%. 3/3 bán sớm → hồi. Giữ vững, chưa cần hành động vội.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- TIN TỨC DN -->
+    <div class="section-label">Tin tức doanh nghiệp</div>
+
+    <!-- Sub ①: KQKD — Full -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">VNM</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">08:05</span></div>
+      </div>
+      <div class="card-title">VNM lợi nhuận Q4/2025 tăng 22% — vượt kỳ vọng thị trường</div>
+      <div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Tác động: Cao — tích cực, vượt kỳ vọng 15%</div>
+      <div class="card-body">Doanh thu đạt 16,800 tỷ (+11% cùng kỳ), lợi nhuận sau thuế 2,100 tỷ — vượt dự phóng analyst 15%. Biên lợi nhuận cải thiện nhờ giá nguyên liệu đầu vào giảm mạnh trong quý.</div>
+      <div class="lich-su">3 lần VNM vượt kỳ vọng KQKD trước → giá tăng TB 7% trong 5 phiên sau công bố.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">VNM chiếm <span class="val">18%</span> danh mục bạn — tin tốt này hỗ trợ trực tiếp vị thế đang nắm giữ.</div>
+        <div class="goc-text goc-pro" style="display:none">VNM 18% DM. Beat 15% → kỳ vọng giá tăng ngắn hạn.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VNM</div>
+    </div>
+
+    <!-- Sub ②: Sự kiện lịch — Full -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VCB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">Còn 2 ngày</span></div>
+      </div>
+      <div class="card-title">VCB chốt quyền cổ tức đợt 2/2025</div>
+      <div class="card-body">Tỷ lệ 12% · 1,200đ/CP · Ngày chốt: 26/03/2026 · Thanh toán: 25/04/2026</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">Bạn đang cầm <span class="val">2,000 CP</span> VCB — giữ qua 26/03 để nhận <span class="up">2,400,000đ</span> cổ tức.</div>
+        <div class="goc-text goc-pro" style="display:none">2,000 CP VCB → +2,400,000đ nếu giữ qua 26/03.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
+    </div>
+
+    <!-- Sub ⑥: Cảnh báo rủi ro — Full -->
+    <div class="card" style="border-color:rgba(230,8,21,.2)">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">FLC</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">07:45</span></div>
+      </div>
+      <div class="card-title">Chủ tịch FLC Trịnh Văn Quyết bị khởi tố tội thao túng thị trường</div>
+      <div class="impact-row impact-neg"><i class="ph ph-warning"></i> Tác động: Rất cao — rủi ro nghiêm trọng</div>
+      <div class="card-body">Cơ quan điều tra xác nhận bắt tạm giam sáng nay. FLC, ROS, HAI bị đình chỉ giao dịch chờ kết quả điều tra.</div>
+      <div class="lich-su">Sự kiện tương tự — Louis Holdings T12/2021: cổ phiếu liên quan giảm 40–60% trước khi ổn định.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">Bạn đang cầm <span class="val">500 CP FLC</span> — lệnh đình chỉ đồng nghĩa chưa thể thoát ra. Theo dõi thông báo chính thức từ HoSE.</div>
+        <div class="goc-text goc-pro" style="display:none">500 CP FLC bị đình chỉ. Không thể thoát. Chờ thông báo HoSE — khả năng hủy niêm yết cao.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về FLC</div>
+    </div>
+
+    <!-- DÒNG TIỀN -->
+    <div class="section-label">Dòng tiền</div>
+
+    <!-- Sub A: Tổ chức — Watchlist -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">MBB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">15:30</span></div>
+      </div>
+      <div class="card-title">Khối ngoại mua ròng MBB 3 phiên liên tiếp, tổng 215 tỷ đồng</div>
+      <div class="card-body">Khối ngoại mua vào 215 tỷ trong khi cá nhân trong nước xả 185 tỷ — dòng tiền chuyên nghiệp đang đi ngược chiều số đông.</div>
+      <div class="highlight-block">
+        <div class="highlight-lbl">Đánh giá bất thường</div>
+        <div class="highlight-txt">Mức mua ngoại <span class="val">gấp 2.8 lần</span> TB 20 phiên — tích lũy có chủ đích, không phải ngẫu nhiên</div>
+      </div>
+      <div class="lich-su">4 lần khối ngoại mua ròng MBB 3 phiên liên tiếp → giá tăng TB 9% sau 1 tháng.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">MBB trong danh sách theo dõi của bạn — dòng tiền tổ chức tích lũy là tín hiệu ít thấy, thường đi trước đợt tăng lớn.</div>
+        <div class="goc-text goc-pro" style="display:none">MBB watchlist. Ngoại ×2.8 TB 20P → tích lũy có chủ đích. Timing vào đang tốt.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về MBB</div>
+    </div>
+
+    <!-- Sub B: Cá mập — Generic -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">VIC</span></div>
+        <div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">11:15</span></div>
+      </div>
+      <div class="card-title">Lệnh mua khối lượng lớn bất thường trên VIC — ai đó đang gom mạnh</div>
+      <div class="card-body">Phát hiện 3 lệnh mua block lớn trong 20 phút, tổng hơn 8 triệu CP.</div>
+      <div class="highlight-block">
+        <div class="highlight-lbl">Đánh giá bất thường</div>
+        <div class="highlight-txt">Khối lượng <span class="val">gấp 4 lần</span> TB cùng khung giờ — bất thường rõ rệt</div>
+      </div>
+      <div class="lich-su">Tín hiệu block trade lớn tương tự VIC — 3/5 lần giá tăng 5–8% trong 3 phiên tiếp theo.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">VIC chưa có trong danh mục hoặc danh sách theo dõi của bạn. Tín hiệu đáng chú ý nhưng cần thêm xác nhận trước khi hành động.</div>
+        <div class="goc-text goc-pro" style="display:none">VIC ngoài radar. Block trade đáng theo dõi — cần xác nhận thêm trước khi vào.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VIC</div>
+    </div>
+
+    <!-- VĨ MÔ — Watchlist -->
+    <div class="section-label">Vĩ mô</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VĨ MÔ</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">22:30</span></div>
+      </div>
+      <div class="card-title">Fed giữ nguyên lãi suất, phát tín hiệu cắt giảm 2 lần trong 2025</div>
+      <div class="section-block">
+        <div class="section-lbl">Sự kiện</div>
+        <div class="section-txt">Fed giữ nguyên lãi suất, phát tín hiệu cắt giảm 2 lần — chi phí vốn toàn cầu hạ nhiệt, dòng tiền tìm đến thị trường mới nổi.</div>
+      </div>
+      <div class="nganh-block">
+        <div class="nganh-lbl">Ngành bị ảnh hưởng</div>
+        <div class="nganh-row nganh-pos"><i class="ph ph-arrow-up-right"></i> Hưởng lợi: Ngân hàng · Bất động sản · Chứng khoán</div>
+        <div class="nganh-row nganh-neu"><i class="ph ph-minus"></i> Cần theo dõi: Xuất khẩu · Dệt may</div>
+      </div>
+      <div class="lich-su">Fed cắt lãi suất T9/2024 → VN-Index tăng 8% trong 1 tháng. Ngân hàng dẫn đầu đà tăng.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">MBB và VCB trong danh sách theo dõi của bạn đều thuộc nhóm ngân hàng hưởng lợi trực tiếp từ quyết định này.</div>
+        <div class="goc-text goc-pro" style="display:none">MBB, VCB watchlist — banking hưởng lợi trực tiếp. Macro hỗ trợ luận điểm vào hàng.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về tác động Fed</div>
+    </div>
+
+    <!-- PHÂN TÍCH & KN — Watchlist -->
+    <div class="section-label">Phân tích & Khuyến nghị</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">FPT</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">08:30</span></div>
+      </div>
+      <div class="card-title">HSC nâng khuyến nghị FPT lên Mua — giá mục tiêu 145,000đ, upside +13%</div>
+      <div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Mua · Giá mục tiêu 145,000đ · Upside +13%</div>
+      <div class="card-body">FPT đang bước vào giai đoạn bùng nổ nhờ làn sóng chuyển đổi số, mảng IT services xuất khẩu tăng 28% — doanh thu dự kiến đạt 52,000 tỷ năm 2026. Trong 30 ngày qua, SSI Research và VPS Research cũng nâng giá mục tiêu trung bình 142,000đ cho FPT. HSC đúng 4/5 khuyến nghị gần nhất.</div>
+      <div class="lich-su">Lần trước HSC nâng khuyến nghị FPT (T6/2024) → giá tăng 15% sau 2 tháng.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">FPT vượt mốc giá quan trọng đúng vùng bạn đang theo dõi — đây là thời điểm cân nhắc nếu đang có kế hoạch vào.</div>
+        <div class="goc-text goc-pro" style="display:none">FPT watchlist. HSC+SSI+VPS đồng thuận. Vượt kháng cự. Timing vào đang phù hợp.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về FPT</div>
+    </div>
+
+    <!-- PRO BLUR — Generic -->
+    <div class="card-pro-wrap">
+      <div class="card card-pro-blur" style="border:none;box-shadow:none">
+        <div class="card-hd">
+          <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">SSI</span></div>
+          <div class="card-hd-right"><span class="pro-badge">PRO</span><span class="card-mode">Generic</span></div>
+        </div>
+        <div class="card-title">SSI thủng MA200 với khối lượng gấp 3x — cảnh báo đảo chiều ngắn hạn</div>
+        <div class="card-body">RSI 24 vùng quá bán mạnh. Tự doanh mua ròng 89 tỷ ngược chiều thị trường trong khi cá nhân xả mạnh.</div>
+        <div class="lich-su">5 lần tương tự SSI trong 2 năm → hồi TB +14% trong 3 phiên.</div>
+        <div class="goc-nhin">
+          <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+          <div class="goc-text">Dòng tiền tự doanh đang đi ngược chiều xả của cá nhân — tín hiệu phân kỳ đáng chú ý.</div>
+        </div>
+      </div>
+      <div class="card-pro-overlay">
+        <div class="pro-overlay-title">Nội dung dành riêng cho Pro</div>
+        <div class="pro-overlay-sub">Mở khóa để xem phân tích đầy đủ</div>
+        <div class="pro-unlock-note">Hoặc unlock miễn phí sau 24 giờ</div>
+        <button class="pro-cta-btn"><i class="ph ph-lock-open"></i> Nâng cấp Pro · 549K/tháng</button>
+      </div>
+    </div>
+
+    <!-- COMPOUND -->
+    <div class="section-label">Compound</div>
+
+    <!-- Sub A: Hội tụ — Full -->
+    <div class="card" style="border-color:rgba(230,8,21,.2)">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">11:05</span></div>
+      </div>
+      <div class="card-title">3 tín hiệu tiêu cực hội tụ trên HPG trong vòng 4 giờ</div>
+      <div class="card-body">HPG đang chịu áp lực từ nhiều phía cùng lúc — kỹ thuật thủng hỗ trợ quan trọng, tin điều tra bán phá giá thép làm mờ triển vọng, và khối ngoại đẩy mạnh bán ròng 145 tỷ. Ba yếu tố này hiếm khi xảy ra đồng thời.</div>
+      <div class="lich-su">2 lần HPG có 3+ tín hiệu tiêu cực đồng thời → cả 2 lần giảm thêm 8–12% trước khi hồi phục.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa. Không tăng thêm tỷ trọng HPG lúc này — theo dõi sát phiên chiều.</div>
+        <div class="goc-text goc-pro" style="display:none">Cắt lỗ còn 5%. 3 tín hiệu đồng tiêu cực. Không tăng tỷ trọng HPG.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- Sub B: Chuỗi lan toả — Watchlist -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">VCB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">14:30</span></div>
+      </div>
+      <div class="card-title">DXG sụt giảm mạnh — rủi ro có thể lan toả sang VCB qua kênh tín dụng BĐS</div>
+      <div class="disclaimer">Tín hiệu gián tiếp — chưa ảnh hưởng ngay</div>
+      <div class="chain-steps">
+        <div class="chain-step">
+          <div class="chain-icon red"><i class="ph ph-trend-down"></i></div>
+          <div class="chain-txt"><strong>DXG giảm 8%</strong> phiên hôm nay — tin xấu về thanh khoản dự án</div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-icon yellow"><i class="ph ph-warning"></i></div>
+          <div class="chain-txt"><strong>Nợ xấu BĐS</strong> có nguy cơ tăng nếu DXG tiếp tục xấu</div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-icon blue"><i class="ph ph-bank"></i></div>
+          <div class="chain-txt"><strong>VCB:</strong> tỷ lệ cho vay BĐS 18% tổng dư nợ — rủi ro trích lập dự phòng Q2/2026</div>
+        </div>
+      </div>
+      <div class="lich-su">T8/2023 khi Novaland gặp khó — VCB giảm 6% nhưng hồi hoàn toàn sau 3 tuần.</div>
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text goc-retail">VCB trong danh sách theo dõi — đây là rủi ro cần biết trước khi quyết định vào hàng, chưa phải tín hiệu hành động ngay.</div>
+        <div class="goc-text goc-pro" style="display:none">VCB watchlist. DXG→VCB gián tiếp. Rủi ro chưa hiện thực — theo dõi DXG thêm 2–3 phiên.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
+    </div>
+
+  </div>
+
+  <div class="bottomnav">
+    <div class="nav-item"><i class="ph ph-house"></i><span>Finpath</span></div>
+    <div class="nav-item"><i class="ph ph-chart-line-up"></i><span>Bảng giá</span></div>
+    <div class="nav-item"><i class="ph ph-users-three"></i><span>Cộng đồng</span></div>
+    <div class="nav-item active"><i class="ph ph-lightning"></i><span>Tình báo</span></div>
+  </div>
+</div>
+<script>
+function setVoice(v){
+  document.querySelectorAll('.goc-retail').forEach(el=>el.style.display=v==='retail'?'':'none');
+  document.querySelectorAll('.goc-pro').forEach(el=>el.style.display=v==='pro'?'':'none');
+  document.getElementById('btn-retail').classList.toggle('active',v==='retail');
+  document.getElementById('btn-pro').classList.toggle('active',v==='pro');
+}
+</script>
+</body>
+</html>
