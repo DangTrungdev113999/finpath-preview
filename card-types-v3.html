@@ -82,6 +82,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
 .dot-green{background:var(--text-green);box-shadow:0 0 0 3px rgba(9,133,81,.12)}
 .ticker{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--text-primary)}
 .card-time{font-size:11px;color:var(--text-placeholder);font-weight:500}
+.card-mode{font-size:10px;font-weight:600;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.06em;opacity:.6}
 
 /* Title — strongest element */
 .card-title{font-size:15px;font-weight:700;color:var(--text-primary);line-height:22px;margin-bottom:10px;font-family:var(--ft)}
@@ -208,7 +209,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
-        <span class="card-time">10:23</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Full</span><span class="card-time">10:23</span></div>
       </div>
       <div class="card-title">HPG thủng vùng hỗ trợ 26,000đ với khối lượng gấp 2.3 lần trung bình</div>
       <div class="card-body">HPG thủng vùng hỗ trợ <strong>26,000đ</strong>, xác nhận xu hướng giảm ngắn hạn. Cổ phiếu đang tiến về vùng hỗ trợ tiếp theo tại <strong>24,500đ</strong>.</div>
@@ -222,7 +223,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">HPG</span></div>
-        <span class="card-time">09:45</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Full</span><span class="card-time">09:45</span></div>
       </div>
       <div class="card-title">Bộ Công Thương mở điều tra bán phá giá thép HRC nhập khẩu từ Trung Quốc</div>
       <div class="impact-row-full impact-pos"><i class="ph ph-arrow-up-right"></i> Tác động: Cao — tích cực trung/dài hạn</div>
@@ -238,7 +239,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VCB</span></div>
-        <span class="card-time">14:15</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Full</span><span class="card-time">14:15</span></div>
       </div>
       <div class="card-title">Khối ngoại mua ròng VCB 3 phiên liên tiếp, tổng 287 tỷ đồng</div>
       <div class="data-section">
@@ -257,7 +258,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VĨ MÔ</span></div>
-        <span class="card-time">22:30</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Full</span><span class="card-time">22:30</span></div>
       </div>
       <div class="card-title">Fed giữ nguyên lãi suất, phát tín hiệu cắt giảm 2 lần trong 2025</div>
       <div class="data-section">
@@ -276,7 +277,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">FPT</span></div>
-        <span class="card-time">08:30</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Watchlist</span><span class="card-time">08:30</span></div>
       </div>
       <div class="card-title">HSC nâng khuyến nghị FPT lên Mua — giá mục tiêu 145,000đ</div>
       <div class="data-section">
@@ -302,7 +303,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
           <div class="dot dot-red"></div>
           <span class="pro-ticker">SSI</span>
         </div>
-        <div class="pro-badge">PRO</div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Generic</span><div class="pro-badge">PRO</div></div>
       </div>
       <div class="pro-blur-wrap">
         <div class="pro-blur-content">
@@ -322,7 +323,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card" style="border-color:rgba(230,8,21,.2)">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
-        <span class="card-time">11:05</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Full</span><span class="card-time">11:05</span></div>
       </div>
       <div class="card-title">3 tín hiệu hội tụ tiêu cực trên HPG trong vòng 4 giờ</div>
       <div class="data-section">
@@ -341,7 +342,7 @@ body{background:#E8EBF0;display:flex;justify-content:center;padding:24px 0 48px;
     <div class="card">
       <div class="card-hd">
         <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">VCB</span></div>
-        <span class="card-time">14:30</span>
+        <div style="display:flex;align-items:center;gap:8px"><span class="card-mode">Full</span><span class="card-time">14:30</span></div>
       </div>
       <div class="card-title">DXG sụt giảm mạnh có thể kéo theo VCB qua kênh tín dụng bất động sản</div>
       <div class="card-body">Tín hiệu gián tiếp — chưa ảnh hưởng ngay. Cần theo dõi thêm.</div>
