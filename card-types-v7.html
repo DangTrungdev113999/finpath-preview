@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Finpath — Card Types V7</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg-1:#FFFFFF;--bg-2:#F4F6F7;--bg-3:#E3E7EA;
+  --text-primary:#0A0B0D;--text-secondary:#5C6C7E;--text-placeholder:#A4B0BC;
+  --text-accent:#0052FF;--text-green:#098551;--text-red:#E60815;--text-yellow:#D19A00;
+  --text-blue:#23CDED;--text-purple:#9945FF;
+  --line-divider:#E3E7EA;--line-card:#D8DDE1;--line-accent:#0052FF;
+  --op-green:rgba(9,133,81,.10);--op-red:rgba(230,8,21,.10);
+  --op-yellow:rgba(209,154,0,.10);--op-accent:rgba(0,82,255,.07);
+  --op-blue:rgba(35,205,237,.10);
+  --r1:16px;--r2:10px;--rf:9999px;
+  --ft:'Public Sans',sans-serif;--fb:'Inter',sans-serif;
+}
+body{background:#D4D9DD;display:flex;justify-content:center;padding:24px 0 60px;font-family:var(--fb);min-height:100vh}
+.phone{width:390px;background:var(--bg-3);border-radius:40px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.22),0 8px 24px rgba(0,0,0,.1)}
+
+.statusbar{height:44px;background:var(--bg-2);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.statusbar-time{font-family:var(--ft);font-size:15px;font-weight:600;color:var(--text-primary)}
+.statusbar-icons{display:flex;gap:6px;align-items:center;color:var(--text-primary);font-size:14px}
+
+.header{padding:10px 16px 0;background:var(--bg-1);border-bottom:1px solid var(--line-divider);position:sticky;top:0;z-index:10;box-shadow:0 1px 0 var(--line-divider)}
+.header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.header-title{font-family:var(--ft);font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:-.3px}
+.segment{display:flex;gap:3px;background:var(--bg-3);padding:3px;border-radius:var(--rf)}
+.seg-btn{height:28px;padding:0 14px;border-radius:var(--rf);font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);font-family:var(--fb);transition:all .15s}
+.seg-btn.active{background:#0052FF;color:#fff}
+.icon-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:22px;cursor:pointer}
+.header-right{display:flex;align-items:center;gap:8px}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:13px;font-weight:500;color:var(--text-secondary);padding:10px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;transition:all .15s}
+.tab.active{font-weight:700;color:var(--text-accent);border-bottom-color:#0052FF}
+
+.feed{padding:12px 14px 80px;display:flex;flex-direction:column;gap:8px;background:var(--bg-3)}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-placeholder);padding:6px 2px 2px}
+
+.card{background:var(--bg-2);border:1px solid var(--line-card);border-radius:var(--r1);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 0}
+.card-hd-left{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-red{background:#E60815;box-shadow:0 0 0 3px rgba(230,8,21,.14)}
+.dot-yellow{background:#D19A00;box-shadow:0 0 0 3px rgba(209,154,0,.14)}
+.dot-blue{background:#0052FF;box-shadow:0 0 0 3px rgba(0,82,255,.12)}
+.dot-green{background:#098551;box-shadow:0 0 0 3px rgba(9,133,81,.12)}
+.ticker{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--text-primary);letter-spacing:.01em}
+.card-hd-right{display:flex;align-items:center;gap:6px}
+.card-mode{font-size:10px;font-weight:600;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em}
+.card-time{font-size:11px;color:var(--text-placeholder);font-weight:500}
+
+.card-title{font-family:var(--ft);font-size:15px;font-weight:700;color:var(--text-primary);line-height:22px;padding:8px 14px 0;letter-spacing:-.1px}
+
+.section-block{border-left:2px solid var(--line-divider);padding:0 0 0 10px;margin:10px 14px 0}
+.section-block+.section-block{margin-top:6px}
+.section-lbl{font-size:10px;font-weight:700;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.section-txt{font-size:13px;line-height:19px;color:var(--text-secondary)}
+.section-txt strong{color:var(--text-primary);font-weight:600}
+
+.highlight-block{margin:10px 14px 0;padding:9px 11px;background:var(--op-accent);border-radius:var(--r2);border-left:3px solid #0052FF}
+.highlight-lbl{font-size:10px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.highlight-txt{font-size:13px;line-height:18px;color:var(--text-secondary)}
+.highlight-txt .val{color:var(--text-primary);font-weight:700}
+
+.impact-row{display:flex;align-items:center;gap:6px;margin:10px 14px 0;padding:7px 10px;border-radius:var(--r2);font-size:13px;font-weight:600}
+.impact-row i{font-size:13px}
+.impact-pos{background:var(--op-green);color:var(--text-green)}
+.impact-neg{background:var(--op-red);color:var(--text-red)}
+.impact-med{background:var(--op-yellow);color:var(--text-yellow)}
+
+.card-body{margin:10px 14px 0;font-size:13px;line-height:19px;color:var(--text-secondary)}
+.card-body strong{color:var(--text-primary);font-weight:600}
+
+.nganh-block{margin:10px 14px 0;display:flex;flex-direction:column;gap:5px}
+.nganh-row{display:flex;align-items:center;gap:12px;padding:10px 13px;font-size:13px;border-radius:var(--r2)}
+.nganh-icon{font-size:15px;font-weight:700;width:14px;text-align:center;flex-shrink:0}
+.nganh-label{font-size:13px;font-weight:700;flex-shrink:0;min-width:72px}
+.nganh-sectors{font-size:13px;color:var(--text-secondary)}
+.nganh-pos{background:rgba(9,133,81,.10)}
+.nganh-pos .nganh-icon,.nganh-pos .nganh-label{color:var(--text-green)}
+.nganh-neu{background:rgba(209,154,0,.10)}
+.nganh-neu .nganh-icon,.nganh-neu .nganh-label{color:var(--text-yellow)}
+
+.lich-su{margin:12px 14px 0;padding:8px 10px;background:var(--op-blue);border-left:3px solid var(--text-blue);border-radius:0 var(--r2) var(--r2) 0;font-size:12px;line-height:17px;color:var(--text-secondary)}
+
+.goc-nhin{margin:12px 14px 0;padding:9px 11px;background:var(--op-accent);border-radius:var(--r2)}
+.goc-label{font-size:11px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.goc-label i{font-size:12px}
+.goc-text{font-size:13px;line-height:19px;color:var(--text-secondary)}
+.goc-text .val{color:var(--text-primary);font-weight:600}
+
+.card-cta{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 14px 12px;padding-top:10px;border-top:1px solid var(--line-divider);font-size:13px;font-weight:600;color:var(--text-accent)}
+.card-cta i{font-size:15px}
+
+.chain-steps{margin:10px 14px 0;display:flex;flex-direction:column;gap:8px}
+.chain-step{display:flex;align-items:flex-start;gap:10px}
+.chain-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chain-icon i{font-size:14px}
+.chain-icon.red{background:var(--op-red)}
+.chain-icon.red i{color:var(--text-red)}
+.chain-icon.yellow{background:var(--op-yellow)}
+.chain-icon.yellow i{color:var(--text-yellow)}
+.chain-icon.blue{background:var(--op-accent)}
+.chain-icon.blue i{color:var(--text-accent)}
+.chain-txt{font-size:13px;line-height:19px;color:var(--text-secondary);padding-top:4px}
+.chain-txt strong{color:var(--text-primary);font-weight:600}
+
+.disclaimer{margin:8px 14px 0;font-size:11px;color:var(--text-placeholder);font-style:italic}
+
+.card-pro-wrap{position:relative;border-radius:var(--r1);overflow:hidden;border:1px solid var(--line-card);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card-pro-blur{filter:blur(5px);opacity:.35;pointer-events:none;user-select:none}
+.card-pro-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center}
+.pro-overlay-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.pro-overlay-sub{font-size:12px;color:var(--text-secondary)}
+.pro-unlock-note{font-size:11px;color:var(--text-placeholder)}
+.pro-cta-btn{height:36px;background:#0052FF;border:none;border-radius:var(--r2);padding:0 20px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--fb)}
+.pro-badge{font-size:10px;font-weight:700;color:#9945FF;background:rgba(153,69,255,.12);padding:2px 8px;border-radius:var(--rf);letter-spacing:.04em}
+
+.up{color:var(--text-green);font-weight:600}
+.dn{color:var(--text-red);font-weight:600}
+.yw{color:var(--text-yellow);font-weight:600}
+.val{color:var(--text-primary);font-weight:600}
+
+.bottomnav{background:var(--bg-1);border-top:1px solid var(--line-divider);display:flex;height:56px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.nav-item i{font-size:22px;color:var(--text-placeholder)}
+.nav-item span{font-size:10px;font-weight:500;color:var(--text-placeholder)}
+.nav-item.active i,.nav-item.active span{color:#0052FF}
+.nav-item.active span{font-weight:700}
+
+/* Template tag — hiển thị nguồn gen */
+.tmpl-tag{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;letter-spacing:.06em;padding:2px 6px;border-radius:var(--rf);margin-left:6px;vertical-align:middle}
+.tmpl-t{background:rgba(9,133,81,.12);color:var(--text-green)}
+.tmpl-h{background:rgba(209,154,0,.12);color:var(--text-yellow)}
+.tmpl-l{background:rgba(230,8,21,.12);color:var(--text-red)}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar">
+    <span class="statusbar-time">9:41</span>
+    <div class="statusbar-icons"><i class="ph ph-wifi-high"></i><i class="ph ph-battery-full"></i></div>
+  </div>
+  <div class="header">
+    <div class="header-row">
+      <span class="header-title">Tình báo</span>
+      <div class="header-right">
+        <div class="segment">
+          <button class="seg-btn active" id="btn-retail" onclick="setVoice('retail')">Retail</button>
+          <button class="seg-btn" id="btn-pro" onclick="setVoice('pro')">Pro</button>
+        </div>
+        <div class="icon-btn"><i class="ph ph-funnel-simple"></i></div>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Tất cả</div><div class="tab">Kỹ thuật</div><div class="tab">Tin tức</div>
+      <div class="tab">Dòng tiền</div><div class="tab">Vĩ mô</div><div class="tab">Phân tích</div><div class="tab">Thị trường</div>
+    </div>
+  </div>
+
+  <div class="feed">
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ①: NHẬN ĐỊNH PHIÊN — Generic          -->
+    <!-- Lookup: nhan_xet_ngan[], mo_ta_xu_huong_ngan[] -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Thị trường chung</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VN-INDEX</span></div>
+        <div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">07:00</span></div>
+      </div>
+      <!-- Tiêu đề: 🔴 LLM — đọc data thị trường → viết nhận định ngắn -->
+      <div class="card-title">VN-Index về vùng hỗ trợ 1,260 sau 3 phiên điều chỉnh — thanh khoản suy yếu</div>
+      <!-- Body: 🔴 LLM — tổng hợp từ báo cáo thị trường -->
+      <div class="card-body">Điểm số VN-Index đang bị méo mó bởi nhóm Vingroup. Loại trừ nhóm này, thị trường thực chất ở mức 1,300 với nhiều cổ phiếu tốt dưới giá trị.</div>
+      <!-- Góc nhìn Generic: 🟢 Template → nhan_xet_ngan["tang_trong_uptrend"] -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">Thị trường đang điều chỉnh trong xu hướng tăng — đây là vùng nhà đầu tư kiên nhẫn thường tích lũy tốt.</div>
+        <div class="goc-text voice-pro" style="display:none">Điều chỉnh uptrend. Biến động thấp, chờ xác nhận hướng đi tiếp theo.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về thị trường</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ②: KỸ THUẬT — Full                     -->
+    <!-- Lookup: signal_title_pattern[], behavioral[] -->
+    <!-- Formula: khoang_cach_cat_lo                  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Kỹ thuật</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">10:23</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T → signal_title_pattern["support_break"] -->
+      <div class="card-title">HPG thủng vùng hỗ trợ 26,000đ, xác nhận xu hướng giảm ngắn hạn</div>
+      <!-- Body: 🟡 H → Template fill + LLM 1 câu kết nối -->
+      <div class="card-body">Mốc <strong>26,000đ</strong> đã giữ vững 3 lần trong 6 tháng — nay bị phá vỡ với khối lượng <span class="dn">gấp 2.3 lần</span> trung bình. RSI ở mức <span class="dn">28</span>, sâu trong vùng quá bán. Giá dưới cả MA20 và MA50 — hỗ trợ tiếp theo tại <strong>24,500đ</strong>.</div>
+      <!-- Nguyên nhân: 🔴 L -->
+      <div class="section-block">
+        <div class="section-lbl">Nguyên nhân</div>
+        <div class="section-txt">Tin điều tra bán phá giá thép HRC kết hợp áp lực xả hàng từ khối ngoại tạo ra làn sóng bán cộng hưởng.</div>
+      </div>
+      <!-- Lịch sử: 🟢 T → "{n} lần {ticker} {signal} → giá {tang/giam} TB {pct}% trong {m} phiên" -->
+      <div class="lich-su">4 lần HPG thủng 26K — 3/4 lần giá hồi trong 5 phiên. Lần không hồi (T8/2023): tin xấu ngành kéo dài.</div>
+      <!-- Góc nhìn Full: 🟢 T → khoang_cach = (26000-24700)/26000*100 = 5% + behavioral["ban_som_roi_hoi"] -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">Ngưỡng cắt lỗ bạn đặt còn <span class="dn">5%</span> nữa — cần theo dõi sát. 3 lần trước bạn bán sớm, cả 3 lần giá hồi lại.</div>
+        <div class="goc-text voice-pro" style="display:none">Cắt lỗ còn 5%. 3/3 bán sớm → hồi. Giữ vững, chưa cần hành động vội.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ②: KỸ THUẬT — Watchlist                -->
+    <!-- Lookup: signal_title_pattern["rsi_oversold"] -->
+    <!-- connective[("positive","watchlist")]         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">TCB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">10:45</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T → signal_title_pattern["rsi_oversold"] -->
+      <div class="card-title">TCB RSI 27 vùng quá bán — tín hiệu kỹ thuật đáng chú ý</div>
+      <!-- Body: 🟡 H -->
+      <div class="card-body">RSI <span class="dn">27</span> — sâu trong vùng quá bán. Giá đang test MA50 tại <strong>34,200đ</strong>, khối lượng giảm dần cho thấy lực bán đang cạn.</div>
+      <div class="lich-su">3 lần TCB RSI dưới 30 → giá hồi TB 6% trong 7 phiên.</div>
+      <!-- Góc nhìn Watchlist: 🟢 T → connective[("positive","watchlist")] -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">TCB trong danh sách theo dõi — tín hiệu đáng chú ý trên mã đang theo dõi.</div>
+        <div class="goc-text voice-pro" style="display:none">TCB watchlist. Tín hiệu đáng chú ý trên mã đang theo dõi.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về TCB</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ③-①: KQKD — Watchlist                  -->
+    <!-- Lookup: vuot_thap_label[], tot_xau_label[]  -->
+    <!-- impact_phrase[("positive","high")]           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Tin tức doanh nghiệp</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">FPT</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">08:05</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T → vuot_thap_label["beat"] = "vượt" -->
+      <div class="card-title">FPT lợi nhuận Q4/2025 tăng 28% — vượt kỳ vọng thị trường 12%</div>
+      <!-- Impact: 🟢 T → impact_phrase[("positive","high")] -->
+      <div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Tác động: Cao — tích cực, vượt kỳ vọng</div>
+      <!-- Body số liệu: 🟢 T + Nguyên nhân: 🔴 L -->
+      <div class="card-body">Doanh thu đạt <strong>14,500 tỷ</strong> (<span class="up">+18%</span> cùng kỳ), lợi nhuận sau thuế <strong>2,800 tỷ</strong> — vượt dự phóng analyst 12%. Mảng IT services xuất khẩu bùng nổ nhờ làn sóng chuyển đổi số toàn cầu.</div>
+      <!-- Lịch sử: 🟢 T -->
+      <div class="lich-su">4 lần FPT vượt kỳ vọng KQKD → giá tăng TB 9% trong 10 phiên sau công bố.</div>
+      <!-- Góc nhìn Watchlist: 🟢 T → connective[("positive","watchlist")] -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">FPT trong danh sách theo dõi — tín hiệu đáng chú ý trên mã đang theo dõi.</div>
+        <div class="goc-text voice-pro" style="display:none">FPT watchlist. Beat 12%. Tín hiệu đáng chú ý.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về FPT</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ③-②: SỰ KIỆN LỊCH — Full              -->
+    <!-- Formula: tong_tien = so_cp × gia_tri_per_cp -->
+    <!-- 100% Template, zero LLM                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VCB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">Còn 2 ngày</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T -->
+      <div class="card-title">VCB chốt quyền cổ tức đợt 2/2025</div>
+      <!-- Body: 🟢 T -->
+      <div class="card-body">Tỷ lệ <strong>12%</strong> · <strong>1,200đ/CP</strong> · Ngày chốt: <strong>01/04/2026</strong> · Thanh toán: 05/05/2026</div>
+      <!-- Góc nhìn Full: 🟢 T → tong_tien = 2000 × 1200 = 2,400,000đ -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">Bạn đang cầm <span class="val">2,000 CP</span> VCB — giữ qua 01/04 để nhận <span class="up">2,400,000đ</span> cổ tức.</div>
+        <div class="goc-text voice-pro" style="display:none">2,000 CP VCB → +2,400,000đ nếu giữ qua 01/04.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ③-③: HÀNH ĐỘNG DN — Full               -->
+    <!-- Lookup: impact_phrase[("negative","medium")] -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">MWG</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">09:30</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T -->
+      <div class="card-title">MWG phát hành thêm 50 triệu CP cho ESOP — pha loãng 3.2%</div>
+      <!-- Impact: 🟢 T → impact_phrase[("negative","medium")] -->
+      <div class="impact-row impact-med"><i class="ph ph-warning"></i> Tác động: Trung bình — cần theo dõi</div>
+      <!-- Body: 🟢 T -->
+      <div class="card-body"><strong>50 triệu CP</strong> · pha loãng <span class="dn">3.2%</span> · Mục đích: ESOP cho ban lãnh đạo</div>
+      <div class="lich-su">2 lần MWG phát hành ESOP trước → giá giảm TB 4% trong 5 phiên rồi hồi.</div>
+      <!-- Góc nhìn Full: 🟢 T → connective[("negative","full")] + behavioral -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">MWG chiếm <span class="val">12%</span> danh mục bạn — tin này tạo áp lực lên vị thế của bạn. 2 lần trước bạn bán sớm, cả 2 lần giá hồi lại.</div>
+        <div class="goc-text voice-pro" style="display:none">MWG 12% DM — tạo áp lực vị thế. 2/2 bán sớm → hồi.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về MWG</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ③-⑥: CẢNH BÁO RỦI RO — Full          -->
+    <!-- impact hardcode: "Rất cao — rủi ro nghiêm trọng" -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="card" style="border-color:rgba(230,8,21,.2)">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">FLC</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">07:45</span></div>
+      </div>
+      <div class="card-title">Chủ tịch FLC bị khởi tố tội thao túng thị trường</div>
+      <!-- Impact: 🟢 T → hardcode luôn đỏ -->
+      <div class="impact-row impact-neg"><i class="ph ph-warning"></i> Tác động: Rất cao — rủi ro nghiêm trọng</div>
+      <!-- Body: 🔴 L -->
+      <div class="card-body">Cơ quan điều tra xác nhận bắt tạm giam sáng nay. FLC, ROS, HAI bị đình chỉ giao dịch chờ kết quả điều tra.</div>
+      <div class="lich-su">Sự kiện tương tự — Louis Holdings T12/2021: cổ phiếu giảm 40–60% trước khi ổn định.</div>
+      <!-- Góc nhìn Full: 🟢 T → template đặc biệt cho rủi ro -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">Bạn đang cầm <span class="val">500 CP FLC</span> — lệnh đình chỉ đồng nghĩa chưa thể thoát ra. Theo dõi thông báo chính thức từ HoSE.</div>
+        <div class="goc-text voice-pro" style="display:none">500 CP FLC bị đình chỉ. Không thể thoát. Chờ HoSE — khả năng hủy niêm yết.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về FLC</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ④-A: DÒNG TIỀN TỔ CHỨC — Watchlist    -->
+    <!-- Lookup: tich_luy_xa_label["positive"]="tích lũy" -->
+    <!-- nhan_xet_lookup[(ngoai,mua)]                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Dòng tiền</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">MBB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">15:30</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T -->
+      <div class="card-title">Khối ngoại mua ròng MBB 3 phiên liên tiếp, tổng 215 tỷ</div>
+      <!-- Body: 🟢 T -->
+      <div class="card-body">Khối ngoại <strong>215 tỷ</strong>, tự doanh <strong>45 tỷ</strong> — dòng tiền chuyên nghiệp đang đi ngược chiều số đông.</div>
+      <!-- Đánh giá bất thường: 🟢 T → nhan_xet_lookup[(ngoai,mua)] = "tích lũy có chủ đích" -->
+      <div class="highlight-block">
+        <div class="highlight-lbl">Đánh giá bất thường</div>
+        <div class="highlight-txt">Mức mua ngoại <span class="val">gấp 2.8 lần</span> TB 20 phiên — tích lũy có chủ đích</div>
+      </div>
+      <!-- Lịch sử: 🟢 T -->
+      <div class="lich-su">4 lần khối ngoại mua ròng MBB 3 phiên liên tiếp → giá tăng TB 9% sau 1 tháng.</div>
+      <!-- Góc nhìn Watchlist: 🟢 T → tich_luy_xa_label["positive"] = "tích lũy" -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">MBB trong danh sách theo dõi — dòng tiền tổ chức tích lũy là tín hiệu ít thấy, thường đi trước đợt tăng lớn.</div>
+        <div class="goc-text voice-pro" style="display:none">MBB watchlist. Ngoại ×2.8 TB 20P → tích lũy có chủ đích. Timing vào đang tốt.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về MBB</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ⑤: VĨ MÔ — Generic                    -->
+    <!-- Lookup: macro_sector_map["fed_cut_rate"]    -->
+    <!-- dai_dien_nganh["Ngân hàng"] = VCB, MBB     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Vĩ mô</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VĨ MÔ</span></div>
+        <div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">22:30</span></div>
+      </div>
+      <!-- Tiêu đề: 🟡 H -->
+      <div class="card-title">Fed giữ nguyên lãi suất, phát tín hiệu cắt giảm 2 lần trong 2025</div>
+      <!-- Sự kiện: 🟡 H -->
+      <div class="section-block">
+        <div class="section-lbl">Sự kiện</div>
+        <div class="section-txt">Fed giữ nguyên lãi suất, phát tín hiệu cắt giảm 2 lần — chi phí vốn toàn cầu hạ nhiệt, dòng tiền tìm đến thị trường mới nổi.</div>
+      </div>
+      <!-- Ngành: 🟢 T → macro_sector_map["fed_cut_rate"] -->
+      <div class="nganh-block">
+        <div class="nganh-row nganh-pos">
+          <span class="nganh-icon">↗</span>
+          <span class="nganh-label">Hưởng lợi</span>
+          <span class="nganh-sectors">Ngân hàng · Bất động sản · Chứng khoán</span>
+        </div>
+        <div class="nganh-row nganh-neu">
+          <span class="nganh-icon">—</span>
+          <span class="nganh-label">Theo dõi</span>
+          <span class="nganh-sectors">Xuất khẩu · Dệt may</span>
+        </div>
+      </div>
+      <div class="lich-su">Fed cắt lãi suất T9/2024 → VN-Index tăng 8% trong 1 tháng. Ngân hàng dẫn đầu.</div>
+      <!-- Góc nhìn Generic: 🟢 T → dai_dien_nganh["Ngân hàng"][0..1] = VCB, MBB -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">Nhóm Ngân hàng hưởng lợi rõ nhất — theo dõi VCB, MBB.</div>
+        <div class="goc-text voice-pro" style="display:none">Ngân hàng hưởng lợi — VCB, MBB.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về tác động Fed</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ⑥: PHÂN TÍCH & KN — Full               -->
+    <!-- Formula: upside_from_current                 -->
+    <!-- Lookup: behavioral["fomo_buy"], ket_qua_behavioral[] -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Phân tích & Khuyến nghị</div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">VNM</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">08:30</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T → upside = (85000-76500)/76500*100 = 11.1% -->
+      <div class="card-title">SSI Research nâng khuyến nghị VNM lên Mua — giá mục tiêu 85,000đ, upside +11%</div>
+      <!-- Impact: 🟢 T -->
+      <div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Mua · Giá mục tiêu 85,000đ · Upside +11%</div>
+      <!-- Luận điểm: 🔴 L -->
+      <div class="card-body">Biên lợi nhuận đang cải thiện rõ rệt nhờ giá nguyên liệu sữa giảm mạnh, kết hợp với chiến lược mở rộng kênh phân phối nông thôn giúp VNM lấy lại thị phần.</div>
+      <!-- Đồng thuận + Track record: 🟢 T -->
+      <div class="section-block">
+        <div class="section-lbl">Đồng thuận</div>
+        <div class="section-txt">Trong 30 ngày, <strong>VPS Research</strong> và <strong>HSC</strong> cũng nâng giá mục tiêu TB <strong>83,000đ</strong>. SSI Research đúng <strong>4/5</strong> khuyến nghị gần nhất.</div>
+      </div>
+      <div class="lich-su">Lần trước SSI Research nâng VNM (T3/2025) → giá tăng 8% sau 2 tháng.</div>
+      <!-- Góc nhìn Full: 🟢 T → upside_from_current = (85000-76500)/76500 = 11.1% + behavioral["fomo_buy"] -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">VNM chiếm <span class="val">18%</span> danh mục — upside còn <span class="up">11%</span> từ giá hiện tại. 2 lần trước bạn mua khi giá đang tăng nhanh — kết quả đều bị lỗ.</div>
+        <div class="goc-text voice-pro" style="display:none">VNM 18% DM. Upside còn 11%. 2x FOMO buy → đều lỗ.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VNM</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ⑦: PRO BLUR — 100% Rule, Zero LLM     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="card-pro-wrap">
+      <div class="card card-pro-blur" style="border:none;box-shadow:none">
+        <div class="card-hd">
+          <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">SSI</span></div>
+          <div class="card-hd-right"><span class="pro-badge">PRO</span><span class="card-mode">Generic</span></div>
+        </div>
+        <div class="card-title">SSI thủng MA200 với khối lượng gấp 3x — cảnh báo đảo chiều ngắn hạn</div>
+        <div class="card-body">RSI 24 vùng quá bán mạnh. Tự doanh mua ròng 89 tỷ ngược chiều thị trường.</div>
+        <div class="lich-su">5 lần tương tự SSI trong 2 năm → hồi TB +14% trong 3 phiên.</div>
+        <div class="goc-nhin">
+          <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+          <div class="goc-text">Dòng tiền tự doanh đang đi ngược chiều xả cá nhân — tín hiệu phân kỳ đáng chú ý.</div>
+        </div>
+      </div>
+      <div class="card-pro-overlay">
+        <div class="pro-overlay-title">Nội dung dành riêng cho Pro</div>
+        <div class="pro-overlay-sub">Mở khóa để xem phân tích đầy đủ</div>
+        <div class="pro-unlock-note">Hoặc unlock miễn phí sau 24 giờ</div>
+        <button class="pro-cta-btn"><i class="ph ph-lock-open"></i> Nâng cấp Pro · 549K/tháng</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ⑧-A: COMPOUND HỘI TỤ — Full           -->
+    <!-- behavioral["khong_cat_lo"]                   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section-label">Tổng hợp</div>
+    <div class="card" style="border-color:rgba(230,8,21,.2)">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
+        <div class="card-hd-right"><span class="card-mode">Full</span><span class="card-time">11:05</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T -->
+      <div class="card-title">3 tín hiệu tiêu cực hội tụ trên HPG trong vòng 4 giờ</div>
+      <!-- Body: 🔴 L — tổng hợp n tín hiệu thành prose -->
+      <div class="card-body">HPG chịu áp lực từ nhiều phía cùng lúc — kỹ thuật thủng hỗ trợ quan trọng, tin điều tra bán phá giá thép làm mờ triển vọng, khối ngoại bán ròng 145 tỷ. Ba yếu tố này hiếm khi xảy ra đồng thời.</div>
+      <div class="lich-su">2 lần HPG có 3+ tín hiệu tiêu cực đồng thời → cả 2 lần giảm thêm 8–12% trước khi hồi.</div>
+      <!-- Góc nhìn Full: 🟡 H → behavioral["khong_cat_lo"] + connective -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">HPG chiếm <span class="val">15%</span> danh mục — 3 tín hiệu đồng thời tạo áp lực lên vị thế. Bạn có xu hướng giữ khi giá giảm — 4 lần trước kéo dài thêm 7%.</div>
+        <div class="goc-text voice-pro" style="display:none">HPG 15% DM. 3 tín hiệu — áp lực vị thế. Hold khi giảm 4x → thêm -7%.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CARD ⑧-B: COMPOUND CHUỖI LAN TOẢ — Watchlist -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">VCB</span></div>
+        <div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">14:30</span></div>
+      </div>
+      <!-- Tiêu đề: 🟢 T -->
+      <div class="card-title">DXG sụt giảm mạnh — rủi ro lan toả sang VCB qua kênh tín dụng BĐS</div>
+      <!-- Disclaimer: 🟢 T → hardcode -->
+      <div class="disclaimer">Tín hiệu gián tiếp — chưa ảnh hưởng ngay</div>
+      <!-- Chuỗi bước: 🟢 T -->
+      <div class="chain-steps">
+        <div class="chain-step">
+          <div class="chain-icon red"><i class="ph ph-trend-down"></i></div>
+          <div class="chain-txt"><strong>DXG giảm 8%</strong> — tin xấu thanh khoản dự án</div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-icon yellow"><i class="ph ph-warning"></i></div>
+          <div class="chain-txt"><strong>Nợ xấu BĐS</strong> có nguy cơ tăng nếu DXG tiếp tục xấu</div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-icon blue"><i class="ph ph-bank"></i></div>
+          <div class="chain-txt"><strong>VCB:</strong> cho vay BĐS 18% tổng dư nợ — rủi ro trích lập Q2/2026</div>
+        </div>
+      </div>
+      <div class="lich-su">T8/2023 Novaland gặp khó — VCB giảm 6% nhưng hồi hoàn toàn sau 3 tuần.</div>
+      <!-- Góc nhìn Watchlist: 🟢 T -->
+      <div class="goc-nhin">
+        <div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+        <div class="goc-text voice-retail">VCB trong danh sách theo dõi — rủi ro gián tiếp cần biết trước khi vào.</div>
+        <div class="goc-text voice-pro" style="display:none">VCB watchlist. DXG→VCB gián tiếp — theo dõi thêm 2–3 phiên.</div>
+      </div>
+      <div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VCB</div>
+    </div>
+
+  </div>
+
+  <div class="bottomnav">
+    <div class="nav-item"><i class="ph ph-house"></i><span>Finpath</span></div>
+    <div class="nav-item"><i class="ph ph-chart-line-up"></i><span>Bảng giá</span></div>
+    <div class="nav-item"><i class="ph ph-users-three"></i><span>Cộng đồng</span></div>
+    <div class="nav-item active"><i class="ph ph-lightning"></i><span>Tình báo</span></div>
+  </div>
+</div>
+<script>
+function setVoice(v){
+  document.querySelectorAll('.voice-retail').forEach(el=>el.style.display=v==='retail'?'':'none');
+  document.querySelectorAll('.voice-pro').forEach(el=>el.style.display=v==='pro'?'':'none');
+  document.getElementById('btn-retail').classList.toggle('active',v==='retail');
+  document.getElementById('btn-pro').classList.toggle('active',v==='pro');
+}
+</script>
+</body>
+</html>
