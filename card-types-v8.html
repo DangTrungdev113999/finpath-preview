@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Finpath — Card Types V8 (Retail Voice)</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+--bg-1:#FFFFFF;--bg-2:#F4F6F7;--bg-3:#E3E7EA;
+--text-primary:#0A0B0D;--text-secondary:#5C6C7E;--text-placeholder:#A4B0BC;
+--text-accent:#0052FF;--text-green:#098551;--text-red:#E60815;--text-yellow:#D19A00;
+--text-blue:#23CDED;--text-purple:#9945FF;
+--line-divider:#E3E7EA;--line-card:#D8DDE1;
+--op-green:rgba(9,133,81,.10);--op-red:rgba(230,8,21,.10);
+--op-yellow:rgba(209,154,0,.10);--op-accent:rgba(0,82,255,.07);
+--op-blue:rgba(35,205,237,.10);
+--r1:16px;--r2:10px;--rf:9999px;
+--ft:'Public Sans',sans-serif;--fb:'Inter',sans-serif;
+}
+body{background:#D4D9DD;display:flex;justify-content:center;padding:24px 0 60px;font-family:var(--fb);min-height:100vh}
+.phone{width:390px;background:var(--bg-3);border-radius:40px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.22),0 8px 24px rgba(0,0,0,.1)}
+.statusbar{height:44px;background:var(--bg-2);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.statusbar-time{font-family:var(--ft);font-size:15px;font-weight:600;color:var(--text-primary)}
+.statusbar-icons{display:flex;gap:6px;align-items:center;color:var(--text-primary);font-size:14px}
+.header{padding:10px 16px 0;background:var(--bg-1);border-bottom:1px solid var(--line-divider);position:sticky;top:0;z-index:10}
+.header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.header-title{font-family:var(--ft);font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:-.3px}
+.header-badge{font-size:11px;font-weight:700;background:var(--op-accent);color:var(--text-accent);padding:4px 10px;border-radius:var(--rf)}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:13px;font-weight:500;color:var(--text-secondary);padding:10px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0}
+.tab.active{font-weight:700;color:var(--text-accent);border-bottom-color:#0052FF}
+.feed{padding:12px 14px 80px;display:flex;flex-direction:column;gap:8px;background:var(--bg-3)}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-placeholder);padding:6px 2px 2px}
+.card{background:var(--bg-2);border:1px solid var(--line-card);border-radius:var(--r1);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 0}
+.card-hd-left{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-red{background:#E60815;box-shadow:0 0 0 3px rgba(230,8,21,.14)}
+.dot-yellow{background:#D19A00;box-shadow:0 0 0 3px rgba(209,154,0,.14)}
+.dot-blue{background:#0052FF;box-shadow:0 0 0 3px rgba(0,82,255,.12)}
+.dot-green{background:#098551;box-shadow:0 0 0 3px rgba(9,133,81,.12)}
+.ticker{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--text-primary)}
+.card-hd-right{display:flex;align-items:center;gap:6px}
+.card-mode{font-size:10px;font-weight:600;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em}
+.card-time{font-size:11px;color:var(--text-placeholder);font-weight:500}
+.card-title{font-family:var(--ft);font-size:15px;font-weight:700;color:var(--text-primary);line-height:22px;padding:8px 14px 0;letter-spacing:-.1px}
+.card-body{margin:10px 14px 0;font-size:13px;line-height:19px;color:var(--text-secondary)}
+.card-body strong{color:var(--text-primary);font-weight:600}
+.section-block{border-left:2px solid var(--line-divider);padding:0 0 0 10px;margin:10px 14px 0}
+.section-lbl{font-size:10px;font-weight:700;color:var(--text-placeholder);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.section-txt{font-size:13px;line-height:19px;color:var(--text-secondary)}
+.section-txt strong{color:var(--text-primary);font-weight:600}
+.impact-row{display:flex;align-items:center;gap:6px;margin:10px 14px 0;padding:7px 10px;border-radius:var(--r2);font-size:13px;font-weight:600}
+.impact-row i{font-size:13px}
+.impact-pos{background:var(--op-green);color:var(--text-green)}
+.impact-neg{background:var(--op-red);color:var(--text-red)}
+.impact-med{background:var(--op-yellow);color:var(--text-yellow)}
+.highlight-block{margin:10px 14px 0;padding:9px 11px;background:var(--op-accent);border-radius:var(--r2);border-left:3px solid #0052FF}
+.highlight-lbl{font-size:10px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.highlight-txt{font-size:13px;line-height:18px;color:var(--text-secondary)}
+.highlight-txt .val{color:var(--text-primary);font-weight:700}
+.lich-su{margin:12px 14px 0;padding:8px 10px;background:var(--op-blue);border-left:3px solid var(--text-blue);border-radius:0 var(--r2) var(--r2) 0;font-size:12px;line-height:17px;color:var(--text-secondary)}
+.nganh-block{margin:10px 14px 0;display:flex;flex-direction:column;gap:5px}
+.nganh-row{display:flex;align-items:center;gap:12px;padding:10px 13px;font-size:13px;border-radius:var(--r2)}
+.nganh-icon{font-size:15px;font-weight:700;width:14px;text-align:center;flex-shrink:0}
+.nganh-label{font-size:13px;font-weight:700;flex-shrink:0;min-width:72px}
+.nganh-sectors{font-size:13px;color:var(--text-secondary)}
+.nganh-pos{background:rgba(9,133,81,.10)}.nganh-pos .nganh-icon,.nganh-pos .nganh-label{color:var(--text-green)}
+.nganh-neu{background:rgba(209,154,0,.10)}.nganh-neu .nganh-icon,.nganh-neu .nganh-label{color:var(--text-yellow)}
+/* Góc nhìn - Kịch bản */
+.goc-nhin{margin:12px 14px 0;padding:10px 12px;background:var(--op-accent);border-radius:var(--r2)}
+.goc-label{font-size:11px;font-weight:700;color:var(--text-accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.goc-label i{font-size:12px}
+.goc-intro{font-size:12px;color:var(--text-secondary);margin-bottom:6px;font-style:italic}
+.goc-scenario{display:flex;gap:8px;margin-bottom:6px;font-size:12.5px;line-height:18px}
+.goc-scenario:last-child{margin-bottom:0}
+.goc-bullet{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:6px}
+.goc-bullet-green{background:var(--text-green)}
+.goc-bullet-yellow{background:var(--text-yellow)}
+.goc-bullet-red{background:var(--text-red)}
+.goc-text{color:var(--text-secondary)}
+.goc-text strong{color:var(--text-primary);font-weight:600}
+.card-cta{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 14px 12px;padding-top:10px;border-top:1px solid var(--line-divider);font-size:13px;font-weight:600;color:var(--text-accent)}
+.card-cta i{font-size:15px}
+.disclaimer{margin:8px 14px 0;font-size:11px;color:var(--text-placeholder);font-style:italic}
+.up{color:var(--text-green);font-weight:600}
+.dn{color:var(--text-red);font-weight:600}
+.val{color:var(--text-primary);font-weight:600}
+.bottomnav{background:var(--bg-1);border-top:1px solid var(--line-divider);display:flex;height:56px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.nav-item i{font-size:22px;color:var(--text-placeholder)}
+.nav-item span{font-size:10px;font-weight:500;color:var(--text-placeholder)}
+.nav-item.active i,.nav-item.active span{color:#0052FF}
+.nav-item.active span{font-weight:700}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="statusbar">
+<span class="statusbar-time">9:41</span>
+<div class="statusbar-icons"><i class="ph ph-wifi-high"></i><i class="ph ph-battery-full"></i></div>
+</div>
+<div class="header">
+<div class="header-row">
+<span class="header-title">Tình báo</span>
+<span class="header-badge">Retail</span>
+</div>
+<div class="tabs">
+<div class="tab active">Tất cả</div><div class="tab">Kỹ thuật</div><div class="tab">Tin tức</div>
+<div class="tab">Dòng tiền</div><div class="tab">Vĩ mô</div><div class="tab">Phân tích</div>
+</div>
+</div>
+
+<div class="feed">
+
+<!-- ① MARKET OVERVIEW -->
+<div class="section-label">Thị trường</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">VN-INDEX</span></div>
+<div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">15:00</span></div>
+</div>
+<div class="card-title">Thị trường bùng nổ, dòng tiền đổ mạnh vào nhóm cổ phiếu lớn</div>
+<div class="card-body">VN-Index tăng mạnh 2.69% với dòng tiền đổ vào gấp rưỡi ngày thường. Nhóm bảo hiểm và hóa chất dẫn đầu đà tăng, trong khi VIC, VHM, VPB kéo chỉ số lên hơn 13 điểm.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Phiên tăng mạnh kèm dòng tiền cao → tín hiệu tích cực. Nhưng 1 phiên chưa xác nhận xu hướng, cần thêm 2–3 phiên nữa.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Chỉ nhóm cổ phiếu lớn kéo, không phải tất cả đều tăng → dòng tiền đang chọn lọc, chưa phải tăng diện rộng.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">SAB, LPB đi ngược chiều → thị trường đang phân hóa, không phải ai cũng được hưởng lợi từ đà tăng này.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về thị trường</div>
+</div>
+
+<!-- ② TECHNICAL ANALYSIS -->
+<div class="section-label">Kỹ thuật</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">HHV</span></div>
+<div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">14:30</span></div>
+</div>
+<div class="card-title">HHV giữ vững mốc giá quan trọng, tất cả chỉ số đang tích cực</div>
+<div class="card-body">Giá giữ vững trên mốc quan trọng <strong>11,880đ</strong> và đang được dòng tiền quan tâm. Tất cả 6 chỉ số đồng loạt cho tín hiệu tích cực — cho thấy xu hướng tăng ngắn hạn đang được củng cố.</div>
+<div class="lich-su">Đây là lần đầu trong 3 tháng HHV có 6/6 chỉ số đồng thuận tích cực — tín hiệu hiếm gặp.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">HHV trong danh sách theo dõi.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Giá giữ vững trên <strong>11,880</strong> + dòng tiền vẫn đổ vào → đây là vùng có người mua chờ sẵn, tín hiệu tích cực.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Chờ thêm 1–2 phiên để rõ hơn → nhưng giá có thể đã nhích lên 3–5%.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Nếu giá tụt xuống dưới <strong>11,880</strong> → tín hiệu tích cực mất hiệu lực, cần xem lại.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HHV</div>
+</div>
+
+<!-- ⑨ MONEY FLOW -->
+<div class="section-label">Dòng tiền</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">HPG</span></div>
+<div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">15:30</span></div>
+</div>
+<div class="card-title">Tiền nước ngoài rút ra mạnh nhất ở HPG — 667 tỷ trong 1 phiên</div>
+<div class="card-body">Tiền nước ngoài đang rút ra <strong>667 tỷ</strong> khỏi HPG, đồng thời VIC cũng bị rút <strong>631 tỷ</strong>. Áp lực tập trung vào nhóm cổ phiếu lớn. Ngược lại, SHB và VCI lại được đổ vào hơn 100 tỷ mỗi mã.</div>
+<div class="highlight-block">
+<div class="highlight-lbl">Bất thường</div>
+<div class="highlight-txt">Mức rút tiền nước ngoài ở HPG <span class="val">cao nhất phiên</span> — tập trung vào blue chip, không phải bán tràn lan</div>
+</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">HPG trong danh sách theo dõi.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Rút ra 1 phiên → có thể chỉ là tay to sắp xếp lại danh mục, chưa phải tín hiệu xấu dài hạn.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Nếu tiếp tục rút 2–3 phiên nữa → áp lực bán thực sự, cần thận trọng.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Cùng phiên, SHB được đổ vào <strong>130 tỷ</strong> → tiền nước ngoài đang chuyển sang mã khác, không phải rút khỏi Việt Nam.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+</div>
+
+<!-- ⑩ MACRO -->
+<div class="section-label">Vĩ mô</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">VĨ MÔ</span></div>
+<div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">08:00</span></div>
+</div>
+<div class="card-title">Việt Nam sắp được nâng hạng thị trường — hàng tỷ đô có thể đổ vào</div>
+<div class="section-block">
+<div class="section-lbl">Sự kiện</div>
+<div class="section-txt">FTSE Russell sẽ công bố kết quả rà soát đầu tháng 4. Nhiều chuyên gia đánh giá khả năng Việt Nam đạt gần 100%, chính thức vào nhóm thị trường mới nổi từ tháng 9/2026.</div>
+</div>
+<div class="nganh-block">
+<div class="nganh-row nganh-pos"><span class="nganh-icon">↗</span><span class="nganh-label">Hưởng lợi</span><span class="nganh-sectors">Chứng khoán · Ngân hàng · BĐS dân cư</span></div>
+<div class="nganh-row nganh-neu"><span class="nganh-icon">—</span><span class="nganh-label">Theo dõi</span><span class="nganh-sectors">Nhóm VN30 có thể biến động mạnh quanh ngày công bố</span></div>
+</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Nếu được nâng hạng → hàng tỷ đô la từ quỹ đầu tư nước ngoài sẽ đổ vào từ tháng 9/2026, tạo làn sóng tăng trưởng mới.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Giá nhiều cổ phiếu lớn có thể đã tăng trước nhờ kỳ vọng — khi tin tốt chính thức, đôi khi giá lại giảm ngắn hạn.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Nếu không được nâng hạng → nhiều người sẽ thất vọng và bán ra, thị trường có thể giảm mạnh.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về nâng hạng</div>
+</div>
+
+<!-- ③ EARNINGS FINANCIALS -->
+<div class="section-label">Kết quả kinh doanh</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">HPG</span></div>
+<div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">09:00</span></div>
+</div>
+<div class="card-title">Hòa Phát đặt mục tiêu lợi nhuận cao nhất 5 năm — tăng 42%</div>
+<div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Tác động tích cực — kế hoạch tham vọng nhất 5 năm</div>
+<div class="card-body">Doanh thu mục tiêu <strong>210,000 tỷ</strong> (tăng 33%), lợi nhuận <strong>22,000 tỷ</strong> (tăng 42%). Quay lại chia cổ tức tiền mặt <strong>5%</strong> lần đầu sau 3 năm, kèm thêm 10% cổ phiếu.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">HPG trong danh sách theo dõi.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Đạt kế hoạch → giá có thể phản ứng tích cực. Cổ tức tiền mặt lần đầu sau 3 năm cho thấy ban lãnh đạo tự tin.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Kỳ vọng cao + phát hành thêm <strong>767 triệu</strong> cổ phiếu → nếu không đạt, áp lực sẽ rất lớn.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Phát hành thêm cổ phiếu → giá trị mỗi cổ phiếu bạn đang giữ sẽ bị pha loãng khoảng 20%.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về HPG</div>
+</div>
+
+<!-- ⑪ ANALYST RECOMMENDATIONS -->
+<div class="section-label">Khuyến nghị</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">VGC</span></div>
+<div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">08:30</span></div>
+</div>
+<div class="card-title">Chuyên gia đặt giá mục tiêu VGC 65,700đ — dư địa tăng khoảng 44%</div>
+<div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Giá mục tiêu 65,700đ · Dư địa ~44%</div>
+<div class="card-body">VGC sở hữu quỹ đất khu công nghiệp lớn nhất phía Bắc với hơn <strong>5,966 ha</strong>, đón đầu làn sóng đầu tư nước ngoài vào công nghệ cao. Mảng vật liệu xây dựng cải thiện nhờ nguồn cung nhà ở hồi phục.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">Mã chưa có trong danh sách.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Nền tảng tốt: quỹ đất khu công nghiệp lớn + dòng vốn FDI đang vào mạnh → câu chuyện có logic dài hạn.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Giá đang rẻ hơn so với mã cùng nhóm (P/E 10.7). Nhưng giá đang lỗ 10.94% → thị trường chưa đồng tình.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Giá mục tiêu là dự đoán, không phải cam kết — cần kết hợp thêm thông tin trước khi quyết định.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VGC</div>
+</div>
+
+<!-- ⑫ ANALYST INSIGHT -->
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">MSR</span></div>
+<div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">10:00</span></div>
+</div>
+<div class="card-title">MSR đặt mục tiêu lợi nhuận đột biến 2,500 tỷ — bước vào chu kỳ tăng trưởng mới</div>
+<div class="card-body">MSR kỳ vọng lợi nhuận <strong>2,500 tỷ</strong> năm 2026, gắn liền với chiến lược tối ưu vận hành và tận dụng đà phục hồi của thị trường hàng hóa.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">Mã chưa có trong danh sách.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Kế hoạch đột biến → nếu đạt, giá có thể phản ứng rất tích cực.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Kế hoạch là kế hoạch, không phải cam kết — phụ thuộc giá hàng hóa và thị trường tiêu thụ.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Cần chờ kết quả quý 1/2026 để xác nhận đà tăng trưởng có thực sự bắt đầu.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về MSR</div>
+</div>
+
+<!-- ④ CORPORATE CALENDAR -->
+<div class="section-label">Sự kiện</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-blue"></div><span class="ticker">SHS</span></div>
+<div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">Sắp tới</span></div>
+</div>
+<div class="card-title">SHS tổ chức Đại hội cổ đông 2026 — bàn chia lợi nhuận và kế hoạch mới</div>
+<div class="card-body">Nội dung chính: phương án phân phối lợi nhuận, kế hoạch kinh doanh và định hướng phát triển giai đoạn tới.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">Mã chưa có trong danh sách.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Kế hoạch kinh doanh tham vọng + chia cổ tức hấp dẫn → giá thường phản ứng tích cực quanh ngày họp.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Kế hoạch thận trọng hoặc không chia cổ tức → thị trường có thể thất vọng.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về SHS</div>
+</div>
+
+<!-- ⑤ CORPORATE ACTIONS -->
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">VHM</span></div>
+<div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">09:30</span></div>
+</div>
+<div class="card-title">Vingroup sắp chuyển 59 triệu cổ phiếu VHM cho nhà đầu tư nước ngoài</div>
+<div class="impact-row impact-med"><i class="ph ph-warning"></i> Tác động: Cần theo dõi — nguồn cung tăng ngắn hạn</div>
+<div class="card-body">Vingroup chuyển <strong>59 triệu</strong> cổ phiếu VHM cho các nhà đầu tư trái phiếu quốc tế trong tháng 4. Sau giao dịch, Vingroup giảm sở hữu từ 73.51% xuống còn 72.07%.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">VHM trong danh sách theo dõi.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Đây là thực hiện cam kết trái phiếu từ 2023, đã được biết trước — không phải sự kiện bất ngờ.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">59 triệu cổ phiếu ra thị trường → nếu người nhận bán ra ngay, giá có thể chịu áp lực ngắn hạn.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Vingroup vẫn giữ 72% → quyền kiểm soát không thay đổi, cấu trúc công ty ổn định.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VHM</div>
+</div>
+
+<!-- ⑥ PERSONNEL CHANGES -->
+<div class="section-label">Nhân sự</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-yellow"></div><span class="ticker">FLC</span></div>
+<div class="card-hd-right"><span class="card-mode">Generic</span><span class="card-time">11:00</span></div>
+</div>
+<div class="card-title">Ông Trịnh Văn Quyết quay lại làm Chủ tịch FLC sau 4 năm</div>
+<div class="impact-row impact-med"><i class="ph ph-warning"></i> Tác động: Cần theo dõi — sự kiện gây tranh cãi</div>
+<div class="card-body">Ông Trịnh Văn Quyết được giới thiệu trở lại vai trò Chủ tịch Tập đoàn FLC tại sự kiện ở Gia Lai ngày 27/3 — đánh dấu lần tái xuất đầu tiên sau khoảng 4 năm rời vị trí.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">Mã chưa có trong danh sách.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Nếu tái cấu trúc thành công → FLC có thể phục hồi hoạt động, giá phản ứng tích cực.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Lịch sử pháp lý phức tạp → rủi ro chưa giải quyết hoàn toàn, biến động giá khó lường.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Giá có thể biến động rất mạnh cả 2 chiều → cần theo dõi sát phản ứng 2–3 phiên tới.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về FLC</div>
+</div>
+
+<!-- ⑦ DEALS CONTRACTS -->
+<div class="section-label">Thương vụ</div>
+<div class="card">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-green"></div><span class="ticker">VIC</span></div>
+<div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">10:00</span></div>
+</div>
+<div class="card-title">Vingroup trúng đấu giá đất Vũ Yên + ký dự án điện gió 210,000 tỷ</div>
+<div class="impact-row impact-pos"><i class="ph ph-arrow-up-right"></i> Tác động tích cực — 2 thương vụ lớn mở rộng đa ngành</div>
+<div class="card-body">Trúng đấu giá khu đất <strong>47.2 ha</strong> tại Vũ Yên, Hải Phòng giá <strong>4,840 tỷ</strong>. Đồng thời, VinEnergo ký ghi nhớ dự án điện gió Gia Lai với tổng vốn <strong>210,000 tỷ</strong> (~8 tỷ USD), giai đoạn 1 công suất 2,000 MW.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-intro">VIC trong danh sách theo dõi.</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text">Mở rộng cả bất động sản lẫn năng lượng → phù hợp chiến lược dài hạn, tạo nguồn doanh thu mới.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text">Điện gió 210,000 tỷ → nếu huy động vốn thành công, đây có thể là bước ngoặt cho mảng năng lượng.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text">Quy mô vốn rất lớn + phụ thuộc chính sách giá điện → nhiều biến số dài hạn, cần theo dõi tiến độ.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm về VIC</div>
+</div>
+
+<!-- ⑧ RISK REGULATORY -->
+<div class="section-label">Cảnh báo</div>
+<div class="card" style="border-color:rgba(230,8,21,.2)">
+<div class="card-hd">
+<div class="card-hd-left"><div class="dot dot-red"></div><span class="ticker">CẢNH BÁO</span></div>
+<div class="card-hd-right"><span class="card-mode">Watchlist</span><span class="card-time">07:45</span></div>
+</div>
+<div class="card-title">Chủ tịch Tập đoàn Giạn Đông bị truy tố với cáo buộc trốn thuế</div>
+<div class="impact-row impact-neg"><i class="ph ph-warning"></i> Tác động: Rất cao — rủi ro nghiêm trọng</div>
+<div class="card-body">Ông Nguyễn Văn Đồng, Chủ tịch HĐQT Tập đoàn Giạn Đông, bị Viện Kiểm sát tối cao truy tố cáo buộc trốn thuế. Hiện đang được tại ngoại với biện pháp cấm đi khỏi nơi cư trú.</div>
+<div class="goc-nhin">
+<div class="goc-label"><i class="ph ph-eye"></i> Góc nhìn</div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-green"></div><div class="goc-text"><strong>Tốt nhất:</strong> Tại ngoại, hoạt động kinh doanh tiếp tục bình thường. Giá có thể phục hồi sau giai đoạn hoảng loạn ban đầu.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-yellow"></div><div class="goc-text"><strong>Xấu hơn:</strong> Mở rộng điều tra liên quan vụ khoáng sản 1,500 tỷ → rủi ro kiểm soát đặc biệt hoặc đình chỉ giao dịch.</div></div>
+<div class="goc-scenario"><div class="goc-bullet goc-bullet-red"></div><div class="goc-text"><strong>Lan toả:</strong> Các mã cùng nhóm khoáng sản/BĐS Bình Thuận có thể bị ảnh hưởng theo tâm lý.</div></div>
+</div>
+<div class="card-cta"><i class="ph ph-chat-circle"></i> Hỏi thêm</div>
+</div>
+
+</div>
+
+<div class="bottomnav">
+<div class="nav-item"><i class="ph ph-house"></i><span>Finpath</span></div>
+<div class="nav-item"><i class="ph ph-chart-line-up"></i><span>Bảng giá</span></div>
+<div class="nav-item"><i class="ph ph-users-three"></i><span>Cộng đồng</span></div>
+<div class="nav-item active"><i class="ph ph-lightning"></i><span>Tình báo</span></div>
+</div>
+</div>
+</body>
+</html>
